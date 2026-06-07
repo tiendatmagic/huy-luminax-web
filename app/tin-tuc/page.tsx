@@ -60,7 +60,7 @@ export default function TinTuc() {
             <h1 className="text-4xl sm:text-5xl font-headline font-black text-deep-navy">
               Tin Tức &amp; Sự Kiện
             </h1>
-            <p className="text-body-md text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
               Cập nhật những thông tin công nghệ, chiến lược hợp tác phát triển bền vững và dòng sản phẩm mới nhất từ Huy Luminax.
             </p>
           </div>

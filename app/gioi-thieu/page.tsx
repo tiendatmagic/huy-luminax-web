@@ -33,10 +33,10 @@ export default function GioiThieu() {
                   Huy Luminax
                 </span>
               </h1>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 CÔNG TY TNHH HUY LUMINAX ra đời với khát vọng kiến tạo một hệ sinh thái sản phẩm tiêu dùng sạch, an toàn kết hợp nghiên cứu hóa sinh xanh bền vững. Bằng việc tiên phong ứng dụng trí tuệ nhân tạo Luminax AI vào tự động hóa và phân tích dữ liệu, chúng tôi cam kết kiểm soát độ tinh khiết tối đa trên từng đơn vị sản phẩm.
               </p>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Hành trình của chúng tôi bắt đầu từ Nha Trang - Khánh Hòa, nơi hội tụ nguồn lực hóa sinh tiềm năng và định hướng phát triển công nghệ cao. Với đội ngũ chuyên gia tận tụy, chúng tôi đang không ngừng hoàn thiện chuỗi giá trị từ nghiên cứu R&amp;D đến tay người tiêu dùng B2B và B2C.
               </p>
             </div>
@@ -71,7 +71,7 @@ export default function GioiThieu() {
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
               Giá Trị Cốt Lõi
             </h2>
-            <p className="text-body-md text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
               Những nguyên tắc nền tảng định hình văn hóa làm việc và cam kết của Huy Luminax đối với xã hội.
             </p>
           </div>

@@ -81,7 +81,7 @@ export default function SanPham() {
             <h1 className="text-4xl sm:text-5xl font-headline font-black text-deep-navy">
               Hệ Sinh Thái Sản Phẩm
             </h1>
-            <p className="text-body-md text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
               Các giải pháp chất tẩy rửa sinh học sạch và hóa chất công nghiệp chuẩn tinh khiết được R&amp;D và QA tự động bằng AI.
             </p>
           </div>

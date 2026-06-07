@@ -248,7 +248,7 @@ export default function Home() {
                   Tinh Hoa Hóa Mỹ Phẩm
                 </span>
               </h1>
-              <p className="text-body-md md:text-body-lg text-on-surface-variant max-w-xl leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-xl leading-relaxed font-medium">
                 Huy Luminax cam kết mang đến những sản phẩm tiêu dùng và hóa
                 chất cơ bản an toàn, thuần khiết nhất, được tối ưu hóa độ chính
                 xác tuyệt đối nhờ hệ thống phân tích dữ liệu AI tiên tiến.
@@ -370,7 +370,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy leading-tight">
                   Về Huy Luminax
                 </h2>
-                <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                   CÔNG TY TNHH HUY LUMINAX là đơn vị tiên phong trong việc tích
                   hợp nghiên cứu hóa sinh và ứng dụng trí tuệ nhân tạo. Chúng
                   tôi không chỉ cung cấp sản phẩm tiêu dùng và công nghiệp thông
@@ -452,14 +452,14 @@ export default function Home() {
                 Sự Tinh Khiết Được <br />
                 Định Hình Bởi Dữ Liệu
               </h2>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Trong một thế giới vận hành nhanh chóng, chúng tôi tin rằng sự
                 an toàn không nên là một lựa chọn ngẫu nhiên. Bằng cách tích hợp
                 Trí tuệ Nhân tạo vào cốt lõi quá trình nghiên cứu và sản xuất,
                 Huy Luminax đảm bảo mọi giọt hóa chất cơ bản và mỗi tờ khăn giấy
                 đều đạt tiêu chuẩn chất lượng nghiêm ngặt nhất.
               </p>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Chúng tôi không chỉ sản xuất; chúng tôi dự đoán, phân tích và
                 hoàn thiện. Từ việc kiểm soát vi sinh vật trong môi trường phòng
                 thí nghiệm đến tối ưu hóa chuỗi cung ứng, AI là người gác cổng
@@ -500,7 +500,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
               Lĩnh Vực Hoạt Động
             </h2>
-            <p className="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
               Sản phẩm đa dạng kết hợp công nghệ hiện đại, đáp ứng những nhu cầu
               khắt khe của doanh nghiệp và đời sống.
             </p>
@@ -587,7 +587,7 @@ export default function Home() {
                     Luminax AI
                   </span>
                 </h2>
-                <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                   Chúng tôi đang phát triển một mô hình AI chuyên biệt, học hỏi
                   từ hàng triệu điểm dữ liệu trong quy trình sản xuất hóa chất
                   và khăn giấy. Mục tiêu: đạt độ tinh khiết tối đa và tự động
@@ -655,7 +655,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
               Ứng Dụng &amp; Kỹ Thuật
             </h2>
-            <p className="text-body-lg font-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
               Sức mạnh tính toán của AI được tích hợp trực tiếp vào dây chuyền
               sản xuất hiện tại, mang lại sự tinh khiết tuyệt đối và hiệu năng
               vượt trội.
@@ -850,7 +850,7 @@ export default function Home() {
               <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
                 Sản phẩm nổi bật
               </h2>
-              <p className="text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
                 Khám phá hệ sinh thái sản phẩm sạch và giải pháp công nghệ cao
                 được phát triển &amp; kiểm chứng bởi Luminax AI.
               </p>
@@ -947,7 +947,7 @@ export default function Home() {
               <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
                 Tin tức &amp; Sự kiện
               </h2>
-              <p className="text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
                 Cập nhật những thông tin công nghệ, sản phẩm mới và chiến lược
                 phát triển bền vững từ Huy Luminax.
               </p>
@@ -1040,7 +1040,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
               Câu hỏi thường gặp
             </h2>
-            <p className="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
               Giải đáp các thắc mắc phổ biến về công nghệ AI và tiêu chuẩn an
               toàn của Huy Luminax.
             </p>

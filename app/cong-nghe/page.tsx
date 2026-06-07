@@ -31,10 +31,10 @@ export default function CongNghe() {
                   Học Máy Chuyên Sâu
                 </span>
               </h1>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Hệ thống lõi Luminax AI sử dụng các mô hình học máy chuyên biệt (Deep Learning Neural Networks) để phân tích hàng triệu điểm dữ liệu từ các cảm biến vật lý đặt tại dây chuyền sản xuất hóa chất và khăn giấy.
               </p>
-              <p className="text-body-md sm:text-base text-on-surface-variant leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Hệ thống có khả năng tự động tối ưu hóa tỷ lệ pha trộn nước, dung dịch Nano bạc và hóa chất thô dựa trên chất lượng đầu vào biến đổi theo thời gian thực. Đảm bảo độ tinh khiết tối ưu và giảm thiểu lượng hao phí nguyên năng lượng xuống mức tối đa.
               </p>
             </div>
