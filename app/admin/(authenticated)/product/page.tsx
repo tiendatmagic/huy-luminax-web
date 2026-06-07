@@ -606,21 +606,21 @@ export default function ProductManagementPage() {
                         <Link
                           href={`/san-pham/${prod.slug}`}
                           target="_blank"
-                          className="p-1.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition-colors"
+                          className="p-1.5 rounded-xl text-slate-400 hover:bg-white/10 hover:text-slate-200 transition-colors"
                           title="Xem thử trang ngoài"
                         >
                           <Eye className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => openEditModal(prod)}
-                          className="p-1.5 rounded-xl text-primary hover:bg-primary/5 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-xl text-primary hover:bg-primary/15 transition-colors cursor-pointer"
                           title="Chỉnh sửa sản phẩm"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setProductToDelete(prod)}
-                          className="p-1.5 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-xl text-red-500 hover:bg-red-500/15 hover:text-red-400 transition-colors cursor-pointer"
                           title="Xoá sản phẩm"
                         >
                           <Trash2 className="w-4.5 h-4.5" />

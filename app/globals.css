@@ -594,4 +594,42 @@ body.admin-maintenance-banner-active {
   background-color: rgba(148, 163, 184, 0.1) !important;
 }
 
+/* ===================================================
+   Dark Mode: Nút hành động (action buttons) hover fix
+   =================================================== */
+
+/* Nút Xem (Eye) - hover:bg-slate-50 */
+.dark-mode-admin a:hover.hover\:bg-slate-50,
+.dark-mode-admin button:hover.hover\:bg-slate-50,
+.dark-mode-admin .hover\:bg-slate-50:hover {
+  background-color: rgba(148, 163, 184, 0.15) !important;
+}
+.dark-mode-admin .hover\:text-slate-700:hover {
+  color: #cbd5e1 !important;
+}
+
+/* Nút Xóa (Trash) - hover:bg-red-50 */
+.dark-mode-admin .hover\:bg-red-50:hover {
+  background-color: rgba(248, 113, 113, 0.15) !important;
+}
+
+/* Nút Sửa (Edit/Primary) - hover:bg-primary/5 */
+.dark-mode-admin .hover\:bg-primary\/5:hover {
+  background-color: rgba(0, 179, 255, 0.15) !important;
+}
+
+/* Logout menu item - hover:bg-red-50 */
+.dark-mode-admin .hover\:bg-red-50:hover {
+  background-color: rgba(248, 113, 113, 0.15) !important;
+}
+
+/* Nút phân trang - hover:bg-black */
+.dark-mode-admin .hover\:bg-black\/\[0\.02\]:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Disabled delete icon cho chính mình trong dark mode */
+.dark-mode-admin .text-black\/20 {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
 
