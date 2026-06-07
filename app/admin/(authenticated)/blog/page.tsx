@@ -488,14 +488,14 @@ export default function BlogManagementPage() {
                           setFeaturedImage(post.image || "");
                           setIsModalOpen(true);
                         }}
-                        className="p-2 rounded-xl text-primary hover:bg-primary/5 transition-colors cursor-pointer"
+                        className="p-2 rounded-xl text-primary hover:bg-primary/15 transition-colors cursor-pointer"
                         title="Chỉnh sửa bài viết"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => setPostToDelete(post)}
-                        className="p-2 rounded-xl text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer"
+                        className="p-2 rounded-xl text-red-500 hover:bg-red-500/15 hover:text-red-400 transition-colors cursor-pointer"
                         title="Xoá bài viết"
                       >
                         <Trash2 className="w-4.5 h-4.5" />
