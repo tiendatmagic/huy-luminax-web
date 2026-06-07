@@ -690,7 +690,7 @@ export default function ProductManagementPage() {
             onClick={() => setIsModalOpen(false)}
           ></div>
 
-          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-black/5 w-full max-w-4xl max-h-[92vh] overflow-y-auto relative z-10 space-y-6 animate-scale-up scrollbar-none">
+          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-black/5 w-full max-w-6xl max-h-[92vh] overflow-y-auto relative z-10 space-y-6 animate-scale-up scrollbar-none">
             <div className="flex items-center justify-between border-b border-black/5 pb-4">
               <h3 className="text-lg font-bold text-deep-navy">
                 {editingProduct
@@ -713,7 +713,8 @@ export default function ProductManagementPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-3">
                       <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
-                        Tên sản phẩm / Dịch vụ <span className="text-red-500">*</span>
+                        Tên sản phẩm / Dịch vụ{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -1012,7 +1013,8 @@ export default function ProductManagementPage() {
                 Xoá sản phẩm?
               </h4>
               <p className="text-xs font-semibold text-on-surface-variant leading-relaxed mt-1">
-                Bạn có chắc chắn muốn xoá sản phẩm <span className="font-bold">{productToDelete.name}</span>? Hành
+                Bạn có chắc chắn muốn xoá sản phẩm{" "}
+                <span className="font-bold">{productToDelete.name}</span>? Hành
                 động này sẽ loại bỏ hoàn toàn thông tin sản phẩm và không thể
                 hoàn tác.
               </p>

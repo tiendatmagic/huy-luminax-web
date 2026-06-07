@@ -44,7 +44,7 @@ export default function BlogManagementPage() {
   // States cho Form Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
-  
+
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [categoryId, setCategoryId] = useState<string>("");
@@ -53,7 +53,10 @@ export default function BlogManagementPage() {
   const [featuredImage, setFeaturedImage] = useState("");
   const [imageUploading, setImageUploading] = useState(false);
 
-  const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
+  const [message, setMessage] = useState<{
+    text: string;
+    isError: boolean;
+  } | null>(null);
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
 
   // Quill CDN Loading State
@@ -71,7 +74,8 @@ export default function BlogManagementPage() {
 
       // Add CSS link
       const link = document.createElement("link");
-      link.href = "https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css";
+      link.href =
+        "https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css";
       link.rel = "stylesheet";
       document.head.appendChild(link);
 
@@ -155,7 +159,12 @@ export default function BlogManagementPage() {
 
   // Khởi tạo Quill Editor khi Modal mở và Quill script đã load
   useEffect(() => {
-    if (isModalOpen && quillLoaded && editorRef.current && !quillInstanceRef.current) {
+    if (
+      isModalOpen &&
+      quillLoaded &&
+      editorRef.current &&
+      !quillInstanceRef.current
+    ) {
       const Quill = (window as any).Quill;
 
       const quill = new Quill(editorRef.current, {
@@ -164,12 +173,12 @@ export default function BlogManagementPage() {
         modules: {
           toolbar: {
             container: [
-              [{ "font": [] }, { "size": [] }],
+              [{ font: [] }, { size: [] }],
               ["bold", "italic", "underline", "strike"],
-              [{ "color": [] }, { "background": [] }],
-              [{ "header": [1, 2, 3, false] }],
-              [{ "list": "ordered" }, { "list": "bullet" }],
-              [{ "align": [] }],
+              [{ color: [] }, { background: [] }],
+              [{ header: [1, 2, 3, false] }],
+              [{ list: "ordered" }, { list: "bullet" }],
+              [{ align: [] }],
               ["link", "image"],
               ["clean"],
             ],
@@ -202,7 +211,9 @@ export default function BlogManagementPage() {
   }, [isModalOpen, quillLoaded]);
 
   // Xử lý upload ảnh đại diện (Featured Image)
-  const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFeaturedImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -243,7 +254,9 @@ export default function BlogManagementPage() {
     setActionLoading(true);
     try {
       const isEdit = !!editingPost;
-      const url = isEdit ? `/api/auth/posts/${editingPost.id}` : "/api/auth/posts";
+      const url = isEdit
+        ? `/api/auth/posts/${editingPost.id}`
+        : "/api/auth/posts";
       const method = isEdit ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -268,7 +281,9 @@ export default function BlogManagementPage() {
       }
 
       setMessage({
-        text: isEdit ? "Cập nhật bài viết thành công!" : "Tạo bài viết mới thành công!",
+        text: isEdit
+          ? "Cập nhật bài viết thành công!"
+          : "Tạo bài viết mới thành công!",
         isError: false,
       });
       setIsModalOpen(false);
@@ -326,7 +341,9 @@ export default function BlogManagementPage() {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-black/5 pb-4 gap-4 flex-wrap">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold text-deep-navy">Danh sách bài viết tin tức</h3>
+            <h3 className="text-lg font-bold text-deep-navy">
+              Danh sách bài viết tin tức
+            </h3>
             <span className="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/25">
               {posts.length} Bài viết
             </span>
@@ -362,11 +379,13 @@ export default function BlogManagementPage() {
 
         {/* Thông báo */}
         {message && (
-          <div className={`flex items-start gap-2.5 border text-sm font-semibold p-4 rounded-2xl ${
-            message.isError
-              ? "bg-red-50 border-red-200 text-red-700"
-              : "bg-green-50 border-green-200 text-green-700"
-          }`}>
+          <div
+            className={`flex items-start gap-2.5 border text-sm font-semibold p-4 rounded-2xl ${
+              message.isError
+                ? "bg-red-50 border-red-200 text-red-700"
+                : "bg-green-50 border-green-200 text-green-700"
+            }`}
+          >
             {message.isError ? (
               <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
             ) : (
@@ -379,7 +398,9 @@ export default function BlogManagementPage() {
         {isLoading ? (
           <div className="py-12 flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            <p className="text-xs font-semibold text-on-surface-variant">Đang tải danh sách bài viết...</p>
+            <p className="text-xs font-semibold text-on-surface-variant">
+              Đang tải danh sách bài viết...
+            </p>
           </div>
         ) : posts.length === 0 ? (
           <div className="py-16 text-center text-on-surface-variant font-semibold text-sm">
@@ -399,7 +420,10 @@ export default function BlogManagementPage() {
               </thead>
               <tbody className="divide-y divide-black/5 text-sm font-semibold text-deep-navy">
                 {currentPosts.map((post) => (
-                  <tr key={post.id} className="hover:bg-black/[0.01] transition-colors">
+                  <tr
+                    key={post.id}
+                    className="hover:bg-black/[0.01] transition-colors"
+                  >
                     <td className="py-3 px-4">
                       {post.image ? (
                         <div className="relative w-16 h-10 rounded-lg overflow-hidden border border-black/5 bg-slate-50">
@@ -418,8 +442,12 @@ export default function BlogManagementPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="max-w-md">
-                        <span className="font-bold block text-sm text-deep-navy line-clamp-1">{post.title}</span>
-                        <span className="text-[10px] font-mono font-bold text-on-surface-variant/65 block mt-0.5 line-clamp-1">{post.slug}</span>
+                        <span className="font-bold block text-sm text-deep-navy line-clamp-1">
+                          {post.title}
+                        </span>
+                        <span className="text-[10px] font-mono font-bold text-on-surface-variant/65 block mt-0.5 line-clamp-1">
+                          {post.slug}
+                        </span>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -428,7 +456,9 @@ export default function BlogManagementPage() {
                           {post.category.name}
                         </span>
                       ) : (
-                        <span className="text-xs text-on-surface-variant/50 italic">Không có danh mục</span>
+                        <span className="text-xs text-on-surface-variant/50 italic">
+                          Không có danh mục
+                        </span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-xs text-on-surface-variant/70">
@@ -450,7 +480,9 @@ export default function BlogManagementPage() {
                           setEditingPost(post);
                           setTitle(post.title);
                           setSlug(post.slug || "");
-                          setCategoryId(post.category_id ? post.category_id.toString() : "");
+                          setCategoryId(
+                            post.category_id ? post.category_id.toString() : "",
+                          );
                           setExcerpt(post.excerpt || "");
                           setContent(post.content || "");
                           setFeaturedImage(post.image || "");
@@ -480,7 +512,9 @@ export default function BlogManagementPage() {
         {totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-black/5 pt-4 flex-wrap gap-3">
             <span className="text-xs font-semibold text-on-surface-variant">
-              Hiển thị {indexOfFirstPost + 1} - {Math.min(indexOfLastPost, posts.length)} trên tổng số {posts.length} bài viết
+              Hiển thị {indexOfFirstPost + 1} -{" "}
+              {Math.min(indexOfLastPost, posts.length)} trên tổng số{" "}
+              {posts.length} bài viết
             </span>
             <div className="flex items-center gap-1.5">
               <button
@@ -491,23 +525,27 @@ export default function BlogManagementPage() {
               >
                 &larr;
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  type="button"
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    currentPage === page
-                      ? "bg-primary text-white shadow-md shadow-primary/20"
-                      : "border border-black/5 text-on-surface hover:bg-black/[0.02]"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    type="button"
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      currentPage === page
+                        ? "bg-primary text-white shadow-md shadow-primary/20"
+                        : "border border-black/5 text-on-surface hover:bg-black/[0.02]"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
               <button
                 type="button"
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
                 disabled={currentPage === totalPages}
                 className="w-8 h-8 rounded-lg border border-black/5 flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed hover:bg-black/[0.02] transition-all cursor-pointer"
               >
@@ -525,8 +563,8 @@ export default function BlogManagementPage() {
             className="fixed inset-0 bg-black/45 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           ></div>
-          
-          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-black/5 w-full max-w-4xl max-h-[92vh] overflow-y-auto relative z-10 space-y-6 animate-scale-up scrollbar-none">
+
+          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-black/5 w-full max-w-6xl max-h-[92vh] overflow-y-auto relative z-10 space-y-6 animate-scale-up scrollbar-none">
             <div className="flex items-center justify-between border-b border-black/5 pb-4">
               <h3 className="text-lg font-bold text-deep-navy">
                 {editingPost ? "Chỉnh sửa bài viết" : "Viết bài tin tức mới"}
@@ -541,7 +579,6 @@ export default function BlogManagementPage() {
 
             <form onSubmit={handleSavePost} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
                 {/* Cột trái: Tiêu đề, danh mục, tóm tắt */}
                 <div className="md:col-span-2 space-y-4">
                   {/* Title & Slug */}
@@ -638,7 +675,9 @@ export default function BlogManagementPage() {
                           ) : (
                             <>
                               <Plus className="w-4 h-4" />
-                              <span className="text-[9px] font-bold mt-1">Tải ảnh</span>
+                              <span className="text-[9px] font-bold mt-1">
+                                Tải ảnh
+                              </span>
                             </>
                           )}
                           <input
@@ -651,11 +690,11 @@ export default function BlogManagementPage() {
                         </label>
                       )}
                       <div className="text-[10px] font-semibold text-on-surface-variant/70 leading-relaxed">
-                        Tỉ lệ khuyên dùng 4:3 hoặc 16:9. Định dạng JPG, PNG, WebP (Dưới 2MB).
+                        Tỉ lệ khuyên dùng 4:3 hoặc 16:9. Định dạng JPG, PNG,
+                        WebP (Dưới 2MB).
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
 
@@ -664,7 +703,7 @@ export default function BlogManagementPage() {
                 <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Nội dung chi tiết bài viết
                 </label>
-                
+
                 {/* Editor Container */}
                 <div className="border border-black/10 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300">
                   <div ref={editorRef} style={{ minHeight: "260px" }}></div>
@@ -710,9 +749,13 @@ export default function BlogManagementPage() {
               <ShieldAlert className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-base font-bold text-deep-navy">Xoá bài viết?</h4>
+              <h4 className="text-base font-bold text-deep-navy">
+                Xoá bài viết?
+              </h4>
               <p className="text-xs font-semibold text-on-surface-variant leading-relaxed mt-1">
-                Bạn có chắc chắn muốn xoá bài viết <span className="font-bold">{postToDelete.title}</span>? Dữ liệu bài viết này sẽ bị xoá vĩnh viễn khỏi hệ thống.
+                Bạn có chắc chắn muốn xoá bài viết{" "}
+                <span className="font-bold">{postToDelete.title}</span>? Dữ liệu
+                bài viết này sẽ bị xoá vĩnh viễn khỏi hệ thống.
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2">

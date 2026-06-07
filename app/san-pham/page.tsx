@@ -175,12 +175,15 @@ export default function SanPham() {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
                 {currentProducts.map((product) => (
-                  <Link
-                    href={`/san-pham/${product.slug}`}
+                  <article
                     key={product.id}
-                    className="glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group cursor-pointer hover:-translate-y-2"
+                    className="glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group hover:-translate-y-2"
                   >
-                    <div className="relative h-56 bg-surface-container overflow-hidden">
+                    {/* Ảnh sản phẩm - có link */}
+                    <Link
+                      href={`/san-pham/${product.slug}`}
+                      className="relative h-56 bg-surface-container overflow-hidden block cursor-pointer"
+                    >
                       {product.featured_image ? (
                         <Image
                           alt={product.name}
@@ -196,16 +199,14 @@ export default function SanPham() {
                           </span>
                         </div>
                       )}
-                    </div>
+                    </Link>
+
                     <div className="p-6 flex flex-col flex-grow justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-3">
                           <button
                             type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleCategoryChange(product.category?.slug || "");
-                            }}
+                            onClick={() => handleCategoryChange(product.category?.slug || "")}
                             className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all cursor-pointer border border-transparent"
                           >
                             {product.category?.name || "Chưa phân loại"}
@@ -214,21 +215,36 @@ export default function SanPham() {
                             {formatVnd(product.price)}
                           </span>
                         </div>
-                        <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy group-hover:text-primary transition-colors leading-snug mb-3">
-                          {product.name}
+
+                        {/* Tiêu đề - có link */}
+                        <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy transition-colors leading-snug mb-3 line-clamp-2">
+                          <Link
+                            href={`/san-pham/${product.slug}`}
+                            className="hover:text-primary transition-colors cursor-pointer"
+                          >
+                            {product.name}
+                          </Link>
                         </h3>
+
                         <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-3 leading-relaxed font-medium">
                           {product.short_description}
                         </p>
                       </div>
-                      <div className="mt-6 flex items-center text-xs font-bold text-primary gap-1 group-hover:gap-2 transition-all pt-4">
-                        Xem chi tiết{" "}
-                        <span className="material-symbols-outlined text-sm font-bold">
-                          east
-                        </span>
+
+                      {/* Xem chi tiết - có link */}
+                      <div className="mt-6 pt-4 border-t border-black/5">
+                        <Link
+                          href={`/san-pham/${product.slug}`}
+                          className="inline-flex items-center text-xs font-bold text-primary gap-1 hover:gap-2 transition-all cursor-pointer"
+                        >
+                          Xem chi tiết{" "}
+                          <span className="material-symbols-outlined text-sm font-bold">
+                            east
+                          </span>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </article>
                 ))}
               </div>
 
