@@ -6,7 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Loader2, Settings, Mail, Phone } from "lucide-react";
 
-export default function MaintenanceGuard({ children }: { children: React.ReactNode }) {
+export default function MaintenanceGuard({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const [isMaintenance, setIsMaintenance] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +18,7 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
   const [companyInfo, setCompanyInfo] = useState({
     company_name: "HUY LUMINAX",
     company_phone: "093.366.3112",
-    company_email: "info@huyluminax.com"
+    company_email: "info@huyluminax.com",
   });
 
   useEffect(() => {
@@ -25,8 +29,13 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
     }
 
     // Kiểm tra xem admin đã đăng nhập chưa bằng cookie
-    const cookies = typeof document !== "undefined" ? document.cookie.split(";").map(c => c.trim()) : [];
-    const hasAdminToken = cookies.some(c => c.startsWith("admin_token=") || c.startsWith("admin_logged_in="));
+    const cookies =
+      typeof document !== "undefined"
+        ? document.cookie.split(";").map((c) => c.trim())
+        : [];
+    const hasAdminToken = cookies.some(
+      (c) => c.startsWith("admin_token=") || c.startsWith("admin_logged_in="),
+    );
 
     // Lấy cài đặt hệ thống từ public settings API
     const checkMaintenance = async () => {
@@ -38,7 +47,7 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
             setCompanyInfo({
               company_name: data.company_name,
               company_phone: data.company_phone || "093.366.3112",
-              company_email: data.company_email || "info@huyluminax.com"
+              company_email: data.company_email || "info@huyluminax.com",
             });
           }
           if (data.maintenance_mode === "1") {
@@ -77,7 +86,7 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
     return (
       <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#faf8ff] gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
-        <span className="text-sm font-bold text-deep-navy">Đang tải cấu hình hệ thống...</span>
+        <span className="text-sm font-bold text-deep-navy"></span>
       </div>
     );
   }
@@ -119,13 +128,17 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
                 Hệ Thống Đang Bảo Trì
               </h3>
               <p className="text-xs md:text-sm text-on-surface-variant font-medium leading-relaxed">
-                Chúng tôi đang tiến hành nâng cấp và tối ưu hóa hệ thống định kỳ nhằm đem lại trải nghiệm tốt nhất cho bạn. Website sẽ hoạt động trở lại trong thời gian sớm nhất.
+                Chúng tôi đang tiến hành nâng cấp và tối ưu hóa hệ thống định kỳ
+                nhằm đem lại trải nghiệm tốt nhất cho bạn. Website sẽ hoạt động
+                trở lại trong thời gian sớm nhất.
               </p>
             </div>
 
             {/* Contact details */}
             <div className="border-t border-black/5 pt-6 space-y-3.5 text-xs md:text-sm font-semibold text-deep-navy">
-              <p className="text-on-surface-variant/80 text-[11px] uppercase tracking-wider">Liên hệ khẩn cấp qua:</p>
+              <p className="text-on-surface-variant/80 text-[11px] uppercase tracking-wider">
+                Liên hệ khẩn cấp qua:
+              </p>
               <div className="flex flex-wrap items-center justify-center gap-6">
                 <a
                   href={`tel:${companyInfo.company_phone.replace(/\./g, "")}`}
@@ -159,20 +172,30 @@ export default function MaintenanceGuard({ children }: { children: React.ReactNo
         <div className="fixed top-0 left-0 right-0 h-10 bg-amber-500 text-white flex items-center justify-between px-4 sm:px-6 z-[99999] shadow-md text-[10px] sm:text-xs font-bold font-sans select-none">
           <div className="flex items-center gap-2 truncate">
             <Settings className="w-3.5 h-3.5 animate-spin-slow shrink-0" />
-            <span className="truncate">Hệ thống đang BẬT chế độ bảo trì. Bạn đang xem website với quyền Admin (Bypass Mode).</span>
+            <span className="truncate">
+              Hệ thống đang BẬT chế độ bảo trì. Bạn đang xem website với quyền
+              Admin (Bypass Mode).
+            </span>
           </div>
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-            <Link href="/admin/settings" className="underline hover:text-amber-100 transition-colors whitespace-nowrap">
+            <Link
+              href="/admin/settings"
+              className="underline hover:text-amber-100 transition-colors whitespace-nowrap"
+            >
               Cấu hình hệ thống
             </Link>
-            <button 
+            <button
               onClick={() => {
                 setShowAdminBanner(false);
-                document.body.classList.remove("admin-maintenance-banner-active");
+                document.body.classList.remove(
+                  "admin-maintenance-banner-active",
+                );
               }}
               className="hover:bg-white/20 p-1 rounded-full transition-all cursor-pointer flex items-center justify-center"
             >
-              <span className="material-symbols-outlined text-[16px] block">close</span>
+              <span className="material-symbols-outlined text-[16px] block">
+                close
+              </span>
             </button>
           </div>
         </div>
