@@ -32,6 +32,7 @@ export default function AuthenticatedLayout({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [siteName, setSiteName] = useState("HUY LUMINAX");
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -55,16 +56,36 @@ export default function AuthenticatedLayout({
     }
   };
 
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch("/api/public/settings");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.site_name) {
+          setSiteName(data.site_name.toUpperCase());
+        }
+      }
+    } catch (err) {
+      console.error("Lỗi lấy settings layout admin:", err);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
+    fetchSettings();
     
     // Đăng ký sự kiện lắng nghe cập nhật hồ sơ để đồng bộ tức thì
     const handleProfileUpdate = () => {
       fetchUser();
     };
+    const handleSettingsUpdate = () => {
+      fetchSettings();
+    };
     window.addEventListener("profileUpdated", handleProfileUpdate);
+    window.addEventListener("settingsUpdated", handleSettingsUpdate);
     return () => {
       window.removeEventListener("profileUpdated", handleProfileUpdate);
+      window.removeEventListener("settingsUpdated", handleSettingsUpdate);
     };
   }, []);
 
@@ -97,7 +118,7 @@ export default function AuthenticatedLayout({
     { id: "blog-category", name: "Danh mục bài viết", icon: FolderOpen, href: "/admin/blog/category" },
     { id: "tech", name: "Công nghệ", icon: Cpu, href: "#", disabled: true },
     { id: "about", name: "Giới thiệu", icon: Info, href: "#", disabled: true },
-    { id: "settings", name: "Cài đặt hệ thống", icon: Settings, href: "#", disabled: true },
+    { id: "settings", name: "Cài đặt hệ thống", icon: Settings, href: "/admin/settings" },
   ];
 
   // Kiểm tra mục nào đang active
@@ -120,7 +141,7 @@ export default function AuthenticatedLayout({
             <Image src="/logo-new.png" alt="Logo" fill className="object-contain" />
           </Link>
           <div>
-            <h1 className="font-headline text-lg font-black text-deep-navy">HUY LUMINAX</h1>
+            <h1 className="font-headline text-lg font-black text-deep-navy">{siteName}</h1>
             <p className="text-[10px] font-bold text-primary tracking-widest uppercase">Admin Panel</p>
           </div>
         </div>
@@ -188,7 +209,7 @@ export default function AuthenticatedLayout({
                   <Image src="/logo-new.png" alt="Logo" fill className="object-contain" />
                 </div>
                 <div>
-                  <h1 className="font-headline text-base font-black text-deep-navy">HUY LUMINAX</h1>
+                  <h1 className="font-headline text-base font-black text-deep-navy">{siteName}</h1>
                 </div>
               </div>
               <button
@@ -264,6 +285,7 @@ export default function AuthenticatedLayout({
                 {pathname === "/admin/dashboard" && !window.location.search.includes("tab=members") && "Tổng quan hệ thống"}
                 {pathname === "/admin/dashboard" && window.location.search.includes("tab=members") && "Quản lý thành viên"}
                 {pathname === "/admin/profile" && "Thông tin cá nhân"}
+                {pathname === "/admin/settings" && "Cài đặt hệ thống"}
               </h2>
               <p className="text-xs font-semibold text-on-surface-variant/70 hidden sm:block">Hệ thống quản trị và xác thực</p>
             </div>

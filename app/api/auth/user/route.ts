@@ -24,6 +24,11 @@ export async function GET(req: NextRequest) {
     const data = await response.json();
 
     if (!response.ok) {
+      if (response.status === 401) {
+        const cookieStore = await cookies();
+        cookieStore.delete("admin_token");
+        cookieStore.delete("admin_logged_in");
+      }
       return NextResponse.json(
         { message: data.message || "Không thể lấy thông tin người dùng" },
         { status: response.status }

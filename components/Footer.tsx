@@ -1,10 +1,42 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const [settings, setSettings] = useState<any>({
+    company_name: "CÔNG TY TNHH HUY LUMINAX",
+    site_slogan: "Tiên phong nghiên cứu hóa sinh xanh và ứng dụng trí tuệ nhân tạo Luminax AI nhằm kiến tạo các sản phẩm sạch, an toàn và tối ưu cho cộng đồng.",
+    company_address: "Số 88 Tô Hiến Thành, Tân Lập, TP Nha Trang, Tỉnh Khánh Hòa",
+    company_phone: "093.366.3112",
+    company_email: "info@huyluminax.com",
+    social_zalo: "0933663112",
+  });
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await fetch("/api/public/settings");
+        if (res.ok) {
+          const data = await res.json();
+          setSettings((prev: any) => ({
+            ...prev,
+            ...data
+          }));
+        }
+      } catch (err) {
+        console.error("Lỗi tải footer settings:", err);
+      }
+    };
+    loadSettings();
+
+    window.addEventListener("settingsUpdated", loadSettings);
+    return () => {
+      window.removeEventListener("settingsUpdated", loadSettings);
+    };
+  }, []);
+
   return (
     <>
       {/* Footer (Đẹp đẽ, nhất quán với trang mẫu nhưng không copy ảnh) */}
@@ -34,12 +66,10 @@ export default function Footer() {
               HUY LUMINAX
             </Link>
             <p className="text-sm font-bold text-primary tracking-wide uppercase">
-              CÔNG TY TNHH HUY LUMINAX
+              {settings.company_name}
             </p>
             <p className="text-sm text-on-surface-variant leading-relaxed max-w-sm">
-              Tiên phong nghiên cứu hóa sinh xanh và ứng dụng trí tuệ nhân tạo
-              Luminax AI nhằm kiến tạo các sản phẩm sạch, an toàn và tối ưu cho
-              cộng đồng.
+              {settings.site_slogan}
             </p>
             <div className="space-y-3.5 text-sm text-on-surface-variant font-medium">
               <div className="flex items-start gap-3">
@@ -47,7 +77,7 @@ export default function Footer() {
                   location_on
                 </span>
                 <span>
-                  Số 88 Tô Hiến Thành, Tân Lập, TP Nha Trang, Tỉnh Khánh Hòa
+                  {settings.company_address}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -55,10 +85,10 @@ export default function Footer() {
                   call
                 </span>
                 <a
-                  href="tel:0933663112"
+                  href={`tel:${settings.company_phone.replace(/\./g, "")}`}
                   className="hover:text-primary transition-colors"
                 >
-                  093.366.3112
+                  {settings.company_phone}
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -66,10 +96,10 @@ export default function Footer() {
                   mail
                 </span>
                 <a
-                  href="mailto:info@huyluminax.com"
+                  href={`mailto:${settings.company_email}`}
                   className="hover:text-primary transition-colors"
                 >
-                  info@huyluminax.com
+                  {settings.company_email}
                 </a>
               </div>
             </div>
@@ -160,7 +190,7 @@ export default function Footer() {
 
         {/* Bottom copyright line */}
         <div className="max-w-7xl mx-auto w-full pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-on-surface-variant">
-          <p>© 2026 CÔNG TY TNHH HUY LUMINAX. All rights reserved.</p>
+          <p>© 2026 {settings.company_name}. All rights reserved.</p>
         </div>
       </footer>
 
@@ -169,7 +199,7 @@ export default function Footer() {
         <div className="relative group">
           <div className="absolute -inset-1 rounded-full bg-red-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
           <a
-            href="tel:0933663112"
+            href={`tel:${settings.company_phone.replace(/\./g, "")}`}
             title="Gọi điện tư vấn"
             className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg shadow-red-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-ring"
           >
@@ -178,14 +208,14 @@ export default function Footer() {
             </span>
           </a>
           <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Gọi ngay: 093.366.3112
+            Gọi ngay: {settings.company_phone}
           </span>
         </div>
 
         <div className="relative group">
           <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
           <a
-            href="https://zalo.me/0933663112"
+            href={`https://zalo.me/${settings.social_zalo}`}
             target="_blank"
             rel="noopener noreferrer"
             title="Chat Zalo"

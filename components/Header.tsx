@@ -9,7 +9,31 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [siteName, setSiteName] = useState("Huy Luminax");
   const pathname = usePathname();
+
+  // Load public settings để lấy tên website động
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await fetch("/api/public/settings");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.site_name) {
+            setSiteName(data.site_name);
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi tải header settings:", err);
+      }
+    };
+    loadSettings();
+
+    window.addEventListener("settingsUpdated", loadSettings);
+    return () => {
+      window.removeEventListener("settingsUpdated", loadSettings);
+    };
+  }, []);
  
   // Kiểm tra trạng thái đăng nhập của Admin
   useEffect(() => {
@@ -84,7 +108,7 @@ export default function Header() {
             height={38}
             className="object-contain hover:scale-105 transition-transform duration-300"
           />
-          Huy Luminax
+          {siteName}
         </Link>
  
         {/* Desktop Navigation */}
