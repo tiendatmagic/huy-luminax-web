@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00b3ff;
+  --color-primary-hover: #009be6;
+  --color-secondary: #00bcd4;
+  --color-secondary-container: #6a98ff;
+  --color-vibrant-blue: #00b3ff;
+  --color-accent-orange: #ff811b;
+  --color-deep-navy: #0f172a;
+  
+  --color-surface: #faf8ff;
+  --color-surface-container-low: #f2f3ff;
+  --color-surface-container: #e7eeff;
+  --color-surface-container-high: #dee8ff;
+  --color-surface-container-highest: #d8e3fb;
+  --color-on-surface: #131b2e;
+  --color-on-surface-variant: #3c494c;
+  
+  /* Sặc sỡ & Công nghệ bổ sung */
+  --color-accent-purple: #8b5cf6;
+  --color-accent-pink: #ec4899;
+  --color-accent-green: #10b981;
+  --color-accent-orange-light: #ff9d42;
+  
+  --font-sans: var(--font-inter), sans-serif;
+  --font-headline: var(--font-hanken), sans-serif;
+  --font-mono: var(--font-mono), monospace;
+}
+
+/* Base custom styles */
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+}
+
+/* Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reveal Delays */
+.delay-100 {
+  transition-delay: 100ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
+.delay-300 {
+  transition-delay: 300ms;
+}
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+/* AI Glow Animations */
+.glow-effect {
+  box-shadow: 0 0 20px rgba(0, 179, 255, 0.4);
+  animation: pulse-glow 3s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 15px rgba(0, 179, 255, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 35px rgba(0, 188, 212, 0.7);
+  }
+}
+
+/* Web Ringing Animation for Contact Buttons */
+@keyframes ring-quick {
+  0% { transform: scale(1) rotate(0deg); }
+  5% { transform: scale(1.1) rotate(-8deg); }
+  10% { transform: scale(1.1) rotate(8deg); }
+  15% { transform: scale(1.1) rotate(-8deg); }
+  20% { transform: scale(1.1) rotate(8deg); }
+  25% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.animate-ring {
+  animation: ring-quick 2.5s infinite ease-in-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Background Ambient Floating Blobs */
+.floating-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  animation: float-blob 15s infinite alternate ease-in-out;
+}
+
+@keyframes float-blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  100% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+}
+
+/* Radar Sonar Wave effect */
+.sonar-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: sonar-animation 2s infinite;
+}
+
+@keyframes sonar-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism premium card styles */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.glowing-card {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glowing-card:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 188, 212, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 188, 212, 0.25);
+  transform: translateY(-8px);
+}
+
+/* Button Shine effect */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 30%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(30deg);
+  transition: none;
+}
+
+.shine-effect:hover::after {
+  left: 130%;
+  transition: all 0.8s ease-in-out;
+}
+
+/* Utilities to hide scrollbar */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
