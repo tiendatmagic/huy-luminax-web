@@ -319,7 +319,7 @@ export default function UserManagementPage() {
                                 setIsEditModalOpen(true);
                               }}
                               disabled={memberActionLoading}
-                              className="p-2 rounded-xl text-primary hover:bg-primary/5 hover:text-primary-hover transition-colors cursor-pointer"
+                              className="p-2 rounded-xl text-primary hover:bg-primary/15 hover:text-primary-hover transition-colors cursor-pointer"
                               title="Sửa thông tin"
                             >
                               <Pencil className="w-4 h-4" />
@@ -330,7 +330,7 @@ export default function UserManagementPage() {
                               className={`p-2 rounded-xl transition-colors ${
                                 currentUser?.id === member.id
                                   ? "text-black/20 cursor-not-allowed"
-                                  : "text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                                  : "text-red-500 hover:bg-red-500/15 hover:text-red-400 cursor-pointer"
                               }`}
                               title={currentUser?.id === member.id ? "Không thể xoá chính mình" : "Xoá thành viên"}
                             >
