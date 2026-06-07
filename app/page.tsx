@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // Dữ liệu mẫu lĩnh vực hoạt động
 const businessAreas = [
@@ -208,148 +211,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary">
-      {/* Header lơ lửng, bo tròn (Floating Nav giống webnhatrang-astro) */}
-      <header
-        className={`fixed inset-x-6 sm:inset-x-8 md:inset-x-12 lg:inset-x-16 mx-auto w-auto max-w-7xl z-50 flex flex-col justify-between items-center rounded-3xl border border-white/40 shadow-lg transition-all duration-500 ease-out ${
-          isScrolled
-            ? "top-3 py-2 bg-surface/85 backdrop-blur-xl shadow-xl border-primary/10"
-            : "top-6 py-3 bg-white/60 backdrop-blur-xl"
-        }`}
-      >
-        <div className="w-full flex justify-between items-center px-6 md:px-8">
-          <div className="font-headline text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 drop-shadow-sm cursor-pointer">
-            <Image
-              src="/logo.svg"
-              alt="Huy Luminax Logo"
-              width={38}
-              height={38}
-              className="object-contain hover:scale-105 transition-transform duration-300"
-            />
-            Huy Luminax
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 font-semibold text-sm">
-            <a
-              href="#"
-              className="flex items-center gap-1.5 text-primary hover:text-primary-hover border-b-2 border-primary pb-1 transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                home
-              </span>
-              <span>Trang chủ</span>
-            </a>
-            <a
-              href="#intro"
-              className="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                info
-              </span>
-              <span>Giới thiệu</span>
-            </a>
-            <a
-              href="#fields"
-              className="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                design_services
-              </span>
-              <span>Lĩnh vực</span>
-            </a>
-            <a
-              href="#technology"
-              className="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                memory
-              </span>
-              <span>AI &amp; Công nghệ</span>
-            </a>
-            <a
-              href="#news"
-              className="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                newspaper
-              </span>
-              <span>Tin tức</span>
-            </a>
-          </nav>
- 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              className="hidden lg:inline-block bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white px-5 py-2.5 rounded-full font-bold text-xs tracking-wider shadow-md shadow-[#0072ff]/20 hover:shadow-lg hover:shadow-[#0072ff]/35 transition-all duration-300 hover:scale-105 shine-effect text-center"
-            >
-              LIÊN HỆ NGAY
-            </a>
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-on-surface-variant hover:text-primary hover:bg-white/60 rounded-[10px] transition-all duration-200"
-            >
-              <span className="material-symbols-outlined text-2xl">
-                {mobileMenuOpen ? "close" : "menu"}
-              </span>
-            </button>
-          </div>
-        </div>
- 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="w-full mt-3 px-6 pb-6 flex flex-col gap-4 pt-2 bg-white rounded-b-3xl">
-            <a
-              href="#"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 text-primary font-bold py-2"
-            >
-              <span className="material-symbols-outlined">home</span>
-              <span>Trang chủ</span>
-            </a>
-            <a
-              href="#intro"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 text-on-surface-variant hover:text-primary font-semibold py-2"
-            >
-              <span className="material-symbols-outlined">info</span>
-              <span>Giới thiệu</span>
-            </a>
-            <a
-              href="#fields"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 text-on-surface-variant hover:text-primary font-semibold py-2"
-            >
-              <span className="material-symbols-outlined">design_services</span>
-              <span>Lĩnh vực</span>
-            </a>
-            <a
-              href="#technology"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 text-on-surface-variant hover:text-primary font-semibold py-2"
-            >
-              <span className="material-symbols-outlined">memory</span>
-              <span>AI &amp; Công nghệ</span>
-            </a>
-            <a
-              href="#news"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 text-on-surface-variant hover:text-primary font-semibold py-2"
-            >
-              <span className="material-symbols-outlined">newspaper</span>
-              <span>Tin tức</span>
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 w-full bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white py-3 rounded-full font-bold text-sm tracking-wider shadow-md shadow-[#0072ff]/20 hover:shadow-lg transition-all duration-300 shine-effect text-center block"
-            >
-              LIÊN HỆ NGAY
-            </a>
-          </div>
-        )}
-      </header>
+      <Header />
 
       <main className="flex-grow">
         {/* Hero Section */}
@@ -377,7 +239,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                 <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                  [Công Nghệ AI] Tiên Phong Kỷ Nguyên Mới
+                  Tiên Phong Kỷ Nguyên Mới
                 </span>
               </div>
               <h1 className="font-headline text-3xl sm:text-5xl lg:text-[56px] lg:leading-[1.15] font-extrabold text-deep-navy tracking-tight">
@@ -502,7 +364,7 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                   <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                    [Giới Thiệu] Hành Trình &amp; Phát Triển
+                    Hành Trình &amp; Phát Triển
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy leading-tight">
@@ -550,15 +412,15 @@ export default function Home() {
                     </span>
                     LIÊN HỆ NGAY
                   </a>
-                  <a
-                    href="#fields"
+                  <Link
+                    href="/gioi-thieu"
                     className="border border-outline-variant text-on-surface hover:text-primary px-8 py-3.5 rounded-full font-bold text-xs tracking-wider hover:bg-surface-variant transition-all flex items-center gap-2 shadow-sm bg-white/40 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-sm">
                       info
                     </span>
                     TÌM HIỂU THÊM
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -583,7 +445,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                 <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                  [Độ Tinh Khiết AI] Độ Tinh Khiết Chuẩn Xác
+                  Độ Tinh Khiết Chuẩn Xác
                 </span>
               </div>
               <h2 className="font-headline text-3xl sm:text-5xl font-black text-deep-navy leading-tight">
@@ -632,7 +494,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
               <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                [Lĩnh Vực Hoạt Động] Hệ Sinh Thái Toàn Diện
+                Hệ Sinh Thái Toàn Diện
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
@@ -716,7 +578,7 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                   <span className="w-2.5 h-2.5 rounded-full bg-primary glow-effect animate-ping"></span>
                   <span className="font-mono text-xs text-primary font-bold uppercase tracking-wider">
-                    [Hệ Thống AI] Mạng Nơ-ron Đang Huấn Luyện
+                    Mạng Nơ-ron Đang Huấn Luyện
                   </span>
                 </div>
                 <h2 className="font-headline text-3xl sm:text-5xl font-black text-deep-navy leading-tight">
@@ -982,7 +844,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                 <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                  [Sản Phẩm] Tinh Hoa Hóa Mỹ Phẩm
+                  Tinh Hoa Hóa Mỹ Phẩm
                 </span>
               </div>
               <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
@@ -1079,7 +941,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
                 <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                  [Tin Tức] Thông Tin Mới Nhất
+                  Thông Tin Mới Nhất
                 </span>
               </div>
               <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
@@ -1172,7 +1034,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
               <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                [Hỏi Đáp] Giải Đáp Thắc Mắc
+                Giải Đáp Thắc Mắc
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
@@ -1226,213 +1088,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer (Đẹp đẽ, nhất quán với trang mẫu nhưng không copy ảnh) */}
-      <footer
-        id="contact"
-        className="bg-surface-container-low text-on-surface w-full py-10 px-6 sm:px-8 md:px-12 lg:px-16 flex flex-col items-center justify-center space-y-8 relative overflow-hidden"
-      >
-        {/* Ambient background blob */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <div className="floating-blob w-96 h-96 bg-primary/5 bottom-[-100px] right-[-100px] blur-3xl opacity-40"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10 pb-12 border-b border-black/10">
-          {/* Cột 1: Logo & Company Description */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="font-headline text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 cursor-pointer">
-              <Image
-                src="/logo.svg"
-                alt="Huy Luminax Logo"
-                width={44}
-                height={44}
-                className="object-contain"
-              />
-              HUY LUMINAX
-            </div>
-            <p className="text-sm font-bold text-primary tracking-wide uppercase">
-              CÔNG TY TNHH HUY LUMINAX
-            </p>
-            <p className="text-sm text-on-surface-variant leading-relaxed max-w-sm">
-              Tiên phong nghiên cứu hóa sinh xanh và ứng dụng trí tuệ nhân tạo
-              Luminax AI nhằm kiến tạo các sản phẩm sạch, an toàn và tối ưu cho
-              cộng đồng.
-            </p>
-            <div className="space-y-3.5 text-sm text-on-surface-variant font-medium">
-              <div className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-xl mt-0.5">
-                  location_on
-                </span>
-                <span>
-                  Số 88 Tô Hiến Thành, Tân Lập, TP Nha Trang, Tỉnh Khánh Hòa
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-xl">
-                  call
-                </span>
-                <a
-                  href="tel:0933663112"
-                  className="hover:text-primary transition-colors"
-                >
-                  093.366.3112
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-xl">
-                  mail
-                </span>
-                <a
-                  href="mailto:info@huyluminax.com"
-                  className="hover:text-primary transition-colors"
-                >
-                  info@huyluminax.com
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Cột 2: Quick Links */}
-          <div className="lg:col-span-3 space-y-5 lg:pl-8">
-            <h3 className="text-base font-bold text-deep-navy uppercase tracking-wider border-l-3 border-primary pl-3">
-              Thông tin
-            </h3>
-            <ul className="space-y-3 text-sm font-semibold text-on-surface-variant">
-              <li>
-                <a
-                  href="#intro"
-                  className="hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  Giới thiệu công ty
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  Chính sách B2B
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  Chuyển giao công nghệ
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  Tin tức tuyển dụng
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cột 3: Products & Services */}
-          <div className="lg:col-span-4 space-y-5">
-            <h3 className="text-base font-bold text-deep-navy uppercase tracking-wider border-l-3 border-primary pl-3">
-              Sản phẩm &amp; Dịch vụ
-            </h3>
-            <ul className="space-y-3 text-sm font-semibold text-on-surface-variant">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Khăn giấy kháng khuẩn cao cấp
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Hóa chất cơ bản công nghiệp B2B
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Lập trình mô hình Luminax AI
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Giải pháp tự động hóa QA
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom copyright line */}
-        <div className="max-w-7xl mx-auto w-full pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-on-surface-variant">
-          <p>© 2026 CÔNG TY TNHH HUY LUMINAX. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-primary transition-colors">
-              Chính sách bảo mật
-            </a>
-            <span>•</span>
-            <a href="#" className="hover:text-primary transition-colors">
-              Điều khoản dịch vụ
-            </a>
-          </div>
-        </div>
-      </footer>
-
-      {/* Widget liên hệ nhanh cố định góc dưới bên phải */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3.5 items-end">
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-red-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <a
-            href="tel:0933663112"
-            title="Gọi điện tư vấn"
-            className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg shadow-red-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-ring"
-          >
-            <span className="material-symbols-outlined text-2xl font-bold font-fill">
-              call
-            </span>
-          </a>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Gọi ngay: 093.366.3112
-          </span>
-        </div>
-
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <a
-            href="https://zalo.me/0933663112"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Chat Zalo"
-            className="relative flex items-center justify-center w-14 h-14 bg-white border border-blue-100 hover:bg-blue-50 rounded-full shadow-lg shadow-blue-500/20 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden p-2.5"
-          >
-            <Image
-              src="/zalo-icon.svg"
-              alt="Zalo"
-              width={32}
-              height={32}
-              className="object-contain"
-            />
-          </a>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Liên hệ Zalo
-          </span>
-        </div>
-
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <a
-            href="#contact"
-            title="Gửi tin nhắn hỗ trợ"
-            className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white rounded-full shadow-lg shadow-blue-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-2xl font-bold font-fill">
-              chat
-            </span>
-          </a>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Gửi hỗ trợ trực tuyến
-          </span>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }
