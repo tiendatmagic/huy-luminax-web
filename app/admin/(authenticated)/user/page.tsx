@@ -35,6 +35,8 @@ export default function UserManagementPage() {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [membersLoading, setMembersLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const membersPerPage = 10;
   
   // Modal tạo thành viên
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -57,6 +59,11 @@ export default function UserManagementPage() {
   const [memberActionLoading, setMemberActionLoading] = useState(false);
   const [memberToDelete, setMemberToDelete] = useState<Member | null>(null);
 
+  const indexOfLastMember = currentPage * membersPerPage;
+  const indexOfFirstMember = indexOfLastMember - membersPerPage;
+  const currentMembers = members.slice(indexOfFirstMember, indexOfLastMember);
+  const totalPages = Math.ceil(members.length / membersPerPage);
+
   // Fetch thông tin user hiện tại
   const fetchCurrentUser = async () => {
     try {
@@ -78,6 +85,7 @@ export default function UserManagementPage() {
       if (res.ok) {
         const data = await res.json();
         setMembers(data);
+        setCurrentPage(1);
       }
     } catch (err) {
       console.error("Lỗi lấy danh sách thành viên:", err);
@@ -275,68 +283,109 @@ export default function UserManagementPage() {
                 </tr>
               </thead>
               <tbody>
-                   {members.map((member) => (
-                  <tr key={member.id} className="hover:bg-black/[0.01] transition-colors">
-                    <td className="py-4 px-4 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">
-                        {(member.fullname || member.name).substring(0, 2)}
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-bold">{member.fullname || member.name}</span>
-                        {member.fullname && (
-                          <span className="text-[11px] text-on-surface-variant/70">@{member.name}</span>
-                        )}
-                      </div>
-                      {currentUser?.id === member.id && (
-                        <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-2 py-0.5 rounded-full border border-green-200 ml-1">
-                          Bạn
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-on-surface-variant/90">{member.email}</td>
-                    <td className="py-4 px-4 text-xs text-on-surface-variant/70">
-                      {new Date(member.created_at).toLocaleDateString("vi-VN")}
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      <div className="flex items-center justify-center gap-1.5">
-                        <button
-                          onClick={() => {
-                            setMemberMessage(null);
-                            setMemberToEdit(member);
-                            setEditMemberName(member.name);
-                            setEditMemberFullname(member.fullname || "");
-                            setEditMemberEmail(member.email);
-                            setEditMemberPassword("");
-                            setShowEditMemberPassword(false);
-                            setIsEditModalOpen(true);
-                          }}
-                          disabled={memberActionLoading}
-                          className="p-2 rounded-xl text-primary hover:bg-primary/5 hover:text-primary-hover transition-colors cursor-pointer"
-                          title="Sửa thông tin"
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => setMemberToDelete(member)}
-                          disabled={currentUser?.id === member.id || memberActionLoading}
-                          className={`p-2 rounded-xl transition-colors ${
-                            currentUser?.id === member.id
-                              ? "text-black/20 cursor-not-allowed"
-                              : "text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer"
-                          }`}
-                          title={currentUser?.id === member.id ? "Không thể xoá chính mình" : "Xoá thành viên"}
-                        >
-                          <Trash2 className="w-4.5 h-4.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                {currentMembers.map((member) => (
+                      <tr key={member.id} className="hover:bg-black/[0.01] transition-colors">
+                        <td className="py-4 px-4 flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">
+                            {(member.fullname || member.name).substring(0, 2)}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="font-bold">{member.fullname || member.name}</span>
+                            {member.fullname && (
+                              <span className="text-[11px] text-on-surface-variant/70">@{member.name}</span>
+                            )}
+                          </div>
+                          {currentUser?.id === member.id && (
+                            <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-2 py-0.5 rounded-full border border-green-200 ml-1">
+                              Bạn
+                            </span>
+                          )}
+                        </td>
+                        <td className="py-4 px-4 text-on-surface-variant/90">{member.email}</td>
+                        <td className="py-4 px-4 text-xs text-on-surface-variant/70">
+                          {new Date(member.created_at).toLocaleDateString("vi-VN")}
+                        </td>
+                        <td className="py-4 px-4 text-center">
+                          <div className="flex items-center justify-center gap-1.5">
+                            <button
+                              onClick={() => {
+                                setMemberMessage(null);
+                                setMemberToEdit(member);
+                                setEditMemberName(member.name);
+                                setEditMemberFullname(member.fullname || "");
+                                setEditMemberEmail(member.email);
+                                setEditMemberPassword("");
+                                setShowEditMemberPassword(false);
+                                setIsEditModalOpen(true);
+                              }}
+                              disabled={memberActionLoading}
+                              className="p-2 rounded-xl text-primary hover:bg-primary/5 hover:text-primary-hover transition-colors cursor-pointer"
+                              title="Sửa thông tin"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => setMemberToDelete(member)}
+                              disabled={currentUser?.id === member.id || memberActionLoading}
+                              className={`p-2 rounded-xl transition-colors ${
+                                currentUser?.id === member.id
+                                  ? "text-black/20 cursor-not-allowed"
+                                  : "text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                              }`}
+                              title={currentUser?.id === member.id ? "Không thể xoá chính mình" : "Xoá thành viên"}
+                            >
+                              <Trash2 className="w-4.5 h-4.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            
+            {/* Phân trang thành viên */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between border-t border-black/5 pt-4 flex-wrap gap-3">
+                <span className="text-xs font-semibold text-on-surface-variant">
+                  Hiển thị {indexOfFirstMember + 1} - {Math.min(indexOfLastMember, members.length)} trên tổng số {members.length} thành viên
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="w-8 h-8 rounded-lg border border-black/5 flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed hover:bg-black/[0.02] transition-all cursor-pointer"
+                  >
+                    &larr;
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        currentPage === page
+                          ? "bg-primary text-white shadow-md shadow-primary/20"
+                          : "border border-black/5 text-on-surface hover:bg-black/[0.02]"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="w-8 h-8 rounded-lg border border-black/5 flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed hover:bg-black/[0.02] transition-all cursor-pointer"
+                  >
+                    &rarr;
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
       {/* MODAL: TẠO THÀIEN VIÊN MỚI */}
       {isCreateModalOpen && (
@@ -368,7 +417,7 @@ export default function UserManagementPage() {
 
             <form onSubmit={handleCreateMember} className="space-y-4">
               {/* Fullname Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Họ tên (Không bắt buộc)
                 </label>
@@ -386,7 +435,7 @@ export default function UserManagementPage() {
                 </div>
               </div>
               {/* Name Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên thành viên (Username)
                 </label>
@@ -406,7 +455,7 @@ export default function UserManagementPage() {
               </div>
 
               {/* Email Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Email đăng nhập
                 </label>
@@ -426,7 +475,7 @@ export default function UserManagementPage() {
               </div>
 
               {/* Password Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu khởi tạo
                 </label>
@@ -512,7 +561,7 @@ export default function UserManagementPage() {
 
             <form onSubmit={handleEditMember} className="space-y-4">
               {/* Fullname Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Họ tên (Không bắt buộc)
                 </label>
@@ -531,7 +580,7 @@ export default function UserManagementPage() {
               </div>
 
               {/* Name Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên thành viên (Username)
                 </label>
@@ -551,7 +600,7 @@ export default function UserManagementPage() {
               </div>
 
               {/* Email Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Email đăng nhập
                 </label>
@@ -571,7 +620,7 @@ export default function UserManagementPage() {
               </div>
 
               {/* Password Input */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu mới (Để trống nếu không đổi)
                 </label>

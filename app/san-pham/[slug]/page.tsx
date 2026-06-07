@@ -189,9 +189,18 @@ export default function ProductDetail() {
             <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/15">
-                    {product.category?.name || "Chưa phân loại"}
-                  </span>
+                  {product.category ? (
+                    <Link
+                      href={`/san-pham?category=${product.category.slug}`}
+                      className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/15 hover:bg-primary hover:text-white transition-all cursor-pointer"
+                    >
+                      {product.category.name}
+                    </Link>
+                  ) : (
+                    <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/15">
+                      Chưa phân loại
+                    </span>
+                  )}
                   {product.sku && (
                     <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-on-surface-variant/70 bg-slate-100 border border-slate-200">
                       SKU: {product.sku}

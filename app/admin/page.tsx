@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Username/Email Input */}
-            <div className="space-y-1.5">
+            <div className="space-y-3">
               <label
                 htmlFor="username"
                 className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
             </div>
 
             {/* Password Input */}
-            <div className="space-y-1.5">
+            <div className="space-y-3">
               <label
                 htmlFor="password"
                 className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
