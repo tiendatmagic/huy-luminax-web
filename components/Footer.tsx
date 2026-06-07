@@ -1,26 +1,29 @@
 "use client";
- 
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
- 
+
 export default function Footer() {
   return (
     <>
       {/* Footer (Đẹp đẽ, nhất quán với trang mẫu nhưng không copy ảnh) */}
       <footer
         id="contact"
-        className="bg-surface-container-low text-on-surface w-full py-20 px-6 sm:px-8 md:px-12 lg:px-16 flex flex-col items-center justify-center space-y-8 relative overflow-hidden"
+        className="bg-surface-container-low text-on-surface w-full py-6 px-6 sm:px-8 md:px-12 lg:px-16 flex flex-col items-center justify-center space-y-8 relative overflow-hidden"
       >
         {/* Ambient background blob */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <div className="floating-blob w-96 h-96 bg-primary/5 bottom-[-100px] right-[-100px] blur-3xl opacity-40"></div>
         </div>
- 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10 pb-12 border-b border-black/10">
+
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10 pb-12 mb-2 border-b border-black/10">
           {/* Cột 1: Logo & Company Description */}
           <div className="lg:col-span-5 space-y-6">
-            <Link href="/" className="font-headline text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 cursor-pointer">
+            <Link
+              href="/"
+              className="font-headline text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 cursor-pointer"
+            >
               <Image
                 src="/logo.svg"
                 alt="Huy Luminax Logo"
@@ -71,7 +74,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
- 
+
           {/* Cột 2: Quick Links */}
           <div className="lg:col-span-3 space-y-5 lg:pl-8">
             <h3 className="text-base font-bold text-deep-navy uppercase tracking-wider border-l-3 border-primary pl-3">
@@ -112,7 +115,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
- 
+
           {/* Cột 3: Products & Services */}
           <div className="lg:col-span-4 space-y-5">
             <h3 className="text-base font-bold text-deep-navy uppercase tracking-wider border-l-3 border-primary pl-3">
@@ -120,44 +123,47 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm font-semibold text-on-surface-variant">
               <li>
-                <Link href="/san-pham" className="hover:text-primary transition-colors">
+                <Link
+                  href="/san-pham"
+                  className="hover:text-primary transition-colors"
+                >
                   Khăn giấy kháng khuẩn cao cấp
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham" className="hover:text-primary transition-colors">
+                <Link
+                  href="/san-pham"
+                  className="hover:text-primary transition-colors"
+                >
                   Hóa chất cơ bản công nghiệp B2B
                 </Link>
               </li>
               <li>
-                <Link href="/cong-nghe" className="hover:text-primary transition-colors">
+                <Link
+                  href="/cong-nghe"
+                  className="hover:text-primary transition-colors"
+                >
                   Lập trình mô hình Luminax AI
                 </Link>
               </li>
               <li>
-                <Link href="/cong-nghe" className="hover:text-primary transition-colors">
+                <Link
+                  href="/cong-nghe"
+                  className="hover:text-primary transition-colors"
+                >
                   Giải pháp tự động hóa QA
                 </Link>
               </li>
             </ul>
           </div>
         </div>
- 
+
         {/* Bottom copyright line */}
         <div className="max-w-7xl mx-auto w-full pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-on-surface-variant">
           <p>© 2026 CÔNG TY TNHH HUY LUMINAX. All rights reserved.</p>
-          <div className="flex gap-4">
-            <Link href="#" className="hover:text-primary transition-colors">
-              Chính sách bảo mật
-            </Link>
-            <span>•</span>
-            <Link href="#" className="hover:text-primary transition-colors">
-              Điều khoản dịch vụ
-            </Link>
-          </div>
         </div>
       </footer>
- 
+
       {/* Widget liên hệ nhanh cố định góc dưới bên phải */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3.5 items-end">
         <div className="relative group">
@@ -175,7 +181,7 @@ export default function Footer() {
             Gọi ngay: 093.366.3112
           </span>
         </div>
- 
+
         <div className="relative group">
           <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
           <a
@@ -197,7 +203,7 @@ export default function Footer() {
             Liên hệ Zalo
           </span>
         </div>
- 
+
         <div className="relative group">
           <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
           <Link
