@@ -276,22 +276,12 @@ export default function Home() {
               <span>Tin tức</span>
             </a>
           </nav>
-
+ 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button className="hidden sm:inline-block p-2 text-on-surface-variant hover:text-primary hover:bg-white/60 rounded-[10px] transition-all duration-200 border border-transparent hover:border-white/30 active:scale-95">
-              <span className="material-symbols-outlined text-2xl">
-                shopping_cart
-              </span>
-            </button>
-            <button className="hidden sm:inline-block p-2 text-on-surface-variant hover:text-primary hover:bg-white/60 rounded-[10px] transition-all duration-200 border border-transparent hover:border-white/30 active:scale-95">
-              <span className="material-symbols-outlined text-2xl">
-                account_circle
-              </span>
-            </button>
             <a
               href="#contact"
-              className="bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white px-5 py-2.5 rounded-full font-bold text-xs tracking-wider shadow-md shadow-[#0072ff]/20 hover:shadow-lg hover:shadow-[#0072ff]/35 transition-all duration-300 hover:scale-105 shine-effect text-center"
+              className="hidden lg:inline-block bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white px-5 py-2.5 rounded-full font-bold text-xs tracking-wider shadow-md shadow-[#0072ff]/20 hover:shadow-lg hover:shadow-[#0072ff]/35 transition-all duration-300 hover:scale-105 shine-effect text-center"
             >
               LIÊN HỆ NGAY
             </a>
@@ -306,10 +296,10 @@ export default function Home() {
             </button>
           </div>
         </div>
-
+ 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="w-full mt-3 px-6 pb-4 flex flex-col gap-4 border-t border-outline-variant/20 pt-4 bg-white rounded-b-3xl">
+          <div className="w-full mt-3 px-6 pb-6 flex flex-col gap-4 pt-2 bg-white rounded-b-3xl">
             <a
               href="#"
               onClick={() => setMobileMenuOpen(false)}
@@ -349,6 +339,13 @@ export default function Home() {
             >
               <span className="material-symbols-outlined">newspaper</span>
               <span>Tin tức</span>
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-2 w-full bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white py-3 rounded-full font-bold text-sm tracking-wider shadow-md shadow-[#0072ff]/20 hover:shadow-lg transition-all duration-300 shine-effect text-center block"
+            >
+              LIÊN HỆ NGAY
             </a>
           </div>
         )}
@@ -1239,7 +1236,7 @@ export default function Home() {
           <div className="floating-blob w-96 h-96 bg-primary/5 bottom-[-100px] right-[-100px] blur-3xl opacity-40"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10 pb-12 border-b border-gray-300">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10 pb-12 border-b border-black/10">
           {/* Cột 1: Logo & Company Description */}
           <div className="lg:col-span-5 space-y-6">
             <div className="font-headline text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 cursor-pointer">
