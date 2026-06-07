@@ -90,7 +90,7 @@ export default function DetailTinTuc() {
       <Header />
 
       <main className="flex-grow pt-32 md:pt-36 lg:pt-40 pb-20">
-        <article className="max-w-4xl mx-auto px-6 space-y-8">
+        <article className="max-w-7xl mx-auto px-6 space-y-8">
           {/* Back button */}
           <Link
             href="/tin-tuc"

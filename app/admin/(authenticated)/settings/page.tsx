@@ -29,7 +29,18 @@ export default function SystemSettingsPage() {
     social_youtube: "",
     social_linkedin: "",
     social_zalo: "",
-    google_maps_url: "",
+    widget_call_show: "1",
+    widget_call_value: "",
+    widget_zalo_show: "1",
+    widget_zalo_value: "",
+    widget_facebook_show: "0",
+    widget_facebook_value: "",
+    widget_messenger_show: "0",
+    widget_messenger_value: "",
+    widget_instagram_show: "0",
+    widget_instagram_value: "",
+    widget_contact_show: "1",
+    widget_contact_value: "",
     seo_meta_title: "",
     seo_meta_description: "",
     google_analytics_id: "",
@@ -71,6 +82,14 @@ export default function SystemSettingsPage() {
     setSettings((prev: any) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setSettings((prev: any) => ({
+      ...prev,
+      [name]: checked ? "1" : "0",
     }));
   };
 
@@ -120,7 +139,7 @@ export default function SystemSettingsPage() {
 
   const tabs = [
     { id: "general", name: "Doanh nghiệp", icon: Building2 },
-    { id: "social", name: "Mạng xã hội & Bản đồ", icon: Share2 },
+    { id: "social", name: "Mạng xã hội & Widget", icon: Share2 },
     { id: "seo", name: "SEO & Google Analytics", icon: Search },
     { id: "advanced", name: "Hệ thống & Script", icon: Sliders },
   ];
@@ -278,12 +297,12 @@ export default function SystemSettingsPage() {
             </div>
           )}
 
-          {/* TAB 2: MẠNG XÃ HỘI & BẢN ĐỒ */}
+          {/* TAB 2: MẠNG XÃ HỘI & WIDGET LIÊN HỆ */}
           {activeTab === "social" && (
             <div className="space-y-4">
               <div className="border-b border-black/5 pb-2">
-                <h4 className="text-base font-bold text-deep-navy">Liên kết Mạng xã hội & Bản đồ Google Maps</h4>
-                <p className="text-xs text-on-surface-variant/80 mt-1">Kết nối các tài khoản MXH và nhúng địa chỉ bản đồ của công ty.</p>
+                <h4 className="text-base font-bold text-deep-navy">Liên kết Mạng xã hội & Widget Liên hệ</h4>
+                <p className="text-xs text-on-surface-variant/80 mt-1">Kết nối các tài khoản MXH và cấu hình hiển thị cho các nút liên hệ nổi góc màn hình.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -292,7 +311,7 @@ export default function SystemSettingsPage() {
                   <input
                     type="url"
                     name="social_facebook"
-                    value={settings.social_facebook}
+                    value={settings.social_facebook || ""}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
                     placeholder="https://facebook.com/company"
@@ -303,7 +322,7 @@ export default function SystemSettingsPage() {
                   <input
                     type="url"
                     name="social_youtube"
-                    value={settings.social_youtube}
+                    value={settings.social_youtube || ""}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
                     placeholder="https://youtube.com/c/company"
@@ -317,7 +336,7 @@ export default function SystemSettingsPage() {
                   <input
                     type="url"
                     name="social_linkedin"
-                    value={settings.social_linkedin}
+                    value={settings.social_linkedin || ""}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
                     placeholder="https://linkedin.com/company/..."
@@ -328,7 +347,7 @@ export default function SystemSettingsPage() {
                   <input
                     type="text"
                     name="social_zalo"
-                    value={settings.social_zalo}
+                    value={settings.social_zalo || ""}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
                     placeholder="0987654321"
@@ -336,20 +355,147 @@ export default function SystemSettingsPage() {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Đường dẫn Nhúng bản đồ Google Maps (Embed URL)</label>
-                <textarea
-                  name="google_maps_url"
-                  value={settings.google_maps_url}
-                  onChange={handleChange}
-                  rows={3}
-                  className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300 font-mono text-[10px]"
-                  placeholder="https://www.google.com/maps/embed?..."
-                />
-                <span className="text-[10px] text-on-surface-variant flex items-center gap-1">
-                  <Info className="w-3.5 h-3.5 shrink-0 text-primary" />
-                  Chỉ dán phần đường dẫn trong thuộc tính <code>src</code> của iframe do Google Maps cung cấp.
-                </span>
+              {/* Phần cấu hình các nút Widget liên hệ nổi */}
+              <div className="border-t border-black/5 pt-4 space-y-4">
+                <h5 className="text-xs sm:text-sm font-black text-deep-navy uppercase tracking-wider pl-1">Cấu hình Widget Liên hệ nổi (Góc dưới bên phải)</h5>
+                
+                {/* 1. Nút Gọi điện */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-red-50/30 border border-red-100 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_call_show"
+                      checked={settings.widget_call_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-red-500 focus:ring-red-400 cursor-pointer"
+                    />
+                    <span>Nút Gọi điện</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="widget_call_value"
+                    value={settings.widget_call_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_call_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Số điện thoại gọi điện (Ví dụ: 0987.654.321)"
+                  />
+                </div>
+
+                {/* 2. Nút Zalo */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-blue-50/20 border border-blue-100/50 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_zalo_show"
+                      checked={settings.widget_zalo_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer"
+                    />
+                    <span>Nút Zalo</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="widget_zalo_value"
+                    value={settings.widget_zalo_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_zalo_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Số điện thoại Zalo (Ví dụ: 0987654321)"
+                  />
+                </div>
+
+                {/* 3. Nút Facebook Page */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-indigo-50/20 border border-indigo-100/50 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_facebook_show"
+                      checked={settings.widget_facebook_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                    />
+                    <span>Nút Facebook</span>
+                  </label>
+                  <input
+                    type="url"
+                    name="widget_facebook_value"
+                    value={settings.widget_facebook_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_facebook_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Link trang Facebook (Ví dụ: https://facebook.com/company)"
+                  />
+                </div>
+
+                {/* 4. Nút Messenger */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-purple-50/20 border border-purple-100/50 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_messenger_show"
+                      checked={settings.widget_messenger_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
+                    />
+                    <span>Nút Messenger</span>
+                  </label>
+                  <input
+                    type="url"
+                    name="widget_messenger_value"
+                    value={settings.widget_messenger_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_messenger_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Link chat Messenger (Ví dụ: https://m.me/username hoặc https://messenger.com/t/...)"
+                  />
+                </div>
+
+                {/* 5. Nút Instagram */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-pink-50/20 border border-pink-100/50 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_instagram_show"
+                      checked={settings.widget_instagram_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-pink-500 focus:ring-pink-400 cursor-pointer"
+                    />
+                    <span>Nút Instagram</span>
+                  </label>
+                  <input
+                    type="url"
+                    name="widget_instagram_value"
+                    value={settings.widget_instagram_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_instagram_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Link tài khoản Instagram (Ví dụ: https://instagram.com/company)"
+                  />
+                </div>
+
+                {/* 6. Nút Hỗ trợ (Nội bộ / Form Contact) */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-teal-50/20 border border-teal-100/50 rounded-2xl">
+                  <label className="flex items-center gap-2 text-xs sm:text-sm font-bold text-deep-navy min-w-[150px] shrink-0 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="widget_contact_show"
+                      checked={settings.widget_contact_show === "1"}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 rounded text-teal-600 focus:ring-teal-500 cursor-pointer"
+                    />
+                    <span>Nút Chat Hỗ Trợ</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="widget_contact_value"
+                    value={settings.widget_contact_value || ""}
+                    onChange={handleChange}
+                    disabled={settings.widget_contact_show !== "1"}
+                    className="flex-grow px-4 py-2 bg-white border border-black/10 rounded-xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:border-primary transition-all disabled:opacity-50 disabled:bg-slate-50"
+                    placeholder="Đường dẫn trang liên hệ (Ví dụ: /#contact hoặc link chat trực tuyến)"
+                  />
+                </div>
               </div>
             </div>
           )}

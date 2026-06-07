@@ -16,6 +16,18 @@ export default function Footer() {
     company_tax_code: "",
     company_working_hours: "",
     social_zalo: "0933663112",
+    widget_call_show: "1",
+    widget_call_value: "093.366.3112",
+    widget_zalo_show: "1",
+    widget_zalo_value: "0933663112",
+    widget_facebook_show: "0",
+    widget_facebook_value: "",
+    widget_messenger_show: "0",
+    widget_messenger_value: "",
+    widget_instagram_show: "0",
+    widget_instagram_value: "",
+    widget_contact_show: "1",
+    widget_contact_value: "/#contact",
   });
 
   useEffect(() => {
@@ -217,60 +229,132 @@ export default function Footer() {
       </footer>
 
       {/* Widget liên hệ nhanh cố định góc dưới bên phải */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3.5 items-end">
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-red-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <a
-            href={`tel:${settings.company_phone.replace(/\./g, "")}`}
-            title="Gọi điện tư vấn"
-            className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg shadow-red-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-ring"
-          >
-            <span className="material-symbols-outlined text-2xl font-bold font-fill">
-              call
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3.5 items-end select-none">
+        {/* 1. Nút Gọi điện */}
+        {settings.widget_call_show === "1" && settings.widget_call_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-red-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <a
+              href={`tel:${settings.widget_call_value.replace(/\./g, "")}`}
+              title="Gọi điện tư vấn"
+              className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg shadow-red-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-ring"
+            >
+              <span className="material-symbols-outlined text-2xl font-bold font-fill">
+                call
+              </span>
+            </a>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Gọi ngay: {settings.widget_call_value}
             </span>
-          </a>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Gọi ngay: {settings.company_phone}
-          </span>
-        </div>
+          </div>
+        )}
 
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <a
-            href={`https://zalo.me/${settings.social_zalo}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Chat Zalo"
-            className="relative flex items-center justify-center w-14 h-14 bg-white border border-blue-100 hover:bg-blue-50 rounded-full shadow-lg shadow-blue-500/20 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden p-2.5"
-          >
-            <Image
-              src="/zalo-icon.svg"
-              alt="Zalo"
-              width={32}
-              height={32}
-              className="object-contain"
-            />
-          </a>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Liên hệ Zalo
-          </span>
-        </div>
-
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
-          <Link
-            href="/#contact"
-            title="Gửi tin nhắn hỗ trợ"
-            className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white rounded-full shadow-lg shadow-blue-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-2xl font-bold font-fill">
-              chat
+        {/* 2. Nút Zalo */}
+        {settings.widget_zalo_show === "1" && settings.widget_zalo_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <a
+              href={`https://zalo.me/${settings.widget_zalo_value}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Chat Zalo"
+              className="relative flex items-center justify-center w-14 h-14 bg-white border border-blue-100 hover:bg-blue-50 rounded-full shadow-lg shadow-blue-500/20 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden p-2.5"
+            >
+              <Image
+                src="/zalo-icon.svg"
+                alt="Zalo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </a>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Liên hệ Zalo
             </span>
-          </Link>
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md">
-            Gửi hỗ trợ trực tuyến
-          </span>
-        </div>
+          </div>
+        )}
+
+        {/* 3. Nút Facebook */}
+        {settings.widget_facebook_show === "1" && settings.widget_facebook_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-blue-600/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <a
+              href={settings.widget_facebook_value}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Ghé thăm Facebook"
+              className="relative flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <svg className="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+              </svg>
+            </a>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Facebook Page
+            </span>
+          </div>
+        )}
+
+        {/* 4. Nút Messenger */}
+        {settings.widget_messenger_show === "1" && settings.widget_messenger_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-violet-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <a
+              href={settings.widget_messenger_value}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Chat Messenger"
+              className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white rounded-full shadow-lg shadow-blue-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-2xl font-bold font-fill">
+                forum
+              </span>
+            </a>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Messenger Chat
+            </span>
+          </div>
+        )}
+
+        {/* 5. Nút Instagram */}
+        {settings.widget_instagram_show === "1" && settings.widget_instagram_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-pink-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <a
+              href={settings.widget_instagram_value}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Ghé thăm Instagram"
+              className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 hover:opacity-90 text-white rounded-full shadow-lg shadow-pink-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <svg className="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Instagram
+            </span>
+          </div>
+        )}
+
+        {/* 6. Nút Hỗ trợ */}
+        {settings.widget_contact_show === "1" && settings.widget_contact_value && (
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
+            <Link
+              href={settings.widget_contact_value}
+              title="Gửi tin nhắn hỗ trợ"
+              className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:from-[#00b2e5] hover:to-[#0066e5] text-white rounded-full shadow-lg shadow-blue-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-2xl font-bold font-fill">
+                chat
+              </span>
+            </Link>
+            <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
+              Gửi hỗ trợ trực tuyến
+            </span>
+          </div>
+        )}
       </div>
     </>
   );
