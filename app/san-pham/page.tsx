@@ -66,7 +66,7 @@ export default function SanPham() {
       <Header />
  
       <main className="flex-grow pt-32">
-        <section className="py-20 px-6 max-w-7xl mx-auto relative">
+        <section className="py-10 px-6 max-w-7xl mx-auto relative">
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div className="floating-blob w-80 h-80 bg-primary/10 top-12 left-10 blur-3xl opacity-50"></div>
           </div>

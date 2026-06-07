@@ -12,7 +12,7 @@ export default function CongNghe() {
  
       <main className="flex-grow pt-32">
         {/* Core AI Section */}
-        <section className="py-20 px-6 max-w-7xl mx-auto relative overflow-hidden">
+        <section className="py-10 px-6 max-w-7xl mx-auto relative overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div className="floating-blob w-96 h-96 bg-primary/10 top-12 left-10 blur-3xl opacity-50"></div>
           </div>
@@ -22,7 +22,7 @@ export default function CongNghe() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
                 <span className="w-2.5 h-2.5 rounded-full bg-primary glow-effect animate-ping"></span>
                 <span className="font-mono text-xs text-primary font-bold uppercase tracking-wider">
-                  [Hệ Thống AI] Mạng Nơ-ron Đang Huấn Luyện
+                  Mạng Nơ-ron Đang Huấn Luyện
                 </span>
               </div>
               <h1 className="font-headline text-4xl sm:text-5xl font-black text-deep-navy leading-tight">
@@ -59,12 +59,12 @@ export default function CongNghe() {
         </section>
  
         {/* Specs Grid */}
-        <section className="bg-gradient-to-br from-surface to-surface-container-low py-20 px-6">
+        <section className="bg-gradient-to-br from-surface to-surface-container-low py-10 px-6">
           <div className="max-w-7xl mx-auto text-center space-y-4 mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
               <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                [Thông Số] Cấu Trúc Kỹ Thuật
+                Cấu Trúc Kỹ Thuật
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">

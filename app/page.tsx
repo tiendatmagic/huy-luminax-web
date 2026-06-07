@@ -215,7 +215,7 @@ export default function Home() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden px-6 py-32 bg-gradient-to-br from-surface via-surface-container-low to-surface">
+        <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden px-6 pt-24 pb-10 bg-gradient-to-br from-surface via-surface-container-low to-surface">
           {/* Ambient Floating Blobs */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div
@@ -320,7 +320,7 @@ export default function Home() {
         {/* Intro / About General Section */}
         <section
           id="intro"
-          className="py-28 px-6 max-w-7xl mx-auto relative reveal"
+          className="py-10 px-6 max-w-7xl mx-auto relative reveal"
         >
           {/* Ambient Blob */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -428,7 +428,7 @@ export default function Home() {
         </section>
 
         {/* AI Bio Detail Section */}
-        <section className="py-28 bg-gradient-to-br from-surface to-surface-container-low px-6 reveal relative overflow-hidden">
+        <section className="py-10 bg-gradient-to-br from-surface to-surface-container-low px-6 reveal relative overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div
               className="floating-blob w-80 h-80 bg-primary/5 top-1/2 left-[80%]"
@@ -488,7 +488,7 @@ export default function Home() {
         {/* Business Areas Section (Bento Grid) */}
         <section
           id="fields"
-          className="py-28 px-6 max-w-7xl mx-auto relative reveal"
+          className="py-10 px-6 max-w-7xl mx-auto relative reveal"
         >
           <div className="text-center mb-20 space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
@@ -558,7 +558,7 @@ export default function Home() {
         {/* AI Neural Network Section */}
         <section
           id="technology"
-          className="py-28 bg-gradient-to-br from-surface via-surface-container-low to-surface px-6 reveal relative overflow-hidden"
+          className="py-10 bg-gradient-to-br from-surface via-surface-container-low to-surface px-6 reveal relative overflow-hidden"
         >
           {/* Ambient Glows */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -644,12 +644,12 @@ export default function Home() {
         </section>
 
         {/* Bento Grid: Specs & Real-world Applications */}
-        <section className="py-28 px-6 max-w-7xl mx-auto relative reveal">
+        <section className="py-10 px-6 max-w-7xl mx-auto relative reveal">
           <div className="mb-20 text-center lg:text-left space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
               <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
-                [Thông Số Kỹ Thuật] Ứng Dụng &amp; Kỹ Thuật
+                Ứng Dụng &amp; Kỹ Thuật
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-headline font-black text-deep-navy">
@@ -837,7 +837,7 @@ export default function Home() {
         {/* Products Section */}
         <section
           id="products"
-          className="py-28 px-6 max-w-7xl mx-auto relative reveal"
+          className="py-10 px-6 max-w-7xl mx-auto relative reveal"
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-6">
             <div className="space-y-4 text-left">
@@ -934,7 +934,7 @@ export default function Home() {
         {/* News & Events Section */}
         <section
           id="news"
-          className="py-28 px-6 max-w-7xl mx-auto relative reveal"
+          className="py-10 px-6 max-w-7xl mx-auto relative reveal"
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-6">
             <div className="space-y-4 text-left">
@@ -1029,7 +1029,7 @@ export default function Home() {
         </section>
 
         {/* FAQs Section */}
-        <section className="py-28 px-6 max-w-7xl mx-auto relative reveal">
+        <section className="py-10 px-6 max-w-7xl mx-auto relative reveal">
           <div className="text-center mb-20 space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
