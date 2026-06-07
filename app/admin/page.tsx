@@ -31,6 +31,12 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
+        console.error("[LỖI ĐĂNG NHẬP HỆ THỐNG]: Đăng nhập thất bại.", {
+          url: res.url,
+          status: res.status,
+          statusText: res.statusText,
+          errorResponse: data
+        });
         throw new Error(data.message || "Tài khoản hoặc mật khẩu không chính xác.");
       }
 
@@ -38,6 +44,7 @@ export default function AdminLoginPage() {
       router.push("/admin/dashboard");
       router.refresh();
     } catch (err: any) {
+      console.error("[LỖI EXCEPTION ĐĂNG NHẬP]:", err);
       setError(err.message || "Đã xảy ra lỗi kết nối, vui lòng thử lại.");
     } finally {
       setIsLoading(false);
