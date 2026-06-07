@@ -21,6 +21,16 @@ export async function GET(
       post.image = `${process.env.LARAVEL_API_URL}${post.image}`;
     }
 
+    // Map relative image URLs for related posts if needed
+    if (post && Array.isArray(post.related_posts)) {
+      post.related_posts = post.related_posts.map((relatedPost: any) => {
+        if (relatedPost.image && relatedPost.image.startsWith("/")) {
+          relatedPost.image = `${process.env.LARAVEL_API_URL}${relatedPost.image}`;
+        }
+        return relatedPost;
+      });
+    }
+
     return NextResponse.json(post);
   } catch (err) {
     console.error("Public post detail fetch error:", err);
