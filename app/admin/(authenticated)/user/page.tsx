@@ -418,7 +418,7 @@ export default function UserManagementPage() {
             <form onSubmit={handleCreateMember} className="space-y-4">
               {/* Fullname Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Họ tên (Không bắt buộc)
                 </label>
                 <div className="relative group">
@@ -436,7 +436,7 @@ export default function UserManagementPage() {
               </div>
               {/* Name Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên thành viên (Username)
                 </label>
                 <div className="relative group">
@@ -456,7 +456,7 @@ export default function UserManagementPage() {
 
               {/* Email Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Email đăng nhập
                 </label>
                 <div className="relative group">
@@ -476,7 +476,7 @@ export default function UserManagementPage() {
 
               {/* Password Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu khởi tạo
                 </label>
                 <div className="relative group">
@@ -562,7 +562,7 @@ export default function UserManagementPage() {
             <form onSubmit={handleEditMember} className="space-y-4">
               {/* Fullname Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Họ tên (Không bắt buộc)
                 </label>
                 <div className="relative group">
@@ -581,7 +581,7 @@ export default function UserManagementPage() {
 
               {/* Name Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên thành viên (Username)
                 </label>
                 <div className="relative group">
@@ -601,7 +601,7 @@ export default function UserManagementPage() {
 
               {/* Email Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Email đăng nhập
                 </label>
                 <div className="relative group">
@@ -621,7 +621,7 @@ export default function UserManagementPage() {
 
               {/* Password Input */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu mới (Để trống nếu không đổi)
                 </label>
                 <div className="relative group">

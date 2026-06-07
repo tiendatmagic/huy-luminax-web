@@ -319,7 +319,7 @@ export default function ProductCategoryManagementPage() {
  
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên danh mục
                 </label>
                 <input
@@ -333,7 +333,7 @@ export default function ProductCategoryManagementPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Đường dẫn tĩnh (Slug)
                 </label>
                 <input
@@ -346,7 +346,7 @@ export default function ProductCategoryManagementPage() {
               </div>
  
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mô tả danh mục
                 </label>
                 <textarea

@@ -712,7 +712,7 @@ export default function ProductManagementPage() {
                   {/* Name & Slug */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Tên sản phẩm / Dịch vụ <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -725,7 +725,7 @@ export default function ProductManagementPage() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Đường dẫn tĩnh (Slug)
                       </label>
                       <input
@@ -741,7 +741,7 @@ export default function ProductManagementPage() {
                   {/* Prices & SKU */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Mã SKU (Sản phẩm)
                       </label>
                       <input
@@ -753,7 +753,7 @@ export default function ProductManagementPage() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Giá bán (VNĐ)
                       </label>
                       <input
@@ -766,7 +766,7 @@ export default function ProductManagementPage() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Giá gốc (Thị trường)
                       </label>
                       <input
@@ -782,7 +782,7 @@ export default function ProductManagementPage() {
 
                   {/* Short Description */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Mô tả ngắn sản phẩm
                     </label>
                     <textarea
@@ -799,7 +799,7 @@ export default function ProductManagementPage() {
                 <div className="space-y-4">
                   {/* Category Selection */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Danh mục sản phẩm
                     </label>
                     <select
@@ -818,7 +818,7 @@ export default function ProductManagementPage() {
 
                   {/* Featured Image */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Ảnh đại diện sản phẩm
                     </label>
                     <div className="flex items-center gap-3">
@@ -868,7 +868,7 @@ export default function ProductManagementPage() {
                   {/* Cấu hình hiển thị */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Kho hàng
                       </label>
                       <select
@@ -881,7 +881,7 @@ export default function ProductManagementPage() {
                       </select>
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Trạng thái
                       </label>
                       <select
@@ -960,7 +960,7 @@ export default function ProductManagementPage() {
 
               {/* Rich Text Editor */}
               <div className="space-y-3 border-t border-black/5 pt-4">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mô tả chi tiết sản phẩm
                 </label>
                 <div className="border border-black/10 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300">

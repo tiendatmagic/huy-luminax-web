@@ -193,7 +193,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Website <span className="text-red-500">*</span></label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Tên Website <span className="text-red-500">*</span></label>
                   <input
                     type="text"
                     required
@@ -205,7 +205,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Công ty <span className="text-red-500">*</span></label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Tên Công ty <span className="text-red-500">*</span></label>
                   <input
                     type="text"
                     required
@@ -219,7 +219,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Slogan / Giới thiệu ngắn</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Slogan / Giới thiệu ngắn</label>
                 <textarea
                   name="site_slogan"
                   value={settings.site_slogan}
@@ -231,7 +231,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Địa chỉ trụ sở <span className="text-red-500">*</span></label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Địa chỉ trụ sở <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   required
@@ -245,7 +245,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Hotline liên hệ <span className="text-red-500">*</span></label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Hotline liên hệ <span className="text-red-500">*</span></label>
                   <input
                     type="text"
                     required
@@ -257,7 +257,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Email chính thức <span className="text-red-500">*</span></label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Email chính thức <span className="text-red-500">*</span></label>
                   <input
                     type="email"
                     required
@@ -272,7 +272,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã số thuế</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Mã số thuế</label>
                   <input
                     type="text"
                     name="company_tax_code"
@@ -283,7 +283,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Giờ làm việc</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Giờ làm việc</label>
                   <input
                     type="text"
                     name="company_working_hours"
@@ -307,7 +307,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Facebook Page</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Facebook Page</label>
                   <input
                     type="url"
                     name="social_facebook"
@@ -318,7 +318,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">YouTube Channel</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">YouTube Channel</label>
                   <input
                     type="url"
                     name="social_youtube"
@@ -332,7 +332,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">LinkedIn Company</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">LinkedIn Company</label>
                   <input
                     type="url"
                     name="social_linkedin"
@@ -343,7 +343,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số điện thoại Zalo</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Số điện thoại Zalo</label>
                   <input
                     type="text"
                     name="social_zalo"
@@ -509,7 +509,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tiêu đề SEO Trang chủ (Meta Title)</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Tiêu đề SEO Trang chủ (Meta Title)</label>
                 <input
                   type="text"
                   name="seo_meta_title"
@@ -521,7 +521,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mô tả SEO Trang chủ (Meta Description)</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Mô tả SEO Trang chủ (Meta Description)</label>
                 <textarea
                   name="seo_meta_description"
                   value={settings.seo_meta_description}
@@ -533,7 +533,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Google Analytics ID (G-XXXXXXX)</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Google Analytics ID (G-XXXXXXX)</label>
                 <input
                   type="text"
                   name="google_analytics_id"
@@ -556,7 +556,7 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Chế độ bảo trì hệ thống</label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Chế độ bảo trì hệ thống</label>
                   <select
                     name="maintenance_mode"
                     value={settings.maintenance_mode}
@@ -569,7 +569,7 @@ export default function SystemSettingsPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số bài viết mỗi trang (Pagination) <span className="text-red-500">*</span></label>
+                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Số bài viết mỗi trang (Pagination) <span className="text-red-500">*</span></label>
                   <input
                     type="number"
                     required
@@ -585,7 +585,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Header (Chèn trong thẻ &lt;head&gt;)</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Header (Chèn trong thẻ &lt;head&gt;)</label>
                 <textarea
                   name="custom_header_scripts"
                   value={settings.custom_header_scripts || ""}
@@ -597,7 +597,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Footer (Chèn trước thẻ &lt;/body&gt;)</label>
+                <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Footer (Chèn trước thẻ &lt;/body&gt;)</label>
                 <textarea
                   name="custom_footer_scripts"
                   value={settings.custom_footer_scripts || ""}

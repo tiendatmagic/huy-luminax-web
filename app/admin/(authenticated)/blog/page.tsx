@@ -547,7 +547,7 @@ export default function BlogManagementPage() {
                   {/* Title & Slug */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Tiêu đề bài viết
                       </label>
                       <input
@@ -560,7 +560,7 @@ export default function BlogManagementPage() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                      <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Đường dẫn tĩnh (Slug)
                       </label>
                       <input
@@ -575,7 +575,7 @@ export default function BlogManagementPage() {
 
                   {/* Excerpt */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Trích dẫn ngắn (Excerpt)
                     </label>
                     <textarea
@@ -592,7 +592,7 @@ export default function BlogManagementPage() {
                 <div className="space-y-4">
                   {/* Category Selection */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Danh mục bài viết
                     </label>
                     <select
@@ -611,7 +611,7 @@ export default function BlogManagementPage() {
 
                   {/* Featured Image */}
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                    <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Ảnh đại diện bài viết
                     </label>
                     <div className="flex items-center gap-3">
@@ -661,7 +661,7 @@ export default function BlogManagementPage() {
 
               {/* Rich Text Editor */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Nội dung chi tiết bài viết
                 </label>
                 

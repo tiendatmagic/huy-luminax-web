@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
             <div className="space-y-3">
               <label
                 htmlFor="username"
-                className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
+                className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
               >
                 Tên tài khoản hoặc Email
               </label>
@@ -122,7 +122,7 @@ export default function AdminLoginPage() {
             <div className="space-y-3">
               <label
                 htmlFor="password"
-                className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
+                className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1"
               >
                 Mật khẩu
               </label>

@@ -130,7 +130,7 @@ export default function AdminProfilePage() {
         <form onSubmit={handleUpdateProfile} className="space-y-5">
           {/* Name Input */}
           <div className="space-y-3">
-            <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+            <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
               Tên hiển thị
             </label>
             <div className="relative group">
@@ -150,7 +150,7 @@ export default function AdminProfilePage() {
 
           {/* Email Input */}
           <div className="space-y-3">
-            <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+            <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
               Địa chỉ Email
             </label>
             <div className="relative group">
@@ -174,7 +174,7 @@ export default function AdminProfilePage() {
             
             {/* Mật khẩu cũ */}
             <div className="space-y-3">
-              <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+              <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                 Mật khẩu hiện tại (Cũ)
               </label>
               <div className="relative group">
@@ -201,7 +201,7 @@ export default function AdminProfilePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Mật khẩu mới */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu mới
                 </label>
                 <div className="relative group">
@@ -227,7 +227,7 @@ export default function AdminProfilePage() {
 
               {/* Xác nhận mật khẩu */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                <label className="block text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Xác nhận mật khẩu mới
                 </label>
                 <div className="relative group">
