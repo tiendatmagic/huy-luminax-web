@@ -10,7 +10,7 @@ export default function CongNghe() {
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary">
       <Header />
  
-      <main className="flex-grow pt-32">
+      <main className="flex-grow pt-32 md:pt-36 lg:pt-40">
         {/* Core AI Section */}
         <section className="py-10 px-6 max-w-7xl mx-auto relative overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

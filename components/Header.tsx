@@ -43,7 +43,7 @@ export default function Header() {
  
   return (
     <header
-      className={`fixed inset-x-6 sm:inset-x-8 md:inset-x-12 lg:inset-x-16 mx-auto w-auto max-w-7xl z-50 flex flex-col justify-between items-center rounded-3xl border border-white/40 shadow-lg transition-all duration-500 ease-out ${
+      className={`fixed inset-x-6 sm:inset-x-8 md:inset-x-12 lg:inset-x-8 xl:inset-x-16 mx-auto w-auto max-w-7xl z-50 flex flex-col justify-between items-center rounded-3xl border border-white/40 shadow-lg transition-all duration-500 ease-out ${
         isScrolled
           ? "top-3 py-2 bg-surface/85 backdrop-blur-xl shadow-xl border-primary/10"
           : "top-6 py-3 bg-white/60 backdrop-blur-xl"
@@ -62,7 +62,7 @@ export default function Header() {
         </Link>
  
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 font-semibold text-sm">
+        <nav className="hidden lg:flex items-center gap-3 xl:gap-6 font-semibold">
           {menuItems.map((item) => (
             <Link
               key={item.href}
@@ -73,10 +73,10 @@ export default function Header() {
                   : "text-on-surface-variant hover:text-primary"
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">
+              <span className="material-symbols-outlined text-[18px] hidden xl:inline-block">
                 {item.icon}
               </span>
-              <span>{item.name}</span>
+              <span className="text-xs xl:text-sm whitespace-nowrap">{item.name}</span>
             </Link>
           ))}
         </nav>

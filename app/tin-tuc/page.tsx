@@ -44,7 +44,7 @@ export default function TinTuc() {
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary">
       <Header />
  
-      <main className="flex-grow pt-32">
+      <main className="flex-grow pt-32 md:pt-36 lg:pt-40">
         <section className="py-10 px-6 max-w-7xl mx-auto relative">
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div className="floating-blob w-80 h-80 bg-primary/10 top-12 left-10 blur-3xl opacity-50"></div>

@@ -215,7 +215,7 @@ export default function Home() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden px-6 pt-24 pb-10 bg-gradient-to-br from-surface via-surface-container-low to-surface">
+        <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden px-6 pt-32 md:pt-36 lg:pt-40 pb-10 bg-gradient-to-br from-surface via-surface-container-low to-surface">
           {/* Ambient Floating Blobs */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div
