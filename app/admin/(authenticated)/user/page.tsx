@@ -640,7 +640,7 @@ export default function UserManagementPage() {
             <div>
               <h4 className="text-base font-bold text-deep-navy">Xoá thành viên?</h4>
               <p className="text-xs font-semibold text-on-surface-variant leading-relaxed mt-1">
-                Bạn có chắc chắn muốn xoá tài khoản admin **{memberToDelete.name}** ({memberToDelete.email})? Hành động này không thể hoàn tác.
+                Bạn có chắc chắn muốn xoá tài khoản admin <span className="font-bold">{memberToDelete.name}</span> ({memberToDelete.email})? Hành động này không thể hoàn tác.
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2">

@@ -139,13 +139,12 @@ export default function AuthenticatedLayout({
       href: "/admin/dashboard",
     },
     { id: "user", name: "Thành viên", icon: User, href: "/admin/user" },
-    // {
-    //   id: "products",
-    //   name: "Sản phẩm",
-    //   icon: ShoppingBag,
-    //   href: "#",
-    //   disabled: true,
-    // },
+    {
+      id: "products",
+      name: "Sản phẩm",
+      icon: ShoppingBag,
+      href: "/admin/product",
+    },
     { id: "blog", name: "Bài viết", icon: FileText, href: "/admin/blog" },
     {
       id: "blog-category",
@@ -358,6 +357,7 @@ export default function AuthenticatedLayout({
                   "Quản lý thành viên"}
                 {pathname === "/admin/profile" && "Thông tin cá nhân"}
                 {pathname === "/admin/settings" && "Cài đặt hệ thống"}
+                {pathname.startsWith("/admin/product") && "Quản lý sản phẩm & dịch vụ"}
               </h2>
               <p className="text-xs font-semibold text-on-surface-variant/70 hidden sm:block">
                 Hệ thống quản trị và xác thực

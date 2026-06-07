@@ -466,3 +466,118 @@ body.admin-maintenance-banner-active {
   color: #f1f5f9 !important;
 }
 
+/* Khắc phục đường viền trắng và màu sắc Quill Editor trong Dark Mode */
+.dark-mode-admin .ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark-mode-admin .ql-container.ql-snow {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+/* Biểu tượng và text trên thanh công cụ editor */
+.dark-mode-admin .ql-snow .ql-stroke {
+  stroke: #cbd5e1 !important;
+}
+
+.dark-mode-admin .ql-snow .ql-fill {
+  fill: #cbd5e1 !important;
+}
+
+.dark-mode-admin .ql-snow .ql-picker {
+  color: #cbd5e1 !important;
+}
+
+.dark-mode-admin .ql-snow .ql-picker-options {
+  background-color: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+}
+
+.dark-mode-admin .ql-snow .ql-picker-item {
+  color: #cbd5e1 !important;
+}
+
+.dark-mode-admin .ql-snow .ql-picker-item:hover,
+.dark-mode-admin .ql-snow .ql-picker-item.ql-selected {
+  color: #00b3ff !important;
+}
+
+.dark-mode-admin .ql-snow.ql-toolbar button:hover,
+.dark-mode-admin .ql-snow .ql-toolbar button:hover,
+.dark-mode-admin .ql-snow.ql-toolbar button.ql-active,
+.dark-mode-admin .ql-snow .ql-toolbar button.ql-active,
+.dark-mode-admin .ql-snow.ql-toolbar .ql-picker-label:hover,
+.dark-mode-admin .ql-snow .ql-picker-label:hover,
+.dark-mode-admin .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.dark-mode-admin .ql-snow .ql-picker-label.ql-active {
+  color: #00b3ff !important;
+}
+
+.dark-mode-admin .ql-snow.ql-toolbar button:hover .ql-stroke,
+.dark-mode-admin .ql-snow .ql-toolbar button:hover .ql-stroke,
+.dark-mode-admin .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.dark-mode-admin .ql-snow .ql-toolbar button.ql-active .ql-stroke {
+  stroke: #00b3ff !important;
+}
+
+.dark-mode-admin .ql-snow.ql-toolbar button:hover .ql-fill,
+.dark-mode-admin .ql-snow .ql-toolbar button:hover .ql-fill,
+.dark-mode-admin .ql-snow.ql-toolbar button.ql-active .ql-fill,
+.dark-mode-admin .ql-snow .ql-toolbar button.ql-active .ql-fill {
+  fill: #00b3ff !important;
+}
+
+.dark-mode-admin .ql-editor.ql-blank::before {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.dark-mode-admin .ql-editor {
+  color: #f1f5f9 !important;
+}
+
+/* Tinh chỉnh màu nhãn trạng thái kho và trạng thái hiển thị trong Dark Mode */
+.dark-mode-admin .text-green-700 {
+  color: #4ade80 !important;
+}
+.dark-mode-admin .border-green-200 {
+  border-color: rgba(74, 222, 128, 0.3) !important;
+}
+.dark-mode-admin .bg-green-500\/10 {
+  background-color: rgba(74, 222, 128, 0.1) !important;
+}
+
+.dark-mode-admin .text-red-700 {
+  color: #f87171 !important;
+}
+.dark-mode-admin .border-red-200 {
+  border-color: rgba(248, 113, 113, 0.3) !important;
+}
+.dark-mode-admin .bg-red-500\/10 {
+  background-color: rgba(248, 113, 113, 0.1) !important;
+}
+
+.dark-mode-admin .text-blue-700 {
+  color: #60a5fa !important;
+}
+.dark-mode-admin .border-blue-200 {
+  border-color: rgba(96, 165, 250, 0.3) !important;
+}
+.dark-mode-admin .bg-blue-500\/10 {
+  background-color: rgba(96, 165, 250, 0.1) !important;
+}
+
+.dark-mode-admin .text-slate-700 {
+  color: #94a3b8 !important;
+}
+.dark-mode-admin .border-slate-200 {
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+.dark-mode-admin .bg-slate-500\/10 {
+  background-color: rgba(148, 163, 184, 0.1) !important;
+}
+
+

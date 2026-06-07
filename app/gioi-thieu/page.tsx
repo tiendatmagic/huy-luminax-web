@@ -1,15 +1,15 @@
 "use client";
- 
+
 import React from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
- 
+
 export default function GioiThieu() {
   return (
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary">
       <Header />
- 
+
       <main className="flex-grow pt-32 md:pt-36 lg:pt-40">
         {/* Intro Hero Section */}
         <section className="relative py-10 px-6 max-w-7xl mx-auto overflow-hidden">
@@ -18,7 +18,7 @@ export default function GioiThieu() {
             <div className="floating-blob w-80 h-80 bg-primary/10 top-12 left-10 blur-3xl opacity-50"></div>
             <div className="floating-blob w-96 h-96 bg-secondary/10 bottom-10 right-10 blur-3xl opacity-50"></div>
           </div>
- 
+
           <div className="relative z-10 grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6 text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
@@ -34,13 +34,21 @@ export default function GioiThieu() {
                 </span>
               </h1>
               <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
-                CÔNG TY TNHH HUY LUMINAX ra đời với khát vọng kiến tạo một hệ sinh thái sản phẩm tiêu dùng sạch, an toàn kết hợp nghiên cứu hóa sinh xanh bền vững. Bằng việc tiên phong ứng dụng trí tuệ nhân tạo Luminax AI vào tự động hóa và phân tích dữ liệu, chúng tôi cam kết kiểm soát độ tinh khiết tối đa trên từng đơn vị sản phẩm.
+                CÔNG TY TNHH HUY LUMINAX ra đời với khát vọng kiến tạo một Sản
+                Phẩm Nổi Bật tiêu dùng sạch, an toàn kết hợp nghiên cứu hóa sinh
+                xanh bền vững. Bằng việc tiên phong ứng dụng trí tuệ nhân tạo
+                Luminax AI vào tự động hóa và phân tích dữ liệu, chúng tôi cam
+                kết kiểm soát độ tinh khiết tối đa trên từng đơn vị sản phẩm.
               </p>
               <p className="text-xs sm:text-sm md:text-base text-on-surface-variant leading-relaxed">
-                Hành trình của chúng tôi bắt đầu từ Nha Trang - Khánh Hòa, nơi hội tụ nguồn lực hóa sinh tiềm năng và định hướng phát triển công nghệ cao. Với đội ngũ chuyên gia tận tụy, chúng tôi đang không ngừng hoàn thiện chuỗi giá trị từ nghiên cứu R&amp;D đến tay người tiêu dùng B2B và B2C.
+                Hành trình của chúng tôi bắt đầu từ Nha Trang - Khánh Hòa, nơi
+                hội tụ nguồn lực hóa sinh tiềm năng và định hướng phát triển
+                công nghệ cao. Với đội ngũ chuyên gia tận tụy, chúng tôi đang
+                không ngừng hoàn thiện chuỗi giá trị từ nghiên cứu R&amp;D đến
+                tay người tiêu dùng B2B và B2C.
               </p>
             </div>
- 
+
             {/* Visual Image */}
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-vibrant-blue/10 rounded-[2rem] blur-2xl opacity-40"></div>
@@ -58,7 +66,7 @@ export default function GioiThieu() {
             </div>
           </div>
         </section>
- 
+
         {/* Core Values Section */}
         <section className="bg-gradient-to-br from-surface to-surface-container-low py-10 px-6">
           <div className="max-w-7xl mx-auto text-center space-y-4 mb-16">
@@ -72,10 +80,11 @@ export default function GioiThieu() {
               Giá Trị Cốt Lõi
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-              Những nguyên tắc nền tảng định hình văn hóa làm việc và cam kết của Huy Luminax đối với xã hội.
+              Những nguyên tắc nền tảng định hình văn hóa làm việc và cam kết
+              của Huy Luminax đối với xã hội.
             </p>
           </div>
- 
+
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Value 1 */}
             <div className="glass-premium glowing-card rounded-[2rem] p-8 hover:shadow-2xl transition-all duration-500 flex flex-col items-start text-left">
@@ -84,9 +93,12 @@ export default function GioiThieu() {
                   verified
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-deep-navy mb-3">Chất Lượng Tuyệt Đối</h3>
+              <h3 className="text-xl font-bold text-deep-navy mb-3">
+                Chất Lượng Tuyệt Đối
+              </h3>
               <p className="text-sm text-on-surface-variant leading-relaxed">
-                Độ tinh khiết và an toàn được kiểm tra nghiêm ngặt thông qua các thiết bị Edge AI và Computer Vision tự động theo thời gian thực.
+                Độ tinh khiết và an toàn được kiểm tra nghiêm ngặt thông qua các
+                thiết bị Edge AI và Computer Vision tự động theo thời gian thực.
               </p>
             </div>
             {/* Value 2 */}
@@ -96,9 +108,12 @@ export default function GioiThieu() {
                   eco
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-deep-navy mb-3">Phát Triển Xanh</h3>
+              <h3 className="text-xl font-bold text-deep-navy mb-3">
+                Phát Triển Xanh
+              </h3>
               <p className="text-sm text-on-surface-variant leading-relaxed">
-                Ưu tiên sử dụng nguyên liệu sinh học tự nhiên, quy trình xử lý không rác thải và thân thiện tuyệt đối với môi trường.
+                Ưu tiên sử dụng nguyên liệu sinh học tự nhiên, quy trình xử lý
+                không rác thải và thân thiện tuyệt đối với môi trường.
               </p>
             </div>
             {/* Value 3 */}
@@ -108,15 +123,18 @@ export default function GioiThieu() {
                   psychology
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-deep-navy mb-3">Sáng Tạo Đột Phá</h3>
+              <h3 className="text-xl font-bold text-deep-navy mb-3">
+                Sáng Tạo Đột Phá
+              </h3>
               <p className="text-sm text-on-surface-variant leading-relaxed">
-                Nghiên cứu sâu rộng và liên tục cải tiến quy trình hóa sinh bằng việc áp dụng các mô hình Machine Learning thế hệ mới.
+                Nghiên cứu sâu rộng và liên tục cải tiến quy trình hóa sinh bằng
+                việc áp dụng các mô hình Machine Learning thế hệ mới.
               </p>
             </div>
           </div>
         </section>
       </main>
- 
+
       <Footer />
     </div>
   );

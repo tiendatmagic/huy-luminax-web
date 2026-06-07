@@ -45,6 +45,7 @@ export default function BlogManagementPage() {
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   
   const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
   const [categoryId, setCategoryId] = useState<string>("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
@@ -251,6 +252,7 @@ export default function BlogManagementPage() {
         },
         body: JSON.stringify({
           title: title.trim(),
+          slug: slug.trim() || null,
           category_id: categoryId ? parseInt(categoryId) : null,
           excerpt: excerpt.trim() || null,
           content: content.trim() || null,
@@ -270,6 +272,7 @@ export default function BlogManagementPage() {
       });
       setIsModalOpen(false);
       setTitle("");
+      setSlug("");
       setCategoryId("");
       setExcerpt("");
       setContent("");
@@ -332,6 +335,7 @@ export default function BlogManagementPage() {
             onClick={() => {
               setMessage(null);
               setTitle("");
+              setSlug("");
               setCategoryId("");
               setExcerpt("");
               setContent("");
@@ -435,6 +439,7 @@ export default function BlogManagementPage() {
                           setMessage(null);
                           setEditingPost(post);
                           setTitle(post.title);
+                          setSlug(post.slug || "");
                           setCategoryId(post.category_id ? post.category_id.toString() : "");
                           setExcerpt(post.excerpt || "");
                           setContent(post.content || "");
@@ -529,19 +534,33 @@ export default function BlogManagementPage() {
                 
                 {/* Cột trái: Tiêu đề, danh mục, tóm tắt */}
                 <div className="md:col-span-2 space-y-4">
-                  {/* Title */}
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
-                      Tiêu đề bài viết
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      placeholder="Nhập tiêu đề hấp dẫn..."
-                      className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
-                    />
+                  {/* Title & Slug */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                        Tiêu đề bài viết
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Nhập tiêu đề hấp dẫn..."
+                        className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                        Đường dẫn tĩnh (Slug)
+                      </label>
+                      <input
+                        type="text"
+                        value={slug}
+                        onChange={(e) => setSlug(e.target.value)}
+                        placeholder="Ví dụ: tin-tuc-moi (để trống sẽ tự tạo)"
+                        className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                      />
+                    </div>
                   </div>
 
                   {/* Excerpt */}
@@ -683,7 +702,7 @@ export default function BlogManagementPage() {
             <div>
               <h4 className="text-base font-bold text-deep-navy">Xoá bài viết?</h4>
               <p className="text-xs font-semibold text-on-surface-variant leading-relaxed mt-1">
-                Bạn có chắc chắn muốn xoá bài viết **{postToDelete.title}**? Dữ liệu bài viết này sẽ bị xoá vĩnh viễn khỏi hệ thống.
+                Bạn có chắc chắn muốn xoá bài viết <span className="font-bold">{postToDelete.title}</span>? Dữ liệu bài viết này sẽ bị xoá vĩnh viễn khỏi hệ thống.
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2">

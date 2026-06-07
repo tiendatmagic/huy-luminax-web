@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import React, { useState, useEffect } from "react";
 import {
   FolderOpen,
@@ -11,68 +11,70 @@ import {
   X,
   Loader2,
 } from "lucide-react";
-
-interface Category {
+ 
+interface ProductCategory {
   id: number;
   name: string;
   slug: string;
-  posts_count?: number;
+  description?: string;
+  products_count?: number;
   created_at: string;
 }
-
-export default function CategoryManagementPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
+ 
+export default function ProductCategoryManagementPage() {
+  const [categories, setCategories] = useState<ProductCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const categoriesPerPage = 10;
-
+ 
   // States cho Modal Thêm/Sửa
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editingCategory, setEditingCategory] = useState<ProductCategory | null>(null);
   const [categoryName, setCategoryName] = useState("");
+  const [categoryDesc, setCategoryDesc] = useState("");
   const [categorySlug, setCategorySlug] = useState("");
   
   const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
-  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(null);
-
+  const [categoryToDelete, setCategoryToDelete] = useState<ProductCategory | null>(null);
+ 
   // Fetch danh sách danh mục
   const fetchCategories = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/auth/categories");
+      const res = await fetch("/api/auth/product-categories");
       if (res.ok) {
         const data = await res.json();
         setCategories(data);
         setCurrentPage(1);
       }
     } catch (err) {
-      console.error("Lỗi lấy danh mục:", err);
+      console.error("Lỗi lấy danh mục sản phẩm:", err);
     } finally {
       setIsLoading(false);
     }
   };
-
+ 
   useEffect(() => {
     fetchCategories();
   }, []);
-
+ 
   // Submit form thêm hoặc sửa danh mục
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
-
+ 
     if (!categoryName.trim()) {
       setMessage({ text: "Tên danh mục không được để trống.", isError: true });
       return;
     }
-
+ 
     setActionLoading(true);
     try {
       const isEdit = !!editingCategory;
-      const url = isEdit ? `/api/auth/categories/${editingCategory.id}` : "/api/auth/categories";
+      const url = isEdit ? `/api/auth/product-categories/${editingCategory.id}` : "/api/auth/product-categories";
       const method = isEdit ? "PUT" : "POST";
-
+ 
       const res = await fetch(url, {
         method,
         headers: {
@@ -80,16 +82,17 @@ export default function CategoryManagementPage() {
         },
         body: JSON.stringify({ 
           name: categoryName.trim(),
-          slug: categorySlug.trim() || null
+          slug: categorySlug.trim() || null,
+          description: categoryDesc.trim() 
         }),
       });
-
+ 
       const data = await res.json();
-
+ 
       if (!res.ok) {
         throw new Error(data.message || "Có lỗi xảy ra khi xử lý danh mục.");
       }
-
+ 
       setMessage({
         text: isEdit ? "Đã cập nhật danh mục thành công!" : "Đã thêm danh mục mới thành công!",
         isError: false,
@@ -97,6 +100,7 @@ export default function CategoryManagementPage() {
       setIsModalOpen(false);
       setCategoryName("");
       setCategorySlug("");
+      setCategoryDesc("");
       setEditingCategory(null);
       fetchCategories();
     } catch (err: any) {
@@ -105,24 +109,24 @@ export default function CategoryManagementPage() {
       setActionLoading(false);
     }
   };
-
+ 
   // Xoá danh mục
   const handleDelete = async () => {
     if (!categoryToDelete) return;
     setMessage(null);
     setActionLoading(true);
-
+ 
     try {
-      const res = await fetch(`/api/auth/categories/${categoryToDelete.id}`, {
+      const res = await fetch(`/api/auth/product-categories/${categoryToDelete.id}`, {
         method: "DELETE",
       });
-
+ 
       const data = await res.json();
-
+ 
       if (!res.ok) {
         throw new Error(data.message || "Xoá danh mục thất bại.");
       }
-
+ 
       setMessage({ text: "Đã xoá danh mục thành công.", isError: false });
       setCategoryToDelete(null);
       fetchCategories();
@@ -133,29 +137,30 @@ export default function CategoryManagementPage() {
       setActionLoading(false);
     }
   };
-
+ 
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
   const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory);
   const totalPages = Math.ceil(categories.length / categoriesPerPage);
-
+ 
   return (
     <div className="p-6 md:p-8 space-y-6">
       <div className="w-full bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-black/5 pb-4 gap-4 flex-wrap">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold text-deep-navy">Danh mục bài viết</h3>
+            <h3 className="text-lg font-bold text-deep-navy">Danh mục sản phẩm</h3>
             <span className="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/25">
               {categories.length} Danh mục
             </span>
           </div>
-
+ 
           <button
             onClick={() => {
               setMessage(null);
               setCategoryName("");
               setCategorySlug("");
+              setCategoryDesc("");
               setEditingCategory(null);
               setIsModalOpen(true);
             }}
@@ -165,7 +170,7 @@ export default function CategoryManagementPage() {
             Thêm danh mục
           </button>
         </div>
-
+ 
         {/* Thông báo */}
         {message && (
           <div className={`flex items-start gap-2.5 border text-sm font-semibold p-4 rounded-2xl ${
@@ -181,15 +186,15 @@ export default function CategoryManagementPage() {
             <span>{message.text}</span>
           </div>
         )}
-
+ 
         {isLoading ? (
           <div className="py-12 flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            <p className="text-xs font-semibold text-on-surface-variant">Đang tải danh mục bài viết...</p>
+            <p className="text-xs font-semibold text-on-surface-variant">Đang tải danh mục sản phẩm...</p>
           </div>
         ) : categories.length === 0 ? (
           <div className="py-16 text-center text-on-surface-variant font-semibold text-sm">
-            Chưa có danh mục nào được tạo.
+            Chưa có danh mục sản phẩm nào được tạo.
           </div>
         ) : (
           <div className="overflow-x-auto scrollbar-none">
@@ -198,7 +203,8 @@ export default function CategoryManagementPage() {
                 <tr className="border-b border-black/5 text-xs font-bold text-on-surface-variant uppercase tracking-wider">
                   <th className="py-3 px-4">Tên danh mục</th>
                   <th className="py-3 px-4">Đường dẫn tĩnh (Slug)</th>
-                  <th className="py-3 px-4 text-center">Số bài viết</th>
+                  <th className="py-3 px-4">Mô tả</th>
+                  <th className="py-3 px-4 text-center">Số sản phẩm</th>
                   <th className="py-3 px-4 text-center">Hành động</th>
                 </tr>
               </thead>
@@ -212,8 +218,11 @@ export default function CategoryManagementPage() {
                       <span className="font-bold">{cat.name}</span>
                     </td>
                     <td className="py-4 px-4 text-on-surface-variant/90 font-mono text-xs">{cat.slug}</td>
+                    <td className="py-4 px-4 text-on-surface-variant/90 text-xs font-medium max-w-[200px] truncate">
+                      {cat.description || "—"}
+                    </td>
                     <td className="py-4 px-4 text-center text-xs text-on-surface-variant font-bold">
-                      {cat.posts_count ?? 0}
+                      {cat.products_count ?? 0}
                     </td>
                     <td className="py-4 px-4 text-center flex items-center justify-center gap-2">
                       <button
@@ -222,6 +231,7 @@ export default function CategoryManagementPage() {
                           setEditingCategory(cat);
                           setCategoryName(cat.name);
                           setCategorySlug(cat.slug || "");
+                          setCategoryDesc(cat.description || "");
                           setIsModalOpen(true);
                         }}
                         className="p-2 rounded-xl text-primary hover:bg-primary/5 transition-colors cursor-pointer"
@@ -243,7 +253,7 @@ export default function CategoryManagementPage() {
             </table>
           </div>
         )}
-
+ 
         {/* Phân trang danh mục */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-black/5 pt-4 flex-wrap gap-3">
@@ -285,7 +295,7 @@ export default function CategoryManagementPage() {
           </div>
         )}
       </div>
-
+ 
       {/* MODAL: THÊM / SỬA DANH MỤC */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -306,7 +316,7 @@ export default function CategoryManagementPage() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-
+ 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
@@ -317,8 +327,8 @@ export default function CategoryManagementPage() {
                   required
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
-                  placeholder="Ví dụ: Công nghệ sản xuất, Sự kiện..."
-                  className="w-full px-4 py-3.5 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                  placeholder="Ví dụ: Khăn giấy, Hóa mỹ phẩm..."
+                  className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                 />
               </div>
 
@@ -330,11 +340,24 @@ export default function CategoryManagementPage() {
                   type="text"
                   value={categorySlug}
                   onChange={(e) => setCategorySlug(e.target.value)}
-                  placeholder="Ví dụ: cong-nghe-san-xuat (để trống sẽ tự tạo)"
-                  className="w-full px-4 py-3.5 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                  placeholder="Ví dụ: hoa-my-pham (để trống sẽ tự tạo)"
+                  className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                 />
               </div>
-
+ 
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
+                  Mô tả danh mục
+                </label>
+                <textarea
+                  value={categoryDesc}
+                  onChange={(e) => setCategoryDesc(e.target.value)}
+                  placeholder="Mô tả ngắn gọn về danh mục sản phẩm này..."
+                  rows={3}
+                  className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 resize-none"
+                />
+              </div>
+ 
               <div className="flex items-center gap-3 pt-2">
                 <button
                   type="button"
@@ -360,7 +383,7 @@ export default function CategoryManagementPage() {
           </div>
         </div>
       )}
-
+ 
       {/* MODAL XÁC NHẬN XOÁ */}
       {categoryToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -375,7 +398,7 @@ export default function CategoryManagementPage() {
             <div>
               <h4 className="text-base font-bold text-deep-navy">Xoá danh mục?</h4>
               <p className="text-xs font-semibold text-on-surface-variant leading-relaxed mt-1">
-                Bạn có chắc chắn muốn xoá danh mục <span className="font-bold">{categoryToDelete.name}</span>? Các bài viết thuộc danh mục này sẽ được chuyển về không có danh mục. Hành động này không thể hoàn tác.
+                Bạn có chắc chắn muốn xoá danh mục <span className="font-bold">{categoryToDelete.name}</span>? Các sản phẩm thuộc danh mục này sẽ được chuyển về trạng thái không thuộc danh mục nào. Hành động này không thể hoàn tác.
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2">

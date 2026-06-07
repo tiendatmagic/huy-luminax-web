@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -119,12 +119,16 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [newsAndEvents, setNewsAndEvents] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
 
   const newsSliderRef = useRef<HTMLDivElement>(null);
   const productsSliderRef = useRef<HTMLDivElement>(null);
 
   // Hook hỗ trợ kéo thả chuột để trượt slider (Drag to Scroll) trên Desktop và tạo vòng lặp vô tận (Infinite Loop)
-  const useDragScroll = (ref: React.RefObject<HTMLDivElement | null>, dependency: any[] = []) => {
+  const useDragScroll = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    dependency: any[] = [],
+  ) => {
     useEffect(() => {
       const el = ref.current;
       if (!el) return;
@@ -133,7 +137,7 @@ export default function Home() {
       let startX: number;
       let scrollLeft: number;
       let moved = false;
-      
+
       let velocity = 0;
       let lastX = 0;
       let lastTime = Date.now();
@@ -147,9 +151,9 @@ export default function Home() {
         velocity = 0;
         lastX = e.pageX;
         lastTime = Date.now();
-        
+
         cancelAnimationFrame(animationFrameId);
-        
+
         // Tắt scroll-behavior và scroll-snap tạm thời để việc kéo bám sát chuột và mượt mà
         el.classList.remove("scroll-smooth");
         el.style.scrollBehavior = "auto";
@@ -159,7 +163,7 @@ export default function Home() {
       const handleMouseMove = (e: MouseEvent) => {
         if (!isDown) return;
         e.preventDefault();
-        
+
         const x = e.pageX - el.offsetLeft;
         const walk = (x - startX) * 1.0; // Đặt tỉ lệ 1.0 cho cảm giác thật tay và mượt mà nhất
         if (Math.abs(walk) > 5) {
@@ -315,9 +319,9 @@ export default function Home() {
   };
 
   useDragScroll(newsSliderRef, [newsAndEvents]);
-  useDragScroll(productsSliderRef, [productsList]);
+  useDragScroll(productsSliderRef, [products]);
 
-  // Fetch tin tức trang chủ
+  // Fetch tin tức & sản phẩm trang chủ
   useEffect(() => {
     const fetchNews = async () => {
       try {
@@ -330,7 +334,19 @@ export default function Home() {
         console.error("Lỗi lấy tin tức trang chủ:", err);
       }
     };
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("/api/public/products");
+        if (res.ok) {
+          const data = await res.json();
+          setProducts(data.slice(0, 8));
+        }
+      } catch (err) {
+        console.error("Lỗi lấy sản phẩm trang chủ:", err);
+      }
+    };
     fetchNews();
+    fetchProducts();
   }, []);
 
   const scrollSlider = (
@@ -1031,8 +1047,8 @@ export default function Home() {
                 Sản phẩm nổi bật
               </h2>
               <p className="text-xs sm:text-sm md:text-base lg:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-                Khám phá hệ sinh thái sản phẩm sạch và giải pháp công nghệ cao
-                được phát triển &amp; kiểm chứng bởi Luminax AI.
+                Khám phá Sản Phẩm Nổi Bật sạch và giải pháp công nghệ cao được
+                phát triển &amp; kiểm chứng bởi Luminax AI.
               </p>
             </div>
           </div>
@@ -1052,48 +1068,82 @@ export default function Home() {
               ref={productsSliderRef}
               className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth active:cursor-grabbing cursor-grab select-none"
             >
-              {[...productsList, ...productsList, ...productsList].map((product, idx) => (
-                <article
-                  key={idx}
-                  className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group cursor-pointer hover:-translate-y-2"
-                >
-                  <div className="relative h-56 bg-surface-container overflow-hidden">
-                    <Image
-                      alt={product.title}
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={product.image}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span
-                          className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase ${product.badgeStyle}`}
-                        >
-                          {product.badge}
-                        </span>
-                        <span className="text-sm font-black text-primary">
-                          {product.price}
-                        </span>
+              {products.length > 0 ? (
+                [...products, ...products, ...products].map((product, idx) => {
+                  let badgeStyle = "text-primary bg-primary/10";
+                  if (product.category?.slug === "tissue") {
+                    badgeStyle = "text-accent-pink bg-accent-pink/10";
+                  } else if (product.category?.slug === "cosmetics") {
+                    badgeStyle = "text-accent-purple bg-accent-purple/10";
+                  }
+
+                  const formatVnd = (val: string | null) => {
+                    if (!val) return "Liên hệ B2B";
+                    const num = parseFloat(val);
+                    if (isNaN(num) || num === 0) return "Liên hệ B2B";
+                    return num.toLocaleString("vi-VN") + " đ";
+                  };
+
+                  return (
+                    <Link
+                      href={`/san-pham/${product.slug}`}
+                      key={idx}
+                      className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group cursor-pointer hover:-translate-y-2"
+                    >
+                      <div className="relative h-56 bg-surface-container overflow-hidden">
+                        {product.featured_image ? (
+                          <Image
+                            alt={product.name}
+                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                            src={product.featured_image}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">
+                            <span className="material-symbols-outlined text-3xl">
+                              image
+                            </span>
+                          </div>
+                        )}
                       </div>
-                      <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy group-hover:text-primary transition-colors leading-snug mb-3">
-                        {product.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                        {product.description}
-                      </p>
-                    </div>
-                    <div className="mt-6 flex items-center text-xs font-bold text-primary gap-1 group-hover:gap-2 transition-all pt-4">
-                      Xem chi tiết{" "}
-                      <span className="material-symbols-outlined text-sm font-bold">
-                        east
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              ))}
+                      <div className="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                          <div className="flex items-center justify-between mb-3">
+                            <span
+                              className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase ${badgeStyle}`}
+                            >
+                              {product.category?.name || "Chưa phân loại"}
+                            </span>
+                            <span className="text-sm font-black text-primary">
+                              {formatVnd(product.price)}
+                            </span>
+                          </div>
+                          <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy group-hover:text-primary transition-colors leading-snug mb-3">
+                            {product.name}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                            {product.short_description}
+                          </p>
+                        </div>
+                        <div className="mt-6 flex items-center text-xs font-bold text-primary gap-1 group-hover:gap-2 transition-all pt-4">
+                          Xem chi tiết{" "}
+                          <span className="material-symbols-outlined text-sm font-bold">
+                            east
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <div className="w-full py-16 flex flex-col items-center justify-center gap-3">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <p className="text-xs font-semibold text-on-surface-variant">
+                    Đang tải sản phẩm...
+                  </p>
+                </div>
+              )}
             </div>
             {/* Nút Phải */}
             <button
@@ -1144,72 +1194,77 @@ export default function Home() {
               ref={newsSliderRef}
               className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth active:cursor-grabbing cursor-grab select-none"
             >
-              {[...newsAndEvents, ...newsAndEvents, ...newsAndEvents].map((news, idx) => (
-                <article
-                  key={`${news.id || 'news'}-${idx}`}
-                  className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card shadow-lg shadow-deep-navy/5 border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group hover:-translate-y-2"
-                >
-                  {/* Ảnh bài viết */}
-                  <Link
-                    href={`/tin-tuc/${news.slug}`}
-                    className="relative h-56 bg-surface-container overflow-hidden block cursor-pointer"
+              {[...newsAndEvents, ...newsAndEvents, ...newsAndEvents].map(
+                (news, idx) => (
+                  <article
+                    key={`${news.id || "news"}-${idx}`}
+                    className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card shadow-lg shadow-deep-navy/5 border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group hover:-translate-y-2"
                   >
-                    {news.image ? (
-                      <Image
-                        alt={news.title}
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 w-full h-full"
-                        src={news.image}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/20 flex flex-col items-center justify-center text-primary/40">
-                        <ImageIcon className="w-12 h-12" />
-                      </div>
-                    )}
-                  </Link>
+                    {/* Ảnh bài viết */}
+                    <Link
+                      href={`/tin-tuc/${news.slug}`}
+                      className="relative h-56 bg-surface-container overflow-hidden block cursor-pointer"
+                    >
+                      {news.image ? (
+                        <Image
+                          alt={news.title}
+                          className="object-cover group-hover:scale-105 transition-transform duration-700 w-full h-full"
+                          src={news.image}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/20 flex flex-col items-center justify-center text-primary/40">
+                          <ImageIcon className="w-12 h-12" />
+                        </div>
+                      )}
+                    </Link>
 
-                  <div className="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 mb-3">
-                        <span
-                          className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/10"
+                    <div className="p-6 flex flex-col flex-grow justify-between">
+                      <div>
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/10">
+                            {news.category?.name || "Tin tức"}
+                          </span>
+                          <span className="text-xs text-on-surface-variant font-medium">
+                            {new Date(news.created_at).toLocaleDateString(
+                              "vi-VN",
+                            )}
+                          </span>
+                        </div>
+
+                        {/* Tiêu đề bài viết */}
+                        <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy transition-colors leading-snug mb-3 line-clamp-2">
+                          <Link
+                            href={`/tin-tuc/${news.slug}`}
+                            className="hover:text-primary transition-colors block cursor-pointer"
+                          >
+                            {news.title}
+                          </Link>
+                        </h3>
+
+                        {/* Trích dẫn */}
+                        <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
+                          {news.excerpt || "Xem chi tiết bài viết..."}
+                        </p>
+                      </div>
+
+                      {/* Xem chi tiết */}
+                      <div className="mt-6 pt-4 border-t border-black/5">
+                        <Link
+                          href={`/tin-tuc/${news.slug}`}
+                          className="inline-flex items-center text-xs font-bold text-primary gap-1 hover:gap-2 transition-all cursor-pointer"
                         >
-                          {news.category?.name || "Tin tức"}
-                        </span>
-                        <span className="text-xs text-on-surface-variant font-medium">
-                          {new Date(news.created_at).toLocaleDateString("vi-VN")}
-                        </span>
-                      </div>
-
-                      {/* Tiêu đề bài viết */}
-                      <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy transition-colors leading-snug mb-3 line-clamp-2">
-                        <Link href={`/tin-tuc/${news.slug}`} className="hover:text-primary transition-colors block cursor-pointer">
-                          {news.title}
+                          Xem chi tiết{" "}
+                          <span className="material-symbols-outlined text-sm font-bold">
+                            east
+                          </span>
                         </Link>
-                      </h3>
-
-                      {/* Trích dẫn */}
-                      <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                        {news.excerpt || "Xem chi tiết bài viết..."}
-                      </p>
+                      </div>
                     </div>
-
-                    {/* Xem chi tiết */}
-                    <div className="mt-6 pt-4 border-t border-black/5">
-                      <Link
-                        href={`/tin-tuc/${news.slug}`}
-                        className="inline-flex items-center text-xs font-bold text-primary gap-1 hover:gap-2 transition-all cursor-pointer"
-                      >
-                        Xem chi tiết{" "}
-                        <span className="material-symbols-outlined text-sm font-bold">
-                          east
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ),
+              )}
             </div>
 
             {/* Nút Xem tất cả */}
