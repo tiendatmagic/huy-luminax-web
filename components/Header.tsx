@@ -1,10 +1,10 @@
 "use client";
- 
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
- 
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,12 +34,17 @@ export default function Header() {
       window.removeEventListener("settingsUpdated", loadSettings);
     };
   }, []);
- 
+
   // Kiểm tra trạng thái đăng nhập của Admin
   useEffect(() => {
-    const cookies = typeof document !== "undefined" ? document.cookie.split(";").map(c => c.trim()) : [];
-    const hasLoggedInCookie = cookies.some(c => c.startsWith("admin_logged_in="));
-    
+    const cookies =
+      typeof document !== "undefined"
+        ? document.cookie.split(";").map((c) => c.trim())
+        : [];
+    const hasLoggedInCookie = cookies.some((c) =>
+      c.startsWith("admin_logged_in="),
+    );
+
     if (hasLoggedInCookie) {
       setIsAdminLoggedIn(true);
     } else {
@@ -49,7 +54,8 @@ export default function Header() {
           if (response.ok) {
             setIsAdminLoggedIn(true);
             if (typeof document !== "undefined") {
-              document.cookie = "admin_logged_in=true; path=/; max-age=604800; SameSite=Lax";
+              document.cookie =
+                "admin_logged_in=true; path=/; max-age=604800; SameSite=Lax";
             }
           }
         } catch (err) {
@@ -74,7 +80,7 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
- 
+
   const menuItems = [
     { name: "Trang chủ", href: "/", icon: "home" },
     { name: "Giới thiệu", href: "/gioi-thieu", icon: "info" },
@@ -83,14 +89,14 @@ export default function Header() {
     { name: "AI & Công nghệ", href: "/cong-nghe", icon: "memory" },
     { name: "Tin tức", href: "/tin-tuc", icon: "newspaper" },
   ];
- 
+
   const isActive = (href: string) => {
     if (href === "/") {
       return pathname === "/";
     }
     return pathname.startsWith(href);
   };
- 
+
   return (
     <header
       className={`fixed inset-x-6 sm:inset-x-8 md:inset-x-12 lg:inset-x-8 xl:inset-x-16 mx-auto w-auto max-w-7xl z-50 flex flex-col justify-between items-center rounded-3xl border border-white/40 shadow-lg transition-all duration-500 ease-out ${
@@ -100,7 +106,10 @@ export default function Header() {
       }`}
     >
       <div className="w-full flex justify-between items-center px-6 md:px-8">
-        <Link href="/" className="font-headline text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 drop-shadow-sm cursor-pointer">
+        <Link
+          href="/"
+          className="font-headline text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 drop-shadow-sm cursor-pointer"
+        >
           <Image
             src="/logo-new.png"
             alt="Huy Luminax Logo"
@@ -110,7 +119,7 @@ export default function Header() {
           />
           {siteName}
         </Link>
- 
+
         {/* Desktop Navigation */}
         <nav className="hidden xl:flex items-center gap-3 xl:gap-6 font-semibold">
           {menuItems.map((item) => (
@@ -126,11 +135,13 @@ export default function Header() {
               <span className="material-symbols-outlined text-[18px] hidden xl:inline-block">
                 {item.icon}
               </span>
-              <span className="text-xs xl:text-sm whitespace-nowrap">{item.name}</span>
+              <span className="text-xs xl:text-sm whitespace-nowrap">
+                {item.name}
+              </span>
             </Link>
           ))}
         </nav>
- 
+
         {/* Actions */}
         <div className="flex items-center gap-3">
           <Link
@@ -164,7 +175,7 @@ export default function Header() {
           </button>
         </div>
       </div>
- 
+
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="w-full mt-3 px-6 pb-6 flex flex-col gap-4 pt-2 bg-white rounded-b-3xl">
@@ -174,7 +185,9 @@ export default function Header() {
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center gap-3 py-2 font-semibold ${
-                isActive(item.href) ? "text-primary font-bold" : "text-on-surface-variant hover:text-primary"
+                isActive(item.href)
+                  ? "text-primary font-bold"
+                  : "text-on-surface-variant hover:text-primary"
               }`}
             >
               <span className="material-symbols-outlined">{item.icon}</span>
@@ -187,7 +200,9 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 py-2 font-semibold text-primary hover:text-primary/80 transition-colors"
             >
-              <span className="material-symbols-outlined">admin_panel_settings</span>
+              <span className="material-symbols-outlined">
+                admin_panel_settings
+              </span>
               <span>Trang quản trị</span>
             </Link>
           )}

@@ -47,7 +47,7 @@ export default function ProductManagementPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 10;
 
   // States cho Form Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
