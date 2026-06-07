@@ -1,19 +1,26 @@
 "use client";
- 
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { Loader2, ArrowLeft, ShieldCheck, Truck, RefreshCw, ShoppingCart } from "lucide-react";
+import {
+  Loader2,
+  ArrowLeft,
+  ShieldCheck,
+  Truck,
+  RefreshCw,
+  ShoppingCart,
+} from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
- 
+
 interface ProductCategory {
   id: number;
   name: string;
   slug: string;
 }
- 
+
 interface Product {
   id: number;
   name: string;
@@ -29,33 +36,33 @@ interface Product {
   category?: ProductCategory;
   related_products?: Product[];
 }
- 
+
 interface Setting {
   company_phone?: string;
   social_zalo?: string;
 }
- 
+
 export default function ProductDetail() {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
- 
+
   const [product, setProduct] = useState<Product | null>(null);
   const [activeImage, setActiveImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState<Setting>({});
- 
+
   // Fetch chi tiết sản phẩm và settings hotline
   useEffect(() => {
     if (!slug) return;
- 
+
     const fetchData = async () => {
       try {
         const [prodRes, settingsRes] = await Promise.all([
           fetch(`/api/public/products/${slug}`),
-          fetch("/api/public/settings")
+          fetch("/api/public/settings"),
         ]);
- 
+
         if (prodRes.ok) {
           const prodData = await prodRes.json();
           setProduct(prodData);
@@ -68,7 +75,7 @@ export default function ProductDetail() {
           // Redirect về danh sách sản phẩm nếu không tìm thấy
           router.push("/san-pham");
         }
- 
+
         if (settingsRes.ok) {
           const settingsData = await settingsRes.json();
           setSettings(settingsData);
@@ -79,34 +86,36 @@ export default function ProductDetail() {
         setIsLoading(false);
       }
     };
- 
+
     fetchData();
   }, [slug, router]);
- 
+
   const formatVnd = (val: string | null) => {
     if (!val) return "Liên hệ B2B";
     const num = parseFloat(val);
     if (isNaN(num) || num === 0) return "Liên hệ B2B";
     return num.toLocaleString("vi-VN") + " đ";
   };
- 
+
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow pt-36 pb-20 flex flex-col items-center justify-center gap-3">
           <Loader2 className="w-10 h-10 animate-spin text-primary" />
-          <p className="text-sm font-bold text-deep-navy">Đang tải chi tiết sản phẩm...</p>
+          <p className="text-sm font-bold text-deep-navy">
+            Đang tải chi tiết sản phẩm...
+          </p>
         </main>
         <Footer />
       </div>
     );
   }
- 
+
   if (!product) {
     return null;
   }
- 
+
   // Tạo danh sách tất cả các ảnh bao gồm ảnh đại diện và thư viện ảnh
   const allImages: string[] = [];
   if (product.featured_image) allImages.push(product.featured_image);
@@ -117,18 +126,17 @@ export default function ProductDetail() {
       }
     });
   }
- 
+
   const contactPhone = settings.company_phone || "0987.654.321";
   const zaloPhone = settings.social_zalo || "0987654321";
   const zaloLink = `https://zalo.me/${zaloPhone.replace(/[^0-9]/g, "")}`;
- 
+
   return (
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary bg-[#faf8ff]">
       <Header />
- 
+
       <main className="flex-grow pt-32 md:pt-36 lg:pt-40 pb-20">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
-          
           {/* Nút quay lại */}
           <Link
             href="/san-pham"
@@ -137,11 +145,11 @@ export default function ProductDetail() {
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             QUAY LẠI HỆ SINH THÁI
           </Link>
- 
+
           {/* Phần thông tin chính sản phẩm */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-sm relative overflow-hidden">
             {/* Cột trái: Gallery ảnh (5 cột trên màn hình rộng) */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-6 space-y-4">
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 border border-black/5">
                 {activeImage ? (
                   <Image
@@ -154,11 +162,13 @@ export default function ProductDetail() {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-slate-300">
-                    <span className="material-symbols-outlined text-6xl">image</span>
+                    <span className="material-symbols-outlined text-6xl">
+                      image
+                    </span>
                   </div>
                 )}
               </div>
- 
+
               {/* Thumbnails */}
               {allImages.length > 1 && (
                 <div className="flex flex-wrap gap-2.5">
@@ -184,9 +194,9 @@ export default function ProductDetail() {
                 </div>
               )}
             </div>
- 
+
             {/* Cột phải: Chi tiết và Mua hàng (7 cột trên màn hình rộng) */}
-            <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   {product.category ? (
@@ -207,28 +217,29 @@ export default function ProductDetail() {
                     </span>
                   )}
                 </div>
- 
+
                 <h1 className="text-2xl sm:text-3xl font-headline font-black text-deep-navy leading-tight">
                   {product.name}
                 </h1>
- 
+
                 {/* Giá tiền */}
                 <div className="flex items-baseline gap-4 py-1.5 border-y border-black/5">
                   <span className="text-2xl sm:text-3xl font-black text-primary">
                     {formatVnd(product.price)}
                   </span>
-                  {product.regular_price && parseFloat(product.regular_price) > 0 && (
-                    <span className="text-xs sm:text-sm line-through text-on-surface-variant/60 font-semibold">
-                      {formatVnd(product.regular_price)}
-                    </span>
-                  )}
+                  {product.regular_price &&
+                    parseFloat(product.regular_price) > 0 && (
+                      <span className="text-xs sm:text-sm line-through text-on-surface-variant/60 font-semibold">
+                        {formatVnd(product.regular_price)}
+                      </span>
+                    )}
                   {product.stock_status !== "instock" && (
                     <span className="text-[10px] font-bold px-2 py-0.5 bg-red-100 text-red-700 border border-red-200 rounded-full uppercase ml-2">
                       Tạm hết hàng
                     </span>
                   )}
                 </div>
- 
+
                 {/* Mô tả ngắn */}
                 {product.short_description && (
                   <p className="text-xs sm:text-sm text-on-surface-variant font-medium leading-relaxed">
@@ -236,7 +247,7 @@ export default function ProductDetail() {
                   </p>
                 )}
               </div>
- 
+
               {/* Hành động đặt hàng & tư vấn */}
               <div className="space-y-4 pt-4">
                 <div className="flex flex-col sm:flex-row gap-3">
@@ -255,7 +266,7 @@ export default function ProductDetail() {
                     <span>Chat Zalo Tư Vấn</span>
                   </a>
                 </div>
- 
+
                 {/* Các nhãn cam kết chất lượng */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] font-bold text-on-surface-variant/80 pt-4 border-t border-black/5">
                   <div className="flex items-center gap-2">
@@ -274,27 +285,27 @@ export default function ProductDetail() {
               </div>
             </div>
           </section>
- 
+
           {/* Tab: Mô tả chi tiết */}
           {product.description && (
             <section className="bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-sm">
               <h2 className="text-lg font-bold text-deep-navy border-b border-black/5 pb-3 mb-5">
                 Mô tả chi tiết sản phẩm
               </h2>
-              <div 
+              <div
                 className="prose prose-slate max-w-none text-on-surface-variant font-medium text-xs sm:text-sm md:text-base leading-relaxed space-y-6 ql-editor-view"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               ></div>
             </section>
           )}
- 
+
           {/* Phần: Sản phẩm liên quan */}
           {product.related_products && product.related_products.length > 0 && (
             <section className="space-y-6">
               <h2 className="text-lg font-black text-deep-navy text-center sm:text-left">
                 Sản phẩm liên quan
               </h2>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {product.related_products.map((related) => (
                   <Link
@@ -313,7 +324,9 @@ export default function ProductDetail() {
                         />
                       ) : (
                         <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">
-                          <span className="material-symbols-outlined text-3xl">image</span>
+                          <span className="material-symbols-outlined text-3xl">
+                            image
+                          </span>
                         </div>
                       )}
                     </div>
@@ -343,10 +356,9 @@ export default function ProductDetail() {
               </div>
             </section>
           )}
- 
         </div>
       </main>
- 
+
       <Footer />
     </div>
   );
