@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Image as ImageIcon } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -43,39 +44,7 @@ const businessAreas = [
   },
 ];
 
-// Dữ liệu tin tức
-const newsAndEvents = [
-  {
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDCnslKeUvNUDg3a95-mFuMoImpxBm3K-oZaBsEAKq6NR94Au5rglRZTNuCNHk4xL0qmTiqAI8oo2Oup1vFydS4axSmkulR-zNR8VadalPuoENGIUA1pNpi8bL8z3egpIg30B7XKmecRKr6GHk9zq0Finw5LX73XC-f1hjr0_8guS47X96rqHjYZP1bPvVUKvhl_CRIz1eF3gNFB2xAphqw2FLsOT08hWQsLOtnlgOIlzvDJEmytU8TpwMObriI8ZeBMSz6aG8fi_4",
-    badge: "Công nghệ",
-    badgeStyle: "text-primary bg-primary/10",
-    date: "20/05/2026",
-    title: "Luminax AI đạt cột mốc 1.4 triệu Epochs trong huấn luyện",
-    description:
-      "Bước nhảy vọt trong tối ưu quy trình phân tách phân tử giúp nâng cao năng lực sản xuất hóa chất.",
-  },
-  {
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCYcnAKbpA9-sxYQOqzmIHHfahOv0RxBOjja0sDw0njkspnlFZ8RywCCtP0RAdTrKqEGLTxWj6icIZPZkPztBUwSbtSxRRdwbX8KH_MM8koIEMbqHCcOjry4GbBZKEFYAtXv4qGIralusalY-UNCkyJ_L-M0Otr8v1Xi1cApCz4_23F3bQoMLtNObzanwL6jwYXI5azLwKJKux9BrlUVOa2Jlj4ffRfK7jUVgAsofNOmsB_W4-do1pPpJlEHDDZxVc_zverLoSM4kA",
-    badge: "Sự kiện",
-    badgeStyle: "text-secondary bg-secondary/10",
-    date: "15/05/2026",
-    title: "Hợp tác chiến lược phát triển hóa chất xanh bền vững",
-    description:
-      "Ký kết thỏa thuận hợp tác nghiên cứu vật liệu phân hủy sinh học ứng dụng trong công nghiệp tiêu dùng.",
-  },
-  {
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD4LULR9Dd7aHRfCy7ZSlRRdJ_XPo2pXc6mmdZa32yEa8k70PuzSoTd147zXtfxy2mFitzHbTFkcA7ttwLtuMvCGVKtpnm8x7HU93lga8IMyVh7VriDmZcG-KlFuC7K23t2mrcPlbsSo7AoiQZIRlrOceo8pk1MnPyT9g_go5KnlMDYM4wuk2pd56Je61CM5dOebSy1z8FZEIUrEj5i1QMIoKCj8jJo0SiLgWGxCTc9YPjVDK--znnkEGmxS6ZJE8imfqx5gl5hLyc",
-    badge: "Sản phẩm",
-    badgeStyle: "text-accent-pink bg-accent-pink/10",
-    date: "10/05/2026",
-    title: "Ra mắt dòng sản phẩm khăn giấy kháng khuẩn cao cấp mới",
-    description:
-      "Sản phẩm khăn giấy sợi tre tự nhiên tích hợp công nghệ Nano bạc kháng khuẩn đạt chuẩn kiểm nghiệm quốc tế.",
-  },
-];
+// Dữ liệu tin tức thật được fetch động tại component client
 
 // Dữ liệu sản phẩm mẫu (demo giao diện)
 const productsList = [
@@ -149,16 +118,227 @@ export default function Home() {
   const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [newsAndEvents, setNewsAndEvents] = useState<any[]>([]);
 
   const newsSliderRef = useRef<HTMLDivElement>(null);
   const productsSliderRef = useRef<HTMLDivElement>(null);
+
+  // Hook hỗ trợ kéo thả chuột để trượt slider (Drag to Scroll) trên Desktop và tạo vòng lặp vô tận (Infinite Loop)
+  const useDragScroll = (ref: React.RefObject<HTMLDivElement | null>, dependency: any[] = []) => {
+    useEffect(() => {
+      const el = ref.current;
+      if (!el) return;
+
+      let isDown = false;
+      let startX: number;
+      let scrollLeft: number;
+      let moved = false;
+      
+      let velocity = 0;
+      let lastX = 0;
+      let lastTime = Date.now();
+      let animationFrameId: number;
+
+      const handleMouseDown = (e: MouseEvent) => {
+        isDown = true;
+        startX = e.pageX - el.offsetLeft;
+        scrollLeft = el.scrollLeft;
+        moved = false;
+        velocity = 0;
+        lastX = e.pageX;
+        lastTime = Date.now();
+        
+        cancelAnimationFrame(animationFrameId);
+        
+        // Tắt scroll-behavior và scroll-snap tạm thời để việc kéo bám sát chuột và mượt mà
+        el.classList.remove("scroll-smooth");
+        el.style.scrollBehavior = "auto";
+        el.style.scrollSnapType = "none";
+      };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        
+        const x = e.pageX - el.offsetLeft;
+        const walk = (x - startX) * 1.0; // Đặt tỉ lệ 1.0 cho cảm giác thật tay và mượt mà nhất
+        if (Math.abs(walk) > 5) {
+          moved = true;
+        }
+
+        // Tính vận tốc tức thời (px/ms)
+        const now = Date.now();
+        const elapsed = now - lastTime;
+        if (elapsed > 0) {
+          const deltaX = e.pageX - lastX;
+          velocity = deltaX / elapsed;
+        }
+
+        lastX = e.pageX;
+        lastTime = now;
+
+        el.scrollLeft = scrollLeft - walk;
+      };
+
+      const handleMouseUp = () => {
+        if (!isDown) return;
+        isDown = false;
+
+        // Bắt đầu hiệu ứng quán tính (inertia) nếu người dùng kéo mạnh rồi thả ra
+        if (moved && Math.abs(velocity) > 0.15) {
+          let momentum = velocity * 18; // Hệ số nhân khoảng cách quán tính
+          const step = () => {
+            el.scrollLeft -= momentum;
+            momentum *= 0.92; // Ma sát làm giảm dần vận tốc (friction)
+            if (Math.abs(momentum) > 0.5) {
+              animationFrameId = requestAnimationFrame(step);
+            } else {
+              // Khi dừng hẳn, khôi phục lại snap point mặc định và scroll mượt
+              el.classList.add("scroll-smooth");
+              el.style.scrollBehavior = "";
+              el.style.scrollSnapType = "";
+            }
+          };
+          animationFrameId = requestAnimationFrame(step);
+        } else {
+          // Kéo nhẹ/không có quán tính: khôi phục snap ngay
+          el.classList.add("scroll-smooth");
+          el.style.scrollBehavior = "";
+          el.style.scrollSnapType = "";
+        }
+      };
+
+      const handleMouseLeave = () => {
+        if (!isDown) return;
+        handleMouseUp();
+      };
+
+      // Ngăn chặn sự kiện drag mặc định của trình duyệt đối với hình ảnh/liên kết bên trong
+      const handleDragStart = (e: DragEvent) => {
+        e.preventDefault();
+      };
+
+      // Ngăn click vào link bên trong khi đang kéo (event delegation ở capture phase)
+      const handleContainerClick = (e: MouseEvent) => {
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      };
+
+      // Tự động căn chỉnh lại scrollLeft khi cuộn chạm ranh giới Bộ 1 hoặc Bộ 3
+      const handleScroll = () => {
+        const children = el.children;
+        const listData = dependency[0];
+        const totalItems = Array.isArray(listData) ? listData.length : 0;
+        if (totalItems <= 0 || children.length < totalItems * 3) return;
+
+        const item1 = children[0] as HTMLElement;
+        const item2 = children[totalItems] as HTMLElement;
+        if (!item1 || !item2) return;
+
+        const oneSetWidth = item2.offsetLeft - item1.offsetLeft;
+        if (oneSetWidth <= 0) return;
+
+        const currentScroll = el.scrollLeft;
+
+        // Nếu cuộn qua 2 bộ (lấn sang bộ thứ 3 quá nhiều)
+        if (currentScroll >= oneSetWidth * 2) {
+          el.classList.remove("scroll-smooth");
+          el.style.scrollBehavior = "auto";
+          el.scrollLeft = currentScroll - oneSetWidth;
+          // Khôi phục lại sau khi nhảy
+          setTimeout(() => {
+            if (!isDown) {
+              el.classList.add("scroll-smooth");
+              el.style.scrollBehavior = "";
+            }
+          }, 50);
+        }
+        // Nếu cuộn lùi về bộ thứ 1
+        else if (currentScroll <= oneSetWidth * 0.5) {
+          el.classList.remove("scroll-smooth");
+          el.style.scrollBehavior = "auto";
+          el.scrollLeft = currentScroll + oneSetWidth;
+          setTimeout(() => {
+            if (!isDown) {
+              el.classList.add("scroll-smooth");
+              el.style.scrollBehavior = "";
+            }
+          }, 50);
+        }
+      };
+
+      // Thiết lập vị trí ban đầu nằm ở Bộ thứ 2 (chính giữa) sau một khoảng trễ ngắn để DOM render xong
+      const initTimeout = setTimeout(() => {
+        const children = el.children;
+        const listData = dependency[0];
+        const totalItems = Array.isArray(listData) ? listData.length : 0;
+        if (totalItems > 0 && children.length >= totalItems * 3) {
+          const item1 = children[0] as HTMLElement;
+          const item2 = children[totalItems] as HTMLElement;
+          if (item1 && item2) {
+            const oneSetWidth = item2.offsetLeft - item1.offsetLeft;
+            if (oneSetWidth > 0) {
+              el.classList.remove("scroll-smooth");
+              el.style.scrollBehavior = "auto";
+              el.scrollLeft = oneSetWidth;
+              setTimeout(() => {
+                el.classList.add("scroll-smooth");
+                el.style.scrollBehavior = "";
+              }, 50);
+            }
+          }
+        }
+      }, 150);
+
+      el.addEventListener("mousedown", handleMouseDown);
+      el.addEventListener("mouseleave", handleMouseLeave);
+      el.addEventListener("mouseup", handleMouseUp);
+      el.addEventListener("mousemove", handleMouseMove);
+      el.addEventListener("dragstart", handleDragStart);
+      el.addEventListener("click", handleContainerClick, true);
+      el.addEventListener("scroll", handleScroll);
+
+      return () => {
+        clearTimeout(initTimeout);
+        cancelAnimationFrame(animationFrameId);
+        el.removeEventListener("mousedown", handleMouseDown);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+        el.removeEventListener("mouseup", handleMouseUp);
+        el.removeEventListener("mousemove", handleMouseMove);
+        el.removeEventListener("dragstart", handleDragStart);
+        el.removeEventListener("click", handleContainerClick, true);
+        el.removeEventListener("scroll", handleScroll);
+      };
+    }, [ref, ...dependency]);
+  };
+
+  useDragScroll(newsSliderRef, [newsAndEvents]);
+  useDragScroll(productsSliderRef, [productsList]);
+
+  // Fetch tin tức trang chủ
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("/api/public/posts");
+        if (res.ok) {
+          const data = await res.json();
+          setNewsAndEvents(data.slice(0, 8));
+        }
+      } catch (err) {
+        console.error("Lỗi lấy tin tức trang chủ:", err);
+      }
+    };
+    fetchNews();
+  }, []);
 
   const scrollSlider = (
     ref: React.RefObject<HTMLDivElement | null>,
     direction: "left" | "right",
   ) => {
     if (ref.current) {
-      const scrollAmount = 380;
+      const scrollAmount = 412; // Card 380px + gap 32px
       ref.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -855,37 +1035,24 @@ export default function Home() {
                 được phát triển &amp; kiểm chứng bởi Luminax AI.
               </p>
             </div>
-
-            {/* Slider control buttons */}
-            <div className="flex gap-3 shrink-0">
-              <button
-                onClick={() => scrollSlider(productsSliderRef, "left")}
-                className="w-12 h-12 rounded-full border border-outline-variant/35 bg-white/60 hover:bg-white text-on-surface hover:text-primary flex items-center justify-center shadow-sm hover:shadow active:scale-95 transition-all duration-200 cursor-pointer"
-                title="Trước"
-              >
-                <span className="material-symbols-outlined font-bold">
-                  west
-                </span>
-              </button>
-              <button
-                onClick={() => scrollSlider(productsSliderRef, "right")}
-                className="w-12 h-12 rounded-full border border-outline-variant/35 bg-white/60 hover:bg-white text-on-surface hover:text-primary flex items-center justify-center shadow-sm hover:shadow active:scale-95 transition-all duration-200 cursor-pointer"
-                title="Sau"
-              >
-                <span className="material-symbols-outlined font-bold">
-                  east
-                </span>
-              </button>
-            </div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto">
+          <div className="relative max-w-7xl mx-auto group">
+            {/* Nút Trái */}
+            <button
+              onClick={() => scrollSlider(productsSliderRef, "left")}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/20 bg-white/70 hover:bg-white text-on-surface hover:text-primary hidden md:flex items-center justify-center shadow-lg backdrop-blur-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 active:scale-90 cursor-pointer"
+              title="Trước"
+            >
+              <span className="material-symbols-outlined font-bold">west</span>
+            </button>
+
             {/* Horizontal Slider container */}
             <div
               ref={productsSliderRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth"
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth active:cursor-grabbing cursor-grab select-none"
             >
-              {productsList.map((product, idx) => (
+              {[...productsList, ...productsList, ...productsList].map((product, idx) => (
                 <article
                   key={idx}
                   className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group cursor-pointer hover:-translate-y-2"
@@ -928,6 +1095,14 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            {/* Nút Phải */}
+            <button
+              onClick={() => scrollSlider(productsSliderRef, "right")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/20 bg-white/70 hover:bg-white text-on-surface hover:text-primary hidden md:flex items-center justify-center shadow-lg backdrop-blur-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 active:scale-90 cursor-pointer"
+              title="Sau"
+            >
+              <span className="material-symbols-outlined font-bold">east</span>
+            </button>
           </div>
         </section>
 
@@ -952,79 +1127,111 @@ export default function Home() {
                 phát triển bền vững từ Huy Luminax.
               </p>
             </div>
-
-            {/* Slider control buttons */}
-            <div className="flex gap-3 shrink-0">
-              <button
-                onClick={() => scrollSlider(newsSliderRef, "left")}
-                className="w-12 h-12 rounded-full border border-outline-variant/35 bg-white/60 hover:bg-white text-on-surface hover:text-primary flex items-center justify-center shadow-sm hover:shadow active:scale-95 transition-all duration-200 cursor-pointer"
-                title="Trước"
-              >
-                <span className="material-symbols-outlined font-bold">
-                  west
-                </span>
-              </button>
-              <button
-                onClick={() => scrollSlider(newsSliderRef, "right")}
-                className="w-12 h-12 rounded-full border border-outline-variant/35 bg-white/60 hover:bg-white text-on-surface hover:text-primary flex items-center justify-center shadow-sm hover:shadow active:scale-95 transition-all duration-200 cursor-pointer"
-                title="Sau"
-              >
-                <span className="material-symbols-outlined font-bold">
-                  east
-                </span>
-              </button>
-            </div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto">
+          <div className="relative max-w-7xl mx-auto group">
+            {/* Nút Trái */}
+            <button
+              onClick={() => scrollSlider(newsSliderRef, "left")}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/20 bg-white/70 hover:bg-white text-on-surface hover:text-primary hidden md:flex items-center justify-center shadow-lg backdrop-blur-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 active:scale-90 cursor-pointer"
+              title="Trước"
+            >
+              <span className="material-symbols-outlined font-bold">west</span>
+            </button>
+
             {/* Horizontal Slider container */}
             <div
               ref={newsSliderRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth"
+              className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 scroll-smooth active:cursor-grabbing cursor-grab select-none"
             >
-              {newsAndEvents.map((news, idx) => (
+              {[...newsAndEvents, ...newsAndEvents, ...newsAndEvents].map((news, idx) => (
                 <article
-                  key={idx}
-                  className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group cursor-pointer hover:-translate-y-2"
+                  key={`${news.id || 'news'}-${idx}`}
+                  className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] max-w-[380px] snap-start glass-premium glowing-card shadow-lg shadow-deep-navy/5 border border-white/45 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full group hover:-translate-y-2"
                 >
-                  <div className="relative h-56 bg-surface-container overflow-hidden">
-                    <Image
-                      alt={news.title}
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      src={news.image}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
+                  {/* Ảnh bài viết */}
+                  <Link
+                    href={`/tin-tuc/${news.slug}`}
+                    className="relative h-56 bg-surface-container overflow-hidden block cursor-pointer"
+                  >
+                    {news.image ? (
+                      <Image
+                        alt={news.title}
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 w-full h-full"
+                        src={news.image}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/20 flex flex-col items-center justify-center text-primary/40">
+                        <ImageIcon className="w-12 h-12" />
+                      </div>
+                    )}
+                  </Link>
+
                   <div className="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
                         <span
-                          className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase ${news.badgeStyle}`}
+                          className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/10"
                         >
-                          {news.badge}
+                          {news.category?.name || "Tin tức"}
                         </span>
                         <span className="text-xs text-on-surface-variant font-medium">
-                          {news.date}
+                          {new Date(news.created_at).toLocaleDateString("vi-VN")}
                         </span>
                       </div>
-                      <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy group-hover:text-primary transition-colors leading-snug mb-3">
-                        {news.title}
+
+                      {/* Tiêu đề bài viết */}
+                      <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy transition-colors leading-snug mb-3 line-clamp-2">
+                        <Link href={`/tin-tuc/${news.slug}`} className="hover:text-primary transition-colors block cursor-pointer">
+                          {news.title}
+                        </Link>
                       </h3>
+
+                      {/* Trích dẫn */}
                       <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                        {news.description}
+                        {news.excerpt || "Xem chi tiết bài viết..."}
                       </p>
                     </div>
-                    <div className="mt-6 flex items-center text-xs font-bold text-primary gap-1 group-hover:gap-2 transition-all pt-4">
-                      Xem chi tiết{" "}
-                      <span className="material-symbols-outlined text-sm font-bold">
-                        east
-                      </span>
+
+                    {/* Xem chi tiết */}
+                    <div className="mt-6 pt-4 border-t border-black/5">
+                      <Link
+                        href={`/tin-tuc/${news.slug}`}
+                        className="inline-flex items-center text-xs font-bold text-primary gap-1 hover:gap-2 transition-all cursor-pointer"
+                      >
+                        Xem chi tiết{" "}
+                        <span className="material-symbols-outlined text-sm font-bold">
+                          east
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 </article>
               ))}
             </div>
+
+            {/* Nút Xem tất cả */}
+            <div className="flex justify-center pt-10 relative z-10">
+              <Link
+                href="/tin-tuc"
+                className="inline-flex items-center justify-center border border-primary/30 hover:border-primary text-primary px-8 py-3.5 rounded-full font-bold text-xs tracking-wider bg-white/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 backdrop-blur-md cursor-pointer"
+              >
+                XEM TẤT CẢ TIN TỨC
+                <span className="material-symbols-outlined ml-2 text-sm">
+                  arrow_forward
+                </span>
+              </Link>
+            </div>
+            {/* Nút Phải */}
+            <button
+              onClick={() => scrollSlider(newsSliderRef, "right")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/20 bg-white/70 hover:bg-white text-on-surface hover:text-primary hidden md:flex items-center justify-center shadow-lg backdrop-blur-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 active:scale-90 cursor-pointer"
+              title="Sau"
+            >
+              <span className="material-symbols-outlined font-bold">east</span>
+            </button>
           </div>
         </section>
 

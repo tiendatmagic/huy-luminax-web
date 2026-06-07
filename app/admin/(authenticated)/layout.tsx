@@ -16,6 +16,7 @@ import {
   X,
   User,
   Loader2,
+  FolderOpen,
 } from "lucide-react";
 
 interface UserProfile {
@@ -89,9 +90,10 @@ export default function AuthenticatedLayout({
 
   const navItems = [
     { id: "dashboard", name: "Tổng quan", icon: LayoutDashboard, href: "/admin/dashboard" },
-    { id: "members", name: "Thành viên", icon: User, href: "/admin/dashboard?tab=members" },
+    { id: "user", name: "Thành viên", icon: User, href: "/admin/user" },
     { id: "products", name: "Sản phẩm", icon: ShoppingBag, href: "#", disabled: true },
-    { id: "news", name: "Tin tức", icon: FileText, href: "#", disabled: true },
+    { id: "blog", name: "Bài viết", icon: FileText, href: "/admin/blog" },
+    { id: "blog-category", name: "Danh mục bài viết", icon: FolderOpen, href: "/admin/blog/category" },
     { id: "tech", name: "Công nghệ", icon: Cpu, href: "#", disabled: true },
     { id: "about", name: "Giới thiệu", icon: Info, href: "#", disabled: true },
     { id: "settings", name: "Cài đặt hệ thống", icon: Settings, href: "#", disabled: true },
@@ -99,12 +101,6 @@ export default function AuthenticatedLayout({
 
   // Kiểm tra mục nào đang active
   const isTabActive = (item: typeof navItems[0]) => {
-    if (item.id === "dashboard") {
-      return pathname === "/admin/dashboard" && !window.location.search.includes("tab=members");
-    }
-    if (item.id === "members") {
-      return pathname === "/admin/dashboard" && window.location.search.includes("tab=members");
-    }
     return pathname === item.href;
   };
 
