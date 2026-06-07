@@ -18,6 +18,7 @@ import {
   Mail,
   Lock,
   CheckCircle2,
+  X,
 } from "lucide-react";
 
 interface Member {
@@ -43,10 +44,14 @@ function DashboardContent() {
   // State quản lý Thành viên
   const [members, setMembers] = useState<Member[]>([]);
   const [membersLoading, setMembersLoading] = useState(false);
+  
+  // Modal tạo thành viên
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberEmail, setNewMemberEmail] = useState("");
   const [newMemberPassword, setNewMemberPassword] = useState("");
   const [showMemberPassword, setShowMemberPassword] = useState(false);
+  
   const [memberMessage, setMemberMessage] = useState<{ text: string; isError: boolean } | null>(null);
   const [memberActionLoading, setMemberActionLoading] = useState(false);
   const [memberToDelete, setMemberToDelete] = useState<Member | null>(null);
@@ -90,6 +95,7 @@ function DashboardContent() {
       fetchMembers();
       setMemberMessage(null);
       setShowMemberPassword(false);
+      setIsCreateModalOpen(false);
     }
   }, [activeTab]);
 
@@ -128,6 +134,7 @@ function DashboardContent() {
       setNewMemberEmail("");
       setNewMemberPassword("");
       setShowMemberPassword(false);
+      setIsCreateModalOpen(false); // Đóng modal khi thành công
       fetchMembers();
     } catch (err: any) {
       setMemberMessage({ text: err.message, isError: true });
@@ -236,94 +243,135 @@ function DashboardContent() {
         </>
       )}
 
-      {/* TAB 2: MEMBERS MANAGEMENT */}
+      {/* TAB 2: MEMBERS MANAGEMENT (FULL WIDTH + MODAL FORM) */}
       {activeTab === "members" && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
-          {/* Danh sách thành viên */}
-          <div className="xl:col-span-2 bg-white border border-black/5 rounded-3xl p-6 shadow-sm space-y-6">
-            <div className="flex items-center justify-between border-b border-black/5 pb-4">
+        <div className="w-full bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+          {/* Header với nút Thêm thành viên */}
+          <div className="flex items-center justify-between border-b border-black/5 pb-4 gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
               <h3 className="text-lg font-bold text-deep-navy">Danh sách tài khoản Admin</h3>
               <span className="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/25">
                 {members.length} Thành viên
               </span>
             </div>
+            
+            <button
+              onClick={() => {
+                setMemberMessage(null);
+                setNewMemberName("");
+                setNewMemberEmail("");
+                setNewMemberPassword("");
+                setShowMemberPassword(false);
+                setIsCreateModalOpen(true);
+              }}
+              className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-xs px-4 py-2.5 rounded-2xl transition-all shadow-md shadow-primary/20 hover:shadow-primary/45 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              Thêm thành viên
+            </button>
+          </div>
 
-            {memberMessage && (
-              <div className={`flex items-start gap-2.5 border text-sm font-semibold p-4 rounded-2xl ${
-                memberMessage.isError
-                  ? "bg-red-50 border-red-200 text-red-700"
-                  : "bg-green-50 border-green-200 text-green-700"
-              }`}>
-                {memberMessage.isError ? (
-                  <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
-                ) : (
-                  <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
-                )}
+          {/* Banner thông báo thành công hoặc lỗi ngoài bảng */}
+          {memberMessage && (
+            <div className={`flex items-start gap-2.5 border text-sm font-semibold p-4 rounded-2xl ${
+              memberMessage.isError
+                ? "bg-red-50 border-red-200 text-red-700"
+                : "bg-green-50 border-green-200 text-green-700"
+            }`}>
+              {memberMessage.isError ? (
+                <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
+              ) : (
+                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+              )}
+              <span>{memberMessage.text}</span>
+            </div>
+          )}
+
+          {membersLoading ? (
+            <div className="py-12 flex flex-col items-center justify-center gap-3">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <p className="text-xs font-semibold text-on-surface-variant">Đang tải danh sách thành viên...</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto scrollbar-none">
+              <table className="w-full text-left border-collapse min-w-[500px]">
+                <thead>
+                  <tr className="border-b border-black/5 text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+                    <th className="py-3 px-4">Tên hiển thị</th>
+                    <th className="py-3 px-4">Email</th>
+                    <th className="py-3 px-4">Ngày tạo</th>
+                    <th className="py-3 px-4 text-center">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/5 text-sm font-semibold text-deep-navy">
+                  {members.map((member) => (
+                    <tr key={member.id} className="hover:bg-black/[0.01] transition-colors">
+                      <td className="py-4 px-4 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">
+                          {member.name.substring(0, 2)}
+                        </div>
+                        <span className="font-bold">{member.name}</span>
+                        {currentUser?.id === member.id && (
+                          <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-2 py-0.5 rounded-full border border-green-200">
+                            Bạn
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-4 px-4 text-on-surface-variant/90">{member.email}</td>
+                      <td className="py-4 px-4 text-xs text-on-surface-variant/70">
+                        {new Date(member.created_at).toLocaleDateString("vi-VN")}
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <button
+                          onClick={() => setMemberToDelete(member)}
+                          disabled={currentUser?.id === member.id || memberActionLoading}
+                          className={`p-2 rounded-xl transition-colors ${
+                            currentUser?.id === member.id
+                              ? "text-black/20 cursor-not-allowed"
+                              : "text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                          }`}
+                          title={currentUser?.id === member.id ? "Không thể xoá chính mình" : "Xoá thành viên"}
+                        >
+                          <Trash2 className="w-4.5 h-4.5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* MODAL: TẠO THÀNH VIÊN MỚI */}
+      {isCreateModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/45 backdrop-blur-sm"
+            onClick={() => setIsCreateModalOpen(false)}
+          ></div>
+          
+          {/* Modal Container */}
+          <div className="bg-white rounded-3xl p-6 shadow-2xl border border-black/5 w-full max-w-md relative z-10 space-y-6 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-black/5 pb-4">
+              <h3 className="text-lg font-bold text-deep-navy">Tạo tài khoản Admin mới</h3>
+              <button
+                onClick={() => setIsCreateModalOpen(false)}
+                className="p-1.5 rounded-xl hover:bg-black/5 text-deep-navy cursor-pointer transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {memberMessage && memberMessage.isError && (
+              <div className="flex items-start gap-2.5 border border-red-200 bg-red-50 text-red-700 text-sm font-semibold p-4 rounded-2xl">
+                <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
                 <span>{memberMessage.text}</span>
               </div>
             )}
 
-            {membersLoading ? (
-              <div className="py-12 flex flex-col items-center justify-center gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                <p className="text-xs font-semibold text-on-surface-variant">Đang tải danh sách thành viên...</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto scrollbar-none">
-                <table className="w-full text-left border-collapse min-w-[500px]">
-                  <thead>
-                    <tr className="border-b border-black/5 text-xs font-bold text-on-surface-variant uppercase tracking-wider">
-                      <th className="py-3 px-4">Tên hiển thị</th>
-                      <th className="py-3 px-4">Email</th>
-                      <th className="py-3 px-4">Ngày tạo</th>
-                      <th className="py-3 px-4 text-center">Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-black/5 text-sm font-semibold text-deep-navy">
-                    {members.map((member) => (
-                      <tr key={member.id} className="hover:bg-black/[0.01] transition-colors">
-                        <td className="py-4 px-4 flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">
-                            {member.name.substring(0, 2)}
-                          </div>
-                          <span className="font-bold">{member.name}</span>
-                          {currentUser?.id === member.id && (
-                            <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-2 py-0.5 rounded-full border border-green-200">
-                              Bạn
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-4 px-4 text-on-surface-variant/90">{member.email}</td>
-                        <td className="py-4 px-4 text-xs text-on-surface-variant/70">
-                          {new Date(member.created_at).toLocaleDateString("vi-VN")}
-                        </td>
-                        <td className="py-4 px-4 text-center">
-                          <button
-                            onClick={() => setMemberToDelete(member)}
-                            disabled={currentUser?.id === member.id || memberActionLoading}
-                            className={`p-2 rounded-xl transition-colors ${
-                              currentUser?.id === member.id
-                                ? "text-black/20 cursor-not-allowed"
-                                : "text-red-500 hover:bg-red-50 hover:text-red-700 cursor-pointer"
-                            }`}
-                            title={currentUser?.id === member.id ? "Không thể xoá chính mình" : "Xoá thành viên"}
-                          >
-                            <Trash2 className="w-4.5 h-4.5" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-          {/* Tạo tài khoản mới */}
-          <div className="bg-white border border-black/5 rounded-3xl p-6 shadow-sm space-y-6">
-            <h3 className="text-lg font-bold text-deep-navy border-b border-black/5 pb-4">
-              Tạo tài khoản Admin mới
-            </h3>
             <form onSubmit={handleCreateMember} className="space-y-4">
               {/* Name Input */}
               <div className="space-y-1.5">
@@ -340,7 +388,7 @@ function DashboardContent() {
                     value={newMemberName}
                     onChange={(e) => setNewMemberName(e.target.value)}
                     placeholder="Nội bộ: nguyenvanb"
-                    className="w-full pl-10 pr-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-3.5 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                   />
                 </div>
               </div>
@@ -360,7 +408,7 @@ function DashboardContent() {
                     value={newMemberEmail}
                     onChange={(e) => setNewMemberEmail(e.target.value)}
                     placeholder="ten@luminax.com"
-                    className="w-full pl-10 pr-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-3.5 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                   />
                 </div>
               </div>
@@ -380,12 +428,12 @@ function DashboardContent() {
                     value={newMemberPassword}
                     onChange={(e) => setNewMemberPassword(e.target.value)}
                     placeholder="Tối thiểu 6 ký tự"
-                    className="w-full pl-10 pr-10 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full pl-10 pr-10 py-3.5 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                   />
                   <button
                     type="button"
                     onClick={() => setShowMemberPassword(!showMemberPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-deep-navy transition-colors cursor-pointer"
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-on-surface-variant hover:text-deep-navy transition-colors cursor-pointer"
                   >
                     {showMemberPassword ? (
                       <EyeOff className="w-4.5 h-4.5" />
@@ -396,18 +444,27 @@ function DashboardContent() {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={memberActionLoading}
-                className="w-full bg-primary hover:bg-primary-hover text-white font-bold text-xs py-3.5 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer mt-2 disabled:opacity-50"
-              >
-                {memberActionLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Plus className="w-4 h-4" />
-                )}
-                <span>Tạo Thành Viên</span>
-              </button>
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsCreateModalOpen(false)}
+                  className="flex-1 py-3 bg-black/5 hover:bg-black/10 rounded-2xl text-xs font-bold text-on-surface transition-colors cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  disabled={memberActionLoading}
+                  className="flex-1 py-3 bg-primary hover:bg-primary-hover text-white rounded-2xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {memberActionLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Plus className="w-4 h-4" />
+                  )}
+                  <span>Tạo Thành Viên</span>
+                </button>
+              </div>
             </form>
           </div>
         </div>

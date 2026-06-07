@@ -252,7 +252,7 @@ export default function AuthenticatedLayout({
       )}
 
       {/* MAIN CONTENT AREA */}
-      <div className="flex-1 flex flex-col min-w-0 relative z-10">
+      <div className="flex-1 flex flex-col min-w-0 relative">
         {/* Top Header with dropdown */}
         <header className="h-20 border-b border-black/5 bg-white/40 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-4">
