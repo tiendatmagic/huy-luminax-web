@@ -244,3 +244,225 @@ body.admin-maintenance-banner-active {
   padding-top: 40px !important;
 }
 
+/* ==========================================
+   DARK MODE CHO TRANG QUẢN TRỊ ADMIN
+   ========================================== */
+
+/* Override CSS Variables của Tailwind v4 cho theme tối */
+.dark-mode-admin {
+  --color-surface: #0b0f19;
+  --color-surface-container-low: #111827;
+  --color-surface-container: #1e293b;
+  --color-surface-container-high: #334155;
+  --color-surface-container-highest: #475569;
+  --color-on-surface: #f1f5f9;
+  --color-on-surface-variant: #94a3b8;
+  --color-deep-navy: #f1f5f9; /* Chuyển tất cả chữ deep-navy sang màu sáng ở Dark mode */
+  
+  background-color: var(--color-surface) !important;
+  color: var(--color-on-surface) !important;
+}
+
+/* Tinh chỉnh các phần tử có màu nền cố định bg-white hoặc trắng mờ */
+.dark-mode-admin aside,
+.dark-mode-admin header,
+.dark-mode-admin .bg-white,
+.dark-mode-admin .bg-white\/70,
+.dark-mode-admin .bg-white\/40,
+.dark-mode-admin .bg-white\/80 {
+  background-color: #111827 !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Xử lý nền của các card lối tắt */
+.dark-mode-admin .bg-white\/50 {
+  background-color: rgba(30, 41, 59, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark-mode-admin .hover\:bg-white:hover {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.dark-mode-admin aside .bg-white\/40,
+.dark-mode-admin aside .bg-white\/80 {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+.dark-mode-admin .bg-slate-50\/50 {
+  background-color: rgba(17, 24, 39, 0.6) !important;
+}
+
+/* Tải lại màu cho text-deep-navy */
+.dark-mode-admin .text-deep-navy {
+  color: #f1f5f9 !important;
+}
+
+.dark-mode-admin .text-on-surface-variant {
+  color: #94a3b8 !important;
+}
+
+.dark-mode-admin .text-on-surface {
+  color: #f1f5f9 !important;
+}
+
+.dark-mode-admin h1,
+.dark-mode-admin h2,
+.dark-mode-admin h3,
+.dark-mode-admin h4,
+.dark-mode-admin h5,
+.dark-mode-admin h6 {
+  color: #f1f5f9 !important;
+}
+
+.dark-mode-admin p {
+  color: #94a3b8 !important;
+}
+
+.dark-mode-admin span {
+  color: inherit;
+}
+
+/* Sửa lỗi hover làm chữ bị đen mờ trên nền tối */
+.dark-mode-admin .hover\:text-deep-navy:hover {
+  color: #00b3ff !important;
+}
+
+.dark-mode-admin .hover\:bg-primary\/5:hover {
+  background-color: rgba(0, 179, 255, 0.1) !important;
+}
+
+/* Sửa chữ xám mờ trên nền card lối tắt */
+.dark-mode-admin .text-on-surface-variant\/80 {
+  color: #cbd5e1 !important;
+}
+
+.dark-mode-admin .text-on-surface-variant\/70 {
+  color: #cbd5e1 !important;
+}
+
+/* Form input, textarea, select */
+.dark-mode-admin input,
+.dark-mode-admin textarea,
+.dark-mode-admin select {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-mode-admin input:focus,
+.dark-mode-admin textarea:focus,
+.dark-mode-admin select:focus {
+  background-color: #111827 !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(0, 179, 255, 0.2) !important;
+}
+
+.dark-mode-admin input::placeholder,
+.dark-mode-admin textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.dark-mode-admin input:disabled,
+.dark-mode-admin textarea:disabled,
+.dark-mode-admin select:disabled {
+  background-color: rgba(17, 24, 39, 0.5) !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  opacity: 0.6 !important;
+}
+
+/* Các viền đen border-black/5 và border-black/10 */
+.dark-mode-admin .border-black\/5 {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark-mode-admin .border-black\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Widget Settings Backgrounds */
+.dark-mode-admin .border-red-100 {
+  border-color: rgba(239, 68, 68, 0.2) !important;
+}
+.dark-mode-admin .bg-red-50\/30 {
+  background-color: rgba(239, 68, 68, 0.05) !important;
+}
+
+.dark-mode-admin .border-blue-100 {
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+.dark-mode-admin .border-blue-100\/50 {
+  border-color: rgba(59, 130, 246, 0.1) !important;
+}
+.dark-mode-admin .bg-blue-50\/20 {
+  background-color: rgba(59, 130, 246, 0.03) !important;
+}
+
+.dark-mode-admin .border-indigo-100\/50 {
+  border-color: rgba(99, 102, 241, 0.1) !important;
+}
+.dark-mode-admin .bg-indigo-50\/20 {
+  background-color: rgba(99, 102, 241, 0.03) !important;
+}
+
+.dark-mode-admin .border-purple-100\/50 {
+  border-color: rgba(168, 85, 247, 0.1) !important;
+}
+.dark-mode-admin .bg-purple-50\/20 {
+  background-color: rgba(168, 85, 247, 0.03) !important;
+}
+
+.dark-mode-admin .border-pink-100\/50 {
+  border-color: rgba(236, 72, 153, 0.1) !important;
+}
+.dark-mode-admin .bg-pink-50\/20 {
+  background-color: rgba(236, 72, 153, 0.03) !important;
+}
+
+.dark-mode-admin .border-teal-100\/50 {
+  border-color: rgba(20, 184, 166, 0.1) !important;
+}
+.dark-mode-admin .bg-teal-50\/20 {
+  background-color: rgba(20, 184, 166, 0.03) !important;
+}
+
+.dark-mode-admin .bg-\[\#faf8ff\] {
+  background-color: #0b0f19 !important;
+}
+
+.dark-mode-admin .glass-premium {
+  background: rgba(17, 24, 39, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Các danh mục hoặc bảng dữ liệu */
+.dark-mode-admin table,
+.dark-mode-admin thead,
+.dark-mode-admin tbody,
+.dark-mode-admin tr,
+.dark-mode-admin th,
+.dark-mode-admin td {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark-mode-admin th {
+  background-color: #1f2937 !important;
+  color: #f1f5f9 !important;
+}
+
+.dark-mode-admin tr:hover {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+.dark-mode-admin .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Khắc phục Sidebar Mobile Drawer */
+.dark-mode-admin aside.relative {
+  background-color: #111827 !important;
+  color: #f1f5f9 !important;
+}
+

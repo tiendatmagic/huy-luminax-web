@@ -17,6 +17,8 @@ import {
   User,
   Loader2,
   FolderOpen,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 interface UserProfile {
@@ -34,6 +36,7 @@ export default function AuthenticatedLayout({
   const [user, setUser] = useState<UserProfile | null>(null);
   const [siteName, setSiteName] = useState("HUY LUMINAX");
   const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState("light");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -74,6 +77,10 @@ export default function AuthenticatedLayout({
     fetchUser();
     fetchSettings();
 
+    // Khôi phục theme từ localStorage
+    const savedTheme = localStorage.getItem("admin-theme") || "light";
+    setTheme(savedTheme);
+
     // Đăng ký sự kiện lắng nghe cập nhật hồ sơ để đồng bộ tức thì
     const handleProfileUpdate = () => {
       fetchUser();
@@ -88,6 +95,12 @@ export default function AuthenticatedLayout({
       window.removeEventListener("settingsUpdated", handleSettingsUpdate);
     };
   }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    localStorage.setItem("admin-theme", nextTheme);
+  };
 
   const handleLogout = async () => {
     try {
@@ -112,7 +125,13 @@ export default function AuthenticatedLayout({
     );
   }
 
-  const navItems = [
+  const navItems: {
+    id: string;
+    name: string;
+    icon: any;
+    href: string;
+    disabled?: boolean;
+  }[] = [
     {
       id: "dashboard",
       name: "Tổng quan",
@@ -120,13 +139,13 @@ export default function AuthenticatedLayout({
       href: "/admin/dashboard",
     },
     { id: "user", name: "Thành viên", icon: User, href: "/admin/user" },
-    {
-      id: "products",
-      name: "Sản phẩm",
-      icon: ShoppingBag,
-      href: "#",
-      disabled: true,
-    },
+    // {
+    //   id: "products",
+    //   name: "Sản phẩm",
+    //   icon: ShoppingBag,
+    //   href: "#",
+    //   disabled: true,
+    // },
     { id: "blog", name: "Bài viết", icon: FileText, href: "/admin/blog" },
     {
       id: "blog-category",
@@ -148,7 +167,7 @@ export default function AuthenticatedLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8ff] flex text-on-surface relative">
+    <div className={`min-h-screen bg-[#faf8ff] flex text-on-surface relative transition-colors duration-300 ${theme === "dark" ? "dark-mode-admin" : ""}`}>
       {/* Background decoration */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="floating-blob w-[500px] h-[500px] bg-primary/5 -top-40 -left-40 blur-3xl opacity-30"></div>
@@ -346,8 +365,23 @@ export default function AuthenticatedLayout({
             </div>
           </div>
 
-          {/* Header Dropdown Menu */}
-          <div className="relative">
+          <div className="flex items-center gap-3">
+            {/* Toggle Theme Button */}
+            <button
+              onClick={toggleTheme}
+              type="button"
+              className="w-10 h-10 rounded-full hover:bg-black/5 flex items-center justify-center text-on-surface-variant transition-all hover:scale-105 active:scale-95 cursor-pointer relative group/theme-btn"
+              title={theme === "light" ? "Chuyển sang giao diện tối" : "Chuyển sang giao diện sáng"}
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5 text-amber-400" />
+              )}
+            </button>
+
+            {/* Header Dropdown Menu */}
+            <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-center gap-3 hover:bg-black/5 p-1.5 rounded-2xl transition-colors cursor-pointer"
@@ -404,6 +438,7 @@ export default function AuthenticatedLayout({
                 </div>
               </>
             )}
+          </div>
           </div>
         </header>
 

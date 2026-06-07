@@ -53,7 +53,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="p-6 md:p-8 space-y-8">
       {/* Greeting banner */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-deep-navy via-[#1e293b] to-deep-navy text-white p-6 md:p-8 overflow-hidden shadow-xl border border-white/5">
+      <div className="relative rounded-3xl bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white p-6 md:p-8 overflow-hidden shadow-xl border border-white/5">
         <div className="absolute right-0 top-0 w-80 h-full bg-gradient-to-l from-primary/10 to-transparent pointer-events-none"></div>
         <div className="max-w-xl relative z-10 space-y-3">
           <span className="text-xs font-black tracking-widest text-primary uppercase bg-primary/10 px-3 py-1 rounded-full border border-primary/20">Luminax AI Ready</span>
