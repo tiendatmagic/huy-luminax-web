@@ -308,7 +308,7 @@ export default function CategoryManagementPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Tên danh mục
                 </label>
@@ -322,7 +322,7 @@ export default function CategoryManagementPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Đường dẫn tĩnh (Slug)
                 </label>

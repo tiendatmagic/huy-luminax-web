@@ -192,7 +192,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Website <span className="text-red-500">*</span></label>
                   <input
                     type="text"
@@ -204,7 +204,7 @@ export default function SystemSettingsPage() {
                     placeholder="Huy Luminax"
                   />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Công ty <span className="text-red-500">*</span></label>
                   <input
                     type="text"
@@ -218,7 +218,7 @@ export default function SystemSettingsPage() {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Slogan / Giới thiệu ngắn</label>
                 <textarea
                   name="site_slogan"
@@ -230,7 +230,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Địa chỉ trụ sở <span className="text-red-500">*</span></label>
                 <input
                   type="text"
@@ -244,7 +244,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Hotline liên hệ <span className="text-red-500">*</span></label>
                   <input
                     type="text"
@@ -256,7 +256,7 @@ export default function SystemSettingsPage() {
                     placeholder="0987.654.321"
                   />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Email chính thức <span className="text-red-500">*</span></label>
                   <input
                     type="email"
@@ -271,7 +271,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã số thuế</label>
                   <input
                     type="text"
@@ -282,7 +282,7 @@ export default function SystemSettingsPage() {
                     placeholder="0102030405"
                   />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Giờ làm việc</label>
                   <input
                     type="text"
@@ -306,7 +306,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Facebook Page</label>
                   <input
                     type="url"
@@ -317,7 +317,7 @@ export default function SystemSettingsPage() {
                     placeholder="https://facebook.com/company"
                   />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">YouTube Channel</label>
                   <input
                     type="url"
@@ -331,7 +331,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">LinkedIn Company</label>
                   <input
                     type="url"
@@ -342,7 +342,7 @@ export default function SystemSettingsPage() {
                     placeholder="https://linkedin.com/company/..."
                   />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số điện thoại Zalo</label>
                   <input
                     type="text"
@@ -508,7 +508,7 @@ export default function SystemSettingsPage() {
                 <p className="text-xs text-on-surface-variant/80 mt-1">Thiết lập các thuộc tính tối ưu hóa tìm kiếm mặc định cho toàn trang và ID đo lường.</p>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tiêu đề SEO Trang chủ (Meta Title)</label>
                 <input
                   type="text"
@@ -520,7 +520,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mô tả SEO Trang chủ (Meta Description)</label>
                 <textarea
                   name="seo_meta_description"
@@ -532,7 +532,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Google Analytics ID (G-XXXXXXX)</label>
                 <input
                   type="text"
@@ -555,7 +555,7 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Chế độ bảo trì hệ thống</label>
                   <select
                     name="maintenance_mode"
@@ -568,7 +568,7 @@ export default function SystemSettingsPage() {
                   </select>
                 </div>
 
-                <div className="space-y-1.5">
+                <div className="space-y-3">
                   <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số bài viết mỗi trang (Pagination) <span className="text-red-500">*</span></label>
                   <input
                     type="number"
@@ -584,7 +584,7 @@ export default function SystemSettingsPage() {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Header (Chèn trong thẻ &lt;head&gt;)</label>
                 <textarea
                   name="custom_header_scripts"
@@ -596,7 +596,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase pl-1">Mã Script Custom Footer (Chèn trước thẻ &lt;/body&gt;)</label>
                 <textarea
                   name="custom_footer_scripts"

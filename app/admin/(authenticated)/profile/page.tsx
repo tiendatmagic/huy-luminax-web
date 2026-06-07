@@ -129,7 +129,7 @@ export default function AdminProfilePage() {
 
         <form onSubmit={handleUpdateProfile} className="space-y-5">
           {/* Name Input */}
-          <div className="space-y-1.5">
+          <div className="space-y-3">
             <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
               Tên hiển thị
             </label>
@@ -149,7 +149,7 @@ export default function AdminProfilePage() {
           </div>
 
           {/* Email Input */}
-          <div className="space-y-1.5">
+          <div className="space-y-3">
             <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
               Địa chỉ Email
             </label>
@@ -173,7 +173,7 @@ export default function AdminProfilePage() {
             <h4 className="text-xs font-black text-deep-navy uppercase tracking-widest mb-2">Thay đổi mật khẩu (Tuỳ chọn)</h4>
             
             {/* Mật khẩu cũ */}
-            <div className="space-y-1.5">
+            <div className="space-y-3">
               <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                 Mật khẩu hiện tại (Cũ)
               </label>
@@ -200,7 +200,7 @@ export default function AdminProfilePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Mật khẩu mới */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mật khẩu mới
                 </label>
@@ -226,7 +226,7 @@ export default function AdminProfilePage() {
               </div>
 
               {/* Xác nhận mật khẩu */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Xác nhận mật khẩu mới
                 </label>

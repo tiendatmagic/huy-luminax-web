@@ -711,7 +711,7 @@ export default function ProductManagementPage() {
                 <div className="md:col-span-2 space-y-4">
                   {/* Name & Slug */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Tên sản phẩm / Dịch vụ <span className="text-red-500">*</span>
                       </label>
@@ -724,7 +724,7 @@ export default function ProductManagementPage() {
                         className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Đường dẫn tĩnh (Slug)
                       </label>
@@ -740,7 +740,7 @@ export default function ProductManagementPage() {
 
                   {/* Prices & SKU */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Mã SKU (Sản phẩm)
                       </label>
@@ -752,7 +752,7 @@ export default function ProductManagementPage() {
                         className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary outline-none transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Giá bán (VNĐ)
                       </label>
@@ -765,7 +765,7 @@ export default function ProductManagementPage() {
                         className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary outline-none transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Giá gốc (Thị trường)
                       </label>
@@ -781,7 +781,7 @@ export default function ProductManagementPage() {
                   </div>
 
                   {/* Short Description */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Mô tả ngắn sản phẩm
                     </label>
@@ -798,7 +798,7 @@ export default function ProductManagementPage() {
                 {/* Cột phải: Danh mục, ảnh đại diện, trạng thái */}
                 <div className="space-y-4">
                   {/* Category Selection */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Danh mục sản phẩm
                     </label>
@@ -817,7 +817,7 @@ export default function ProductManagementPage() {
                   </div>
 
                   {/* Featured Image */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Ảnh đại diện sản phẩm
                     </label>
@@ -867,7 +867,7 @@ export default function ProductManagementPage() {
 
                   {/* Cấu hình hiển thị */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Kho hàng
                       </label>
@@ -880,7 +880,7 @@ export default function ProductManagementPage() {
                         <option value="outofstock">Hết hàng</option>
                       </select>
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Trạng thái
                       </label>
@@ -959,7 +959,7 @@ export default function ProductManagementPage() {
               </div>
 
               {/* Rich Text Editor */}
-              <div className="space-y-1.5 border-t border-black/5 pt-4">
+              <div className="space-y-3 border-t border-black/5 pt-4">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Mô tả chi tiết sản phẩm
                 </label>

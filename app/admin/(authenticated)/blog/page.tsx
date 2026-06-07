@@ -546,7 +546,7 @@ export default function BlogManagementPage() {
                 <div className="md:col-span-2 space-y-4">
                   {/* Title & Slug */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Tiêu đề bài viết
                       </label>
@@ -559,7 +559,7 @@ export default function BlogManagementPage() {
                         className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs font-semibold text-deep-navy focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-3">
                       <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                         Đường dẫn tĩnh (Slug)
                       </label>
@@ -574,7 +574,7 @@ export default function BlogManagementPage() {
                   </div>
 
                   {/* Excerpt */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Trích dẫn ngắn (Excerpt)
                     </label>
@@ -591,7 +591,7 @@ export default function BlogManagementPage() {
                 {/* Cột phải: Danh mục, ảnh đại diện */}
                 <div className="space-y-4">
                   {/* Category Selection */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Danh mục bài viết
                     </label>
@@ -610,7 +610,7 @@ export default function BlogManagementPage() {
                   </div>
 
                   {/* Featured Image */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-3">
                     <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                       Ảnh đại diện bài viết
                     </label>
@@ -660,7 +660,7 @@ export default function BlogManagementPage() {
               </div>
 
               {/* Rich Text Editor */}
-              <div className="space-y-1.5">
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-deep-navy uppercase tracking-wider pl-1">
                   Nội dung chi tiết bài viết
                 </label>
