@@ -174,9 +174,10 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Website</label>
+                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Website <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    required
                     name="site_name"
                     value={settings.site_name}
                     onChange={handleChange}
@@ -185,9 +186,10 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Công ty</label>
+                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Tên Công ty <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    required
                     name="company_name"
                     value={settings.company_name}
                     onChange={handleChange}
@@ -210,9 +212,10 @@ export default function SystemSettingsPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Địa chỉ trụ sở</label>
+                <label className="text-xs font-bold text-deep-navy uppercase pl-1">Địa chỉ trụ sở <span className="text-red-500">*</span></label>
                 <input
                   type="text"
+                  required
                   name="company_address"
                   value={settings.company_address}
                   onChange={handleChange}
@@ -223,9 +226,10 @@ export default function SystemSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Hotline liên hệ</label>
+                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Hotline liên hệ <span className="text-red-500">*</span></label>
                   <input
                     type="text"
+                    required
                     name="company_phone"
                     value={settings.company_phone}
                     onChange={handleChange}
@@ -234,9 +238,10 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Email chính thức</label>
+                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Email chính thức <span className="text-red-500">*</span></label>
                   <input
                     type="email"
+                    required
                     name="company_email"
                     value={settings.company_email}
                     onChange={handleChange}
@@ -418,9 +423,10 @@ export default function SystemSettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số bài viết mỗi trang (Pagination)</label>
+                  <label className="text-xs font-bold text-deep-navy uppercase pl-1">Số bài viết mỗi trang (Pagination) <span className="text-red-500">*</span></label>
                   <input
                     type="number"
+                    required
                     name="posts_per_page"
                     value={settings.posts_per_page}
                     onChange={handleChange}

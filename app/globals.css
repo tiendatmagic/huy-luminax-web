@@ -233,3 +233,14 @@ body {
 .ql-align-justify {
   text-align: justify;
 }
+
+/* Đẩy header và các thành phần khác xuống khi có banner bảo trì admin */
+body.admin-maintenance-banner-active header {
+  margin-top: 40px !important;
+  transition: margin-top 0.3s ease-in-out, top 0.5s ease-out !important;
+}
+
+body.admin-maintenance-banner-active {
+  padding-top: 40px !important;
+}
+

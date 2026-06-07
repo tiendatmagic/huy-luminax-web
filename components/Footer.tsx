@@ -7,10 +7,14 @@ import Link from "next/link";
 export default function Footer() {
   const [settings, setSettings] = useState<any>({
     company_name: "CÔNG TY TNHH HUY LUMINAX",
-    site_slogan: "Tiên phong nghiên cứu hóa sinh xanh và ứng dụng trí tuệ nhân tạo Luminax AI nhằm kiến tạo các sản phẩm sạch, an toàn và tối ưu cho cộng đồng.",
-    company_address: "Số 88 Tô Hiến Thành, Tân Lập, TP Nha Trang, Tỉnh Khánh Hòa",
+    site_slogan:
+      "Tiên phong nghiên cứu hóa sinh xanh và ứng dụng trí tuệ nhân tạo Luminax AI nhằm kiến tạo các sản phẩm sạch, an toàn và tối ưu cho cộng đồng.",
+    company_address:
+      "Số 88 Tô Hiến Thành, Tân Lập, TP Nha Trang, Tỉnh Khánh Hòa",
     company_phone: "093.366.3112",
     company_email: "info@huyluminax.com",
+    company_tax_code: "",
+    company_working_hours: "",
     social_zalo: "0933663112",
   });
 
@@ -22,7 +26,7 @@ export default function Footer() {
           const data = await res.json();
           setSettings((prev: any) => ({
             ...prev,
-            ...data
+            ...data,
           }));
         }
       } catch (err) {
@@ -72,14 +76,22 @@ export default function Footer() {
               {settings.site_slogan}
             </p>
             <div className="space-y-3.5 text-sm text-on-surface-variant font-medium">
+              {settings.company_tax_code && (
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-primary text-xl">
+                    description
+                  </span>
+                  <span>Mã số thuế: {settings.company_tax_code}</span>
+                </div>
+              )}
+
               <div className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-xl mt-0.5">
                   location_on
                 </span>
-                <span>
-                  {settings.company_address}
-                </span>
+                <span>{settings.company_address}</span>
               </div>
+
               <div className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-xl">
                   call
@@ -91,6 +103,7 @@ export default function Footer() {
                   {settings.company_phone}
                 </a>
               </div>
+
               <div className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-xl">
                   mail
@@ -102,6 +115,15 @@ export default function Footer() {
                   {settings.company_email}
                 </a>
               </div>
+
+              {settings.company_working_hours && (
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-primary text-xl">
+                    schedule
+                  </span>
+                  <span>Giờ làm việc: {settings.company_working_hours}</span>
+                </div>
+              )}
             </div>
           </div>
 

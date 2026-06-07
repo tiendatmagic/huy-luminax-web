@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import MaintenanceGuard from "@/components/MaintenanceGuard";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Huy Luminax - Trí Tuệ Nhân Tạo & Tinh Hoa Hóa Chất Việt Nam",
+  title: "Huy Luminax - Trí Tuệ Nhân Tạo & Tinh Hoa Hóa Chemical Việt Nam",
   description:
     "CÔNG TY TNHH HUY LUMINAX là đơn vị đi đầu trong việc tích hợp nghiên cứu hóa sinh và ứng dụng mô hình học máy Luminax AI. Chúng tôi cung cấp các dòng sản phẩm khăn giấy kháng khuẩn cao cấp, hóa chất cơ bản công nghiệp B2B đạt độ tinh khiết 99.998% và các giải pháp tự động hóa chuỗi cung ứng tối ưu.",
   keywords:
@@ -80,7 +81,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary">
-        {children}
+        <MaintenanceGuard>
+          {children}
+        </MaintenanceGuard>
       </body>
     </html>
   );
