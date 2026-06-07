@@ -25,7 +25,7 @@ export default function Footer() {
               className="font-headline text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-vibrant-blue to-secondary-container flex items-center gap-2 cursor-pointer"
             >
               <Image
-                src="/logo.svg"
+                src="/logo-new.png"
                 alt="Huy Luminax Logo"
                 width={44}
                 height={44}

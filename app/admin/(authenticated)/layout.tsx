@@ -22,6 +22,7 @@ import {
 interface UserProfile {
   id: number;
   name: string;
+  fullname?: string;
   email: string;
 }
 
@@ -116,7 +117,7 @@ export default function AuthenticatedLayout({
       <aside className="hidden lg:flex flex-col w-72 bg-white/70 backdrop-blur-md border-r border-black/5 relative z-20 shrink-0">
         <div className="p-6 pb-2 border-b border-black/5 flex items-center gap-3">
           <Link href="/" className="relative w-10 h-10 block cursor-pointer">
-            <Image src="/logo.svg" alt="Logo" fill className="object-contain" />
+            <Image src="/logo-new.png" alt="Logo" fill className="object-contain" />
           </Link>
           <div>
             <h1 className="font-headline text-lg font-black text-deep-navy">HUY LUMINAX</h1>
@@ -161,10 +162,10 @@ export default function AuthenticatedLayout({
             }`}
           >
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white font-bold uppercase text-sm shadow-inner shrink-0">
-              {user?.name.substring(0, 2)}
+              {(user?.fullname || user?.name || "").substring(0, 2)}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-bold text-deep-navy truncate">{user?.name}</p>
+              <p className="text-sm font-bold text-deep-navy truncate">{user?.fullname || user?.name}</p>
               <p className="text-[11px] font-semibold text-on-surface-variant/80 truncate">{user?.email}</p>
             </div>
           </Link>
@@ -184,7 +185,7 @@ export default function AuthenticatedLayout({
             <div className="p-6 border-b border-black/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative w-9 h-9">
-                  <Image src="/logo.svg" alt="Logo" fill className="object-contain" />
+                  <Image src="/logo-new.png" alt="Logo" fill className="object-contain" />
                 </div>
                 <div>
                   <h1 className="font-headline text-base font-black text-deep-navy">HUY LUMINAX</h1>
@@ -235,10 +236,10 @@ export default function AuthenticatedLayout({
                 }`}
               >
                 <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white font-bold uppercase text-sm shrink-0">
-                  {user?.name.substring(0, 2)}
+                  {(user?.fullname || user?.name || "").substring(0, 2)}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-deep-navy truncate">{user?.name}</p>
+                  <p className="text-sm font-bold text-deep-navy truncate">{user?.fullname || user?.name}</p>
                   <p className="text-[11px] font-semibold text-on-surface-variant/80 truncate">{user?.email}</p>
                 </div>
               </Link>
@@ -275,13 +276,13 @@ export default function AuthenticatedLayout({
               className="flex items-center gap-3 hover:bg-black/5 p-1.5 rounded-2xl transition-colors cursor-pointer"
             >
               <div className="text-right hidden sm:block">
-                <p className="text-xs font-bold text-deep-navy">Xin chào, {user?.name}</p>
+                <p className="text-xs font-bold text-deep-navy">Xin chào, {user?.fullname || user?.name}</p>
                 <span className="text-[10px] font-bold bg-green-500/10 text-green-700 px-2 py-0.5 rounded-full border border-green-200 uppercase">
                   Chủ sở hữu
                 </span>
               </div>
               <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white font-bold uppercase text-sm border-2 border-white shadow-md">
-                {user?.name.substring(0, 2)}
+                {(user?.fullname || user?.name || "").substring(0, 2)}
               </div>
             </button>
 
@@ -295,7 +296,7 @@ export default function AuthenticatedLayout({
 
                 <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-black/5 py-2 z-50 animate-fade-in">
                   <div className="px-4 py-2 border-b border-black/5 sm:hidden">
-                    <p className="text-xs font-bold text-deep-navy truncate">{user?.name}</p>
+                    <p className="text-xs font-bold text-deep-navy truncate">{user?.fullname || user?.name}</p>
                     <p className="text-[10px] text-on-surface-variant truncate">{user?.email}</p>
                   </div>
                   <Link

@@ -35,6 +35,15 @@ export async function POST(req: NextRequest) {
       ...(remember ? { maxAge: 60 * 60 * 24 * 7 } : {}), // Ghi nhớ 7 ngày
     });
 
+    // Thiết lập cookie không HTTP-Only để Client đọc nhanh trạng thái đăng nhập
+    cookieStore.set("admin_logged_in", "true", {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      ...(remember ? { maxAge: 60 * 60 * 24 * 7 } : {}), // Ghi nhớ 7 ngày
+    });
+
     return NextResponse.json({ success: true, user });
   } catch (error: any) {
     console.error("Login route error:", error);

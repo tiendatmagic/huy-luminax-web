@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
 
     // Xoá cookie
     cookieStore.delete("admin_token");
+    cookieStore.delete("admin_logged_in");
 
     return NextResponse.json({ success: true, message: "Đăng xuất thành công" });
   } catch (error: any) {
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
     // Vẫn xoá cookie cục bộ trong mọi trường hợp
     const cookieStore = await cookies();
     cookieStore.delete("admin_token");
+    cookieStore.delete("admin_logged_in");
     return NextResponse.json({ success: true, message: "Đăng xuất cục bộ thành công" });
   }
 }

@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
         <div className="flex flex-col items-center mb-8">
           <div className="relative w-16 h-16 mb-4 drop-shadow-md">
             <Image
-              src="/logo.svg"
+              src="/logo-new.png"
               alt="Huy Luminax Logo"
               fill
               className="object-contain"
