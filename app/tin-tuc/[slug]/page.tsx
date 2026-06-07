@@ -102,9 +102,12 @@ export default function DetailTinTuc() {
           {/* Category & Date */}
           <div className="flex items-center gap-4 text-xs font-semibold text-on-surface-variant">
             {post.category && (
-              <span className="text-[10px] font-mono font-bold px-2.5 py-1 bg-primary/10 text-primary rounded-[5px] uppercase">
+              <Link
+                href={`/tin-tuc?category=${post.category.slug}`}
+                className="text-[10px] font-mono font-bold px-2.5 py-1 bg-primary/10 text-primary rounded-[5px] uppercase hover:bg-primary hover:text-white transition-all cursor-pointer"
+              >
                 {post.category.name}
-              </span>
+              </Link>
             )}
             <span className="flex items-center gap-1.5 font-medium">
               <Calendar className="w-4 h-4" />

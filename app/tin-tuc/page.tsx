@@ -10,6 +10,7 @@ import { Loader2, Calendar, Image as ImageIcon } from "lucide-react";
 interface Category {
   id: number;
   name: string;
+  slug: string;
 }
 
 interface Post {
@@ -24,32 +25,72 @@ interface Post {
  
 export default function TinTuc() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 9;
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch("/api/public/posts");
-        if (res.ok) {
-          const data = await res.json();
+        const [postsRes, catsRes] = await Promise.all([
+          fetch("/api/public/posts"),
+          fetch("/api/public/categories"),
+        ]);
+        if (postsRes.ok) {
+          const data = await postsRes.json();
           setPosts(data);
         }
+        if (catsRes.ok) {
+          const data = await catsRes.json();
+          setCategories(data);
+        }
       } catch (err) {
-        console.error("Lỗi lấy bài viết:", err);
+        console.error("Lỗi lấy dữ liệu:", err);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchPosts();
+    fetchData();
   }, []);
- 
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get("category") || "";
+        setSelectedCategory(cat);
+        setCurrentPage(1);
+      }
+    };
+
+    handleLocationChange();
+
+    window.addEventListener("popstate", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+    };
+  }, []);
+
+  const handleCategoryChange = (slug: string) => {
+    setSelectedCategory(slug);
+    setCurrentPage(1);
+    if (typeof window !== "undefined") {
+      const newUrl = slug ? `/tin-tuc?category=${slug}` : "/tin-tuc";
+      window.history.pushState({}, "", newUrl);
+    }
+  };
+
+  const filteredPosts = selectedCategory
+    ? posts.filter((post) => post.category?.slug === selectedCategory)
+    : posts;
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   return (
     <div className="flex flex-col min-h-screen relative selection:bg-primary/20 selection:text-primary">
@@ -61,7 +102,7 @@ export default function TinTuc() {
             <div className="floating-blob w-80 h-80 bg-primary/10 top-12 left-10 blur-3xl opacity-50"></div>
           </div>
  
-          <div className="relative z-10 text-center mb-16 space-y-4">
+          <div className="relative z-10 text-center mb-10 space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/10 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
               <span className="font-mono text-xs font-bold text-primary uppercase tracking-widest">
@@ -75,6 +116,37 @@ export default function TinTuc() {
               Cập nhật những thông tin công nghệ, chiến lược hợp tác phát triển bền vững và dòng sản phẩm mới nhất từ Huy Luminax.
             </p>
           </div>
+
+          {/* Category Tabs */}
+          {!isLoading && posts.length > 0 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-12 relative z-10">
+              <button
+                type="button"
+                onClick={() => handleCategoryChange("")}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer ${
+                  selectedCategory === ""
+                    ? "bg-primary text-white shadow-md shadow-primary/20"
+                    : "bg-white/60 text-on-surface-variant hover:bg-white border border-black/5"
+                }`}
+              >
+                Tất cả
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategoryChange(cat.slug)}
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer ${
+                    selectedCategory === cat.slug
+                      ? "bg-primary text-white shadow-md shadow-primary/20"
+                      : "bg-white/60 text-on-surface-variant hover:bg-white border border-black/5"
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+          )}
  
           {/* Loading state */}
           {isLoading ? (
@@ -82,9 +154,9 @@ export default function TinTuc() {
               <Loader2 className="w-10 h-10 animate-spin text-primary" />
               <p className="text-sm font-bold text-deep-navy">Đang tải danh sách bài viết...</p>
             </div>
-          ) : posts.length === 0 ? (
+          ) : filteredPosts.length === 0 ? (
             <div className="py-20 text-center text-on-surface-variant font-bold text-sm relative z-10">
-              Hiện chưa có bài viết nào. Vui lòng quay lại sau!
+              Không có bài viết nào thuộc danh mục này. Vui lòng quay lại sau!
             </div>
           ) : (
             /* News List Grid */
@@ -113,34 +185,36 @@ export default function TinTuc() {
                       </div>
                     )}
                   </Link>
-
+ 
                   <div className="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
-                        <span
-                          className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/10"
+                        <button
+                          type="button"
+                          onClick={() => handleCategoryChange(news.category?.slug || "")}
+                          className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-[5px] uppercase text-primary bg-primary/10 border border-primary/10 hover:bg-primary hover:text-white transition-all cursor-pointer"
                         >
                           {news.category?.name || "Tin tức"}
-                        </span>
+                        </button>
                         <span className="text-xs text-on-surface-variant font-medium flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5" />
                           {new Date(news.created_at).toLocaleDateString("vi-VN")}
                         </span>
                       </div>
-
+ 
                       {/* Tiêu đề bài viết */}
                       <h3 className="font-headline text-base sm:text-lg font-bold text-deep-navy transition-colors leading-snug mb-3 line-clamp-2">
                         <Link href={`/tin-tuc/${news.slug}`} className="hover:text-primary transition-colors block cursor-pointer">
                           {news.title}
                         </Link>
                       </h3>
-
+ 
                       {/* Trích dẫn */}
                       <p className="text-xs sm:text-sm text-on-surface-variant line-clamp-3 leading-relaxed font-medium">
                         {news.excerpt || "Xem chi tiết bài viết..."}
                       </p>
                     </div>
-
+ 
                     {/* Xem chi tiết */}
                     <div className="mt-6 pt-4 border-t border-black/5">
                       <Link

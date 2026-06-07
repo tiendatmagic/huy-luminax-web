@@ -147,12 +147,6 @@ export default function AuthenticatedLayout({
     },
     { id: "blog", name: "Bài viết", icon: FileText, href: "/admin/blog" },
     {
-      id: "blog-category",
-      name: "Danh mục bài viết",
-      icon: FolderOpen,
-      href: "/admin/blog/category",
-    },
-    {
       id: "settings",
       name: "Cài đặt hệ thống",
       icon: Settings,

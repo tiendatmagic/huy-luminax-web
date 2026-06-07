@@ -12,6 +12,7 @@ import {
   Loader2,
   Image as ImageIcon,
   Eye,
+  FolderOpen,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -331,23 +332,32 @@ export default function BlogManagementPage() {
             </span>
           </div>
 
-          <button
-            onClick={() => {
-              setMessage(null);
-              setTitle("");
-              setSlug("");
-              setCategoryId("");
-              setExcerpt("");
-              setContent("");
-              setFeaturedImage("");
-              setEditingPost(null);
-              setIsModalOpen(true);
-            }}
-            className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-xs px-4 py-2.5 rounded-2xl transition-all shadow-md shadow-primary/20 hover:shadow-primary/45 cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            Viết bài mới
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin/blog/category"
+              className="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 text-deep-navy border border-black/10 font-bold text-xs px-4 py-2.5 rounded-2xl transition-all cursor-pointer shadow-sm"
+            >
+              <FolderOpen className="w-4 h-4 text-on-surface-variant" />
+              Quản lý danh mục
+            </Link>
+            <button
+              onClick={() => {
+                setMessage(null);
+                setTitle("");
+                setSlug("");
+                setCategoryId("");
+                setExcerpt("");
+                setContent("");
+                setFeaturedImage("");
+                setEditingPost(null);
+                setIsModalOpen(true);
+              }}
+              className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-xs px-4 py-2.5 rounded-2xl transition-all shadow-md shadow-primary/20 hover:shadow-primary/45 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              Viết bài mới
+            </button>
+          </div>
         </div>
 
         {/* Thông báo */}

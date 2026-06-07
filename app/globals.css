@@ -291,6 +291,20 @@ body.admin-maintenance-banner-active {
   background-color: rgba(30, 41, 59, 0.5) !important;
 }
 
+.dark-mode-admin .bg-slate-50 {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-mode-admin .hover\:bg-slate-100:hover {
+  background-color: #334155 !important;
+}
+
+.dark-mode-admin .hover\:bg-slate-50:hover {
+  background-color: #334155 !important;
+}
+
 .dark-mode-admin .bg-slate-50\/50 {
   background-color: rgba(17, 24, 39, 0.6) !important;
 }
