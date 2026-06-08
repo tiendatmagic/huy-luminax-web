@@ -259,14 +259,14 @@ export default function ContactSection() {
                   type="button"
                   disabled={isSubmitting}
                   onClick={() => setIsContactModalOpen(false)}
-                  className="px-6 py-3 bg-black/5 hover:bg-black/10 rounded-2xl text-xs font-bold text-on-surface transition-colors cursor-pointer disabled:opacity-40"
+                  className="px-6 h-11 bg-black/5 hover:bg-black/10 rounded-2xl text-xs font-bold text-on-surface transition-colors cursor-pointer disabled:opacity-40 inline-flex items-center justify-center"
                 >
                   Hủy bỏ
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-3 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-white rounded-2xl text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="px-8 h-11 bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-white rounded-2xl text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
