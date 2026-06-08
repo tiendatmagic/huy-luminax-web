@@ -51,6 +51,42 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState<Setting>({});
+  const [quantity, setQuantity] = useState<number>(1);
+  const [addedMessage, setAddedMessage] = useState<string | null>(null);
+
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    try {
+      const cartData = localStorage.getItem("cart");
+      let cart = cartData ? JSON.parse(cartData) : [];
+
+      const existingIndex = cart.findIndex((item: any) => item.id === product.id);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += quantity;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          slug: product.slug,
+          price: product.price,
+          featured_image: product.featured_image,
+          quantity: quantity
+        });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      
+      // Kích hoạt sự kiện để Header cập nhật
+      window.dispatchEvent(new Event("cartUpdated"));
+
+      setAddedMessage("Đã thêm sản phẩm vào giỏ hàng thành công!");
+      setTimeout(() => setAddedMessage(null), 3000);
+    } catch (err) {
+      console.error("Lỗi thêm vào giỏ hàng:", err);
+      alert("Không thể thêm vào giỏ hàng.");
+    }
+  };
 
   // Fetch chi tiết sản phẩm và settings hotline
   useEffect(() => {
@@ -249,25 +285,83 @@ export default function ProductDetail() {
               </div>
 
               {/* Hành động đặt hàng & tư vấn */}
-              <div className="space-y-4 pt-4">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href={`tel:${contactPhone}`}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-primary hover:bg-primary-hover text-white rounded-2xl text-xs sm:text-sm font-bold shadow-md shadow-primary/20 hover:shadow-primary/45 transition-all text-center"
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                    GỌI HOTLINE: {contactPhone}
-                  </a>
-                  <a
-                    href={zaloLink}
-                    target="_blank"
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 hover:shadow-blue-600/40 transition-all text-center"
-                  >
-                    <span>Chat Zalo Tư Vấn</span>
-                  </a>
-                </div>
+              <div className="space-y-5 pt-4 border-t border-black/5">
+                {/* Chọn số lượng */}
+                {product.stock_status === "instock" && product.price && parseFloat(product.price) > 0 && (
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs font-bold text-deep-navy uppercase tracking-wider">Số lượng:</span>
+                    <div className="flex items-center border border-black/10 rounded-xl overflow-hidden bg-slate-50 shadow-sm">
+                      <button
+                        type="button"
+                        onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+                        className="px-3 py-1.5 hover:bg-black/5 font-bold transition-all text-on-surface-variant cursor-pointer text-sm"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        value={quantity}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value);
+                          if (!isNaN(val) && val > 0) setQuantity(val);
+                        }}
+                        className="w-10 text-center text-xs font-bold bg-transparent outline-none text-deep-navy border-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setQuantity((prev) => prev + 1)}
+                        className="px-3 py-1.5 hover:bg-black/5 font-bold transition-all text-on-surface-variant cursor-pointer text-sm"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-                {/* Các nhãn cam kết chất lượng */}
+                {/* Thông báo thành công */}
+                {addedMessage && (
+                  <div className="bg-green-50 border border-green-200 text-green-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 animate-fade-in">
+                    <span className="material-symbols-outlined text-sm">check_circle</span>
+                    <span>{addedMessage}</span>
+                  </div>
+                )}
+
+                <div className="flex flex-col gap-3">
+                  {product.stock_status === "instock" && product.price && parseFloat(product.price) > 0 ? (
+                    <button
+                      onClick={handleAddToCart}
+                      className="w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-primary to-vibrant-blue hover:from-primary-hover hover:to-vibrant-blue text-white rounded-2xl text-xs sm:text-sm font-bold shadow-md shadow-primary/20 hover:shadow-lg transition-all text-center cursor-pointer hover:scale-[1.01]"
+                    >
+                      <ShoppingCart className="w-4.5 h-4.5" />
+                      THÊM VÀO GIỎ HÀNG
+                    </button>
+                  ) : (
+                    <div className="py-3 text-center text-xs font-bold text-on-surface-variant bg-slate-100 rounded-2xl border border-slate-200">
+                      Sản phẩm liên hệ đặt hàng hoặc tạm hết hàng
+                    </div>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href={`tel:${contactPhone}`}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-50 hover:bg-slate-100 text-deep-navy border border-black/10 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center shadow-sm"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">call</span>
+                      Gọi Hotline: {contactPhone}
+                    </a>
+                    <a
+                      href={zaloLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-blue-200 hover:bg-blue-50 text-blue-600 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center shadow-sm"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">forum</span>
+                      Chat Zalo tư vấn
+                    </a>
+                  </div>
+                </div>
+              </div>   {/* Các nhãn cam kết chất lượng */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] font-bold text-on-surface-variant/80 pt-4 border-t border-black/5">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-green-500 shrink-0" />
@@ -283,7 +377,6 @@ export default function ProductDetail() {
                   </div>
                 </div>
               </div>
-            </div>
           </section>
 
           {/* Tab: Mô tả chi tiết */}

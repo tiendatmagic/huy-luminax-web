@@ -19,6 +19,7 @@ import {
   FolderOpen,
   Sun,
   Moon,
+  ShoppingCart,
 } from "lucide-react";
 
 interface UserProfile {
@@ -150,14 +151,18 @@ export default function AuthenticatedLayout({
       icon: ShoppingBag,
       href: "/admin/product",
     },
-
+    {
+      id: "orders",
+      name: "Đơn hàng",
+      icon: ShoppingCart,
+      href: "/admin/order",
+    },
     {
       id: "user",
       name: "Thành viên",
       icon: User,
       href: "/admin/user",
     },
-
     {
       id: "settings",
       name: "Cài đặt hệ thống",
@@ -367,6 +372,8 @@ export default function AuthenticatedLayout({
                 {pathname === "/admin/settings" && "Cài đặt hệ thống"}
                 {pathname.startsWith("/admin/product") &&
                   "Quản lý sản phẩm & dịch vụ"}
+                {pathname.startsWith("/admin/order") &&
+                  "Quản lý đơn hàng"}
               </h2>
               <p className="text-xs font-semibold text-on-surface-variant/70 hidden sm:block">
                 Hệ thống quản trị và xác thực
