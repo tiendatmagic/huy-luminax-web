@@ -54,6 +54,11 @@ export default function Footer() {
     };
   }, []);
 
+  const rawPhone = settings.company_phone || "093.366.3112";
+  const cleanPhone = rawPhone.replace(/\./g, "");
+  const widgetCallValue = settings.widget_call_value || rawPhone;
+  const widgetZaloValue = settings.widget_zalo_value || cleanPhone;
+
   return (
     <>
       {/* Footer (Đẹp đẽ, nhất quán với trang mẫu nhưng không copy ảnh) */}
@@ -232,11 +237,11 @@ export default function Footer() {
       {/* Widget liên hệ nhanh cố định góc dưới bên phải */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3.5 items-end select-none">
         {/* 1. Nút Gọi điện */}
-        {settings.widget_call_show === "1" && settings.widget_call_value && (
+        {settings.widget_call_show === "1" && widgetCallValue && (
           <div className="relative group">
             <div className="absolute -inset-1 rounded-full bg-red-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
             <a
-              href={`tel:${settings.widget_call_value.replace(/\./g, "")}`}
+              href={`tel:${widgetCallValue.replace(/\./g, "")}`}
               title="Gọi điện tư vấn"
               className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg shadow-red-500/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-ring"
             >
@@ -245,17 +250,17 @@ export default function Footer() {
               </span>
             </a>
             <span className="absolute right-16 top-1/2 -translate-y-1/2 scale-0 group-hover:scale-100 bg-zinc-900 text-white text-xs font-bold py-1.5 px-3 rounded-[5px] transition-all duration-200 whitespace-nowrap shadow-md z-50">
-              Gọi ngay: {settings.widget_call_value}
+              Gọi ngay: {widgetCallValue}
             </span>
           </div>
         )}
 
         {/* 2. Nút Zalo */}
-        {settings.widget_zalo_show === "1" && settings.widget_zalo_value && (
+        {settings.widget_zalo_show === "1" && widgetZaloValue && (
           <div className="relative group">
             <div className="absolute -inset-1 rounded-full bg-blue-500/35 blur-sm opacity-70 group-hover:opacity-100 animate-pulse-slow"></div>
             <a
-              href={`https://zalo.me/${settings.widget_zalo_value}`}
+              href={`https://zalo.me/${widgetZaloValue}`}
               target="_blank"
               rel="noopener noreferrer"
               title="Chat Zalo"

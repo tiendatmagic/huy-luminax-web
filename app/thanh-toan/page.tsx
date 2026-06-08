@@ -21,6 +21,9 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [createdOrderCode, setCreatedOrderCode] = useState("");
+  const [settings, setSettings] = useState<any>({
+    company_phone: "093.366.3112",
+  });
 
   // Form Fields
   const [name, setName] = useState("");
@@ -57,6 +60,22 @@ export default function CheckoutPage() {
     } catch (err) {
       console.error("Lỗi load customer info:", err);
     }
+
+    // Load Settings
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch("/api/public/settings");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.company_phone) {
+            setSettings({ company_phone: data.company_phone });
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi lấy settings CheckoutPage:", err);
+      }
+    };
+    fetchSettings();
   }, []);
 
   const handleOrder = async (e: React.FormEvent) => {
@@ -212,7 +231,7 @@ export default function CheckoutPage() {
                   MUA SẢN PHẨM KHÁC
                 </Link>
                 <a
-                  href="tel:0933663112"
+                  href={`tel:${settings.company_phone.replace(/\./g, "")}`}
                   className="flex-1 bg-primary hover:bg-primary-hover text-white py-3.5 rounded-2xl text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-md shadow-primary/20"
                 >
                   <PhoneCall className="w-4 h-4" />

@@ -163,8 +163,8 @@ export default function ProductDetail() {
     });
   }
 
-  const contactPhone = settings.company_phone || "0987.654.321";
-  const zaloPhone = settings.social_zalo || "0987654321";
+  const contactPhone = settings.company_phone || "093.366.3112";
+  const zaloPhone = settings.social_zalo || contactPhone;
   const zaloLink = `https://zalo.me/${zaloPhone.replace(/[^0-9]/g, "")}`;
 
   return (

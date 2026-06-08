@@ -1,9 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
 export default function ContactSection() {
+  const [settings, setSettings] = useState<any>({
+    company_phone: "093.366.3112",
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch("/api/public/settings");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.company_phone) {
+            setSettings({ company_phone: data.company_phone });
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi lấy settings ContactSection:", err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
@@ -105,11 +126,11 @@ export default function ContactSection() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 pt-4">
             {/* Nút Gọi Hotline */}
             <a
-              href="tel:0933663112"
+              href={`tel:${settings.company_phone.replace(/\./g, "")}`}
               className="inline-flex items-center justify-center bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-8 py-4 rounded-full font-bold text-sm shadow-xl shadow-red-500/15 hover:shadow-red-500/25 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer text-center gap-2"
             >
               <span className="material-symbols-outlined text-lg">call</span>
-              <span>GỌI HOTLINE: 093.366.3112</span>
+              <span>GỌI HOTLINE: {settings.company_phone}</span>
             </a>
 
             {/* Nút Mở Form Liên Hệ */}
