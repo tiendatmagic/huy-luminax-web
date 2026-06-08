@@ -25,10 +25,6 @@ export default function SystemSettingsPage() {
     company_email: "",
     company_tax_code: "",
     company_working_hours: "",
-    social_facebook: "",
-    social_youtube: "",
-    social_linkedin: "",
-    social_zalo: "",
     widget_call_show: "1",
     widget_call_value: "",
     widget_zalo_show: "1",
@@ -301,62 +297,12 @@ export default function SystemSettingsPage() {
           {activeTab === "social" && (
             <div className="space-y-4">
               <div className="border-b border-black/5 pb-2">
-                <h4 className="text-base font-bold text-deep-navy">Liên kết Mạng xã hội & Widget Liên hệ</h4>
-                <p className="text-xs text-on-surface-variant/80 mt-1">Kết nối các tài khoản MXH và cấu hình hiển thị cho các nút liên hệ nổi góc màn hình.</p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-3">
-                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Facebook Page</label>
-                  <input
-                    type="url"
-                    name="social_facebook"
-                    value={settings.social_facebook || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
-                    placeholder="https://facebook.com/company"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">YouTube Channel</label>
-                  <input
-                    type="url"
-                    name="social_youtube"
-                    value={settings.social_youtube || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
-                    placeholder="https://youtube.com/c/company"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-3">
-                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">LinkedIn Company</label>
-                  <input
-                    type="url"
-                    name="social_linkedin"
-                    value={settings.social_linkedin || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
-                    placeholder="https://linkedin.com/company/..."
-                  />
-                </div>
-                <div className="space-y-3">
-                  <label className="block text-xs font-bold text-deep-navy uppercase pl-1">Số điện thoại Zalo</label>
-                  <input
-                    type="text"
-                    name="social_zalo"
-                    value={settings.social_zalo || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#faf8ff] border border-black/10 rounded-2xl text-xs sm:text-sm font-semibold text-deep-navy outline-none focus:bg-white focus:border-primary transition-all duration-300"
-                    placeholder="0987654321"
-                  />
-                </div>
+                <h4 className="text-base font-bold text-deep-navy">Widget Liên hệ nổi</h4>
+                <p className="text-xs text-on-surface-variant/80 mt-1">Cấu hình hiển thị cho các nút liên hệ nổi ở góc màn hình.</p>
               </div>
 
               {/* Phần cấu hình các nút Widget liên hệ nổi */}
-              <div className="border-t border-black/5 pt-4 space-y-4">
+              <div className="pt-2 space-y-4">
                 <h5 className="text-xs sm:text-sm font-black text-deep-navy uppercase tracking-wider pl-1">Cấu hình Widget Liên hệ nổi (Góc dưới bên phải)</h5>
                 
                 {/* 1. Nút Gọi điện */}

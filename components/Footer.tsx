@@ -16,9 +16,6 @@ export default function Footer() {
     company_tax_code: "",
     company_working_hours: "",
     social_zalo: "0933663112",
-    social_facebook: "",
-    social_youtube: "",
-    social_linkedin: "",
     widget_call_show: "1",
     widget_call_value: "093.366.3112",
     widget_zalo_show: "1",
@@ -90,50 +87,6 @@ export default function Footer() {
             <p className="text-sm text-on-surface-variant leading-relaxed max-w-sm">
               {settings.site_slogan}
             </p>
-            {/* Cụm liên kết mạng xã hội của doanh nghiệp */}
-            {(settings.social_facebook || settings.social_youtube || settings.social_linkedin) && (
-              <div className="flex items-center gap-3 pt-2">
-                {settings.social_facebook && (
-                  <a
-                    href={settings.social_facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-all hover:scale-110 shadow-sm"
-                    title="Theo dõi chúng tôi trên Facebook"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                    </svg>
-                  </a>
-                )}
-                {settings.social_youtube && (
-                  <a
-                    href={settings.social_youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-all hover:scale-110 shadow-sm"
-                    title="Đăng ký kênh Youtube của chúng tôi"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M23.498 6.163c-.272-1.016-1.07-1.812-2.084-2.086C19.578 3.545 12 3.545 12 3.545s-7.578 0-9.414.532c-1.014.274-1.81 1.07-2.084 2.086C0 8.002 0 12 0 12s0 3.998.502 5.837c.274 1.014 1.07 1.81 2.084 2.084C4.422 20.455 12 20.455 12 20.455s7.578 0 9.414-.532c1.014-.274 1.81-1.07 2.084-2.084C24 15.998 24 12 24 12s0-3.998-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                  </a>
-                )}
-                {settings.social_linkedin && (
-                  <a
-                    href={settings.social_linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-all hover:scale-110 shadow-sm"
-                    title="Kết nối với chúng tôi trên LinkedIn"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            )}
             <div className="space-y-3.5 text-sm text-on-surface-variant font-medium">
               {settings.company_tax_code && (
                 <div className="flex items-center gap-3">
