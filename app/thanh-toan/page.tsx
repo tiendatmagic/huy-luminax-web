@@ -108,7 +108,9 @@ export default function CheckoutPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Đã xảy ra lỗi trong quá trình đặt hàng.");
+        throw new Error(
+          data.message || "Đã xảy ra lỗi trong quá trình đặt hàng.",
+        );
       }
 
       // Đặt hàng thành công!
@@ -127,9 +129,10 @@ export default function CheckoutPage() {
       // Xóa giỏ hàng
       localStorage.removeItem("cart");
       window.dispatchEvent(new Event("cartUpdated"));
-
     } catch (err: any) {
-      setErrorMessage(err.message || "Đặt hàng thất bại. Vui lòng thử lại sau.");
+      setErrorMessage(
+        err.message || "Đặt hàng thất bại. Vui lòng thử lại sau.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -179,7 +182,8 @@ export default function CheckoutPage() {
                   Đặt hàng thành công!
                 </h2>
                 <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-md mx-auto">
-                  Cảm ơn bạn đã tin tưởng Huy Luminax. Đơn hàng của bạn đã được tiếp nhận và đang được xử lý.
+                  Cảm ơn bạn đã tin tưởng Huy Luminax. Đơn hàng của bạn đã được
+                  tiếp nhận và đang được xử lý.
                 </p>
               </div>
 
@@ -187,11 +191,15 @@ export default function CheckoutPage() {
               <div className="bg-[#faf8ff] border border-black/5 p-5 rounded-2xl w-full max-w-md space-y-2">
                 <div className="flex justify-between items-center text-xs font-bold text-on-surface-variant">
                   <span>Mã đơn hàng:</span>
-                  <span className="text-primary font-black text-sm select-all">{createdOrderCode}</span>
+                  <span className="text-primary font-black text-sm select-all">
+                    {createdOrderCode}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center text-xs font-bold text-on-surface-variant">
                   <span>Hình thức thanh toán:</span>
-                  <span className="text-deep-navy uppercase">Thanh toán khi nhận hàng (COD)</span>
+                  <span className="text-deep-navy uppercase">
+                    Thanh toán khi nhận hàng (COD)
+                  </span>
                 </div>
               </div>
 
@@ -214,12 +222,20 @@ export default function CheckoutPage() {
             </div>
           ) : (
             /* Giao diện nhập thông tin thanh toán */
-            <form onSubmit={handleOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <form
+              onSubmit={handleOrder}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+            >
               {/* Cột trái: Form thông tin (8 cột) */}
               <div className="lg:col-span-8 bg-white border border-black/5 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
                 <div className="border-b border-black/5 pb-2">
-                  <h3 className="text-base font-bold text-deep-navy">Thông tin nhận hàng</h3>
-                  <p className="text-[11px] text-on-surface-variant/80 mt-0.5">Vui lòng điền đầy đủ địa chỉ và số điện thoại chính xác để chúng tôi giao hàng.</p>
+                  <h3 className="text-base font-bold text-deep-navy">
+                    Thông tin nhận hàng
+                  </h3>
+                  <p className="text-[11px] text-on-surface-variant/80 mt-0.5">
+                    Vui lòng điền đầy đủ địa chỉ và số điện thoại chính xác để
+                    chúng tôi giao hàng.
+                  </p>
                 </div>
 
                 {errorMessage && (
@@ -232,7 +248,8 @@ export default function CheckoutPage() {
                   {/* Họ tên */}
                   <div className="space-y-2">
                     <label className="block text-xs font-bold text-deep-navy uppercase pl-1">
-                      Họ và tên người nhận <span className="text-red-500">*</span>
+                      Họ và tên người nhận{" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -261,7 +278,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="space-y-2">
                       <label className="block text-xs font-bold text-deep-navy uppercase pl-1">
-                        Email nhận thông tin
+                        Email của bạn
                       </label>
                       <input
                         type="email"
@@ -312,10 +329,19 @@ export default function CheckoutPage() {
 
                 <div className="max-h-40 overflow-y-auto space-y-2.5 border-b border-black/5 pb-4 pr-1 scrollbar-none">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex justify-between items-center text-xs font-semibold text-on-surface-variant">
-                      <span className="truncate max-w-[150px]">{item.name}</span>
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center text-xs font-semibold text-on-surface-variant"
+                    >
+                      <span className="truncate max-w-[150px]">
+                        {item.name}
+                      </span>
                       <span>
-                        x{item.quantity} - {(parseFloat(item.price) * item.quantity).toLocaleString("vi-VN")} đ
+                        x{item.quantity} -{" "}
+                        {(
+                          parseFloat(item.price) * item.quantity
+                        ).toLocaleString("vi-VN")}{" "}
+                        đ
                       </span>
                     </div>
                   ))}
@@ -340,7 +366,9 @@ export default function CheckoutPage() {
 
                 {/* Phương thức thanh toán */}
                 <div className="bg-[#faf8ff] border border-black/5 p-4 rounded-2xl space-y-2">
-                  <h4 className="text-[10px] font-black text-deep-navy uppercase tracking-wider pl-0.5">Phương thức thanh toán</h4>
+                  <h4 className="text-[10px] font-black text-deep-navy uppercase tracking-wider pl-0.5">
+                    Phương thức thanh toán
+                  </h4>
                   <label className="flex items-center gap-2.5 text-xs font-bold text-deep-navy p-2 bg-white border border-primary/20 rounded-xl cursor-pointer">
                     <input
                       type="radio"

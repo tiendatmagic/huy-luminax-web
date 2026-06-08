@@ -312,6 +312,12 @@ export default function Header() {
                     >
                       XEM GIỎ HÀNG
                     </Link>
+                    <Link
+                      href="/thanh-toan"
+                      className="block w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-center rounded-2xl text-xs font-bold transition-all shadow-md shadow-amber-500/15"
+                    >
+                      THANH TOÁN
+                    </Link>
                   </div>
                 </>
               )}
