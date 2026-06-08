@@ -20,6 +20,7 @@ import {
   Sun,
   Moon,
   ShoppingCart,
+  MessageSquare,
 } from "lucide-react";
 
 interface UserProfile {
@@ -156,6 +157,12 @@ export default function AuthenticatedLayout({
       name: "Đơn hàng",
       icon: ShoppingCart,
       href: "/admin/order",
+    },
+    {
+      id: "contacts",
+      name: "Form liên hệ",
+      icon: MessageSquare,
+      href: "/admin/contact",
     },
     {
       id: "user",
@@ -374,6 +381,8 @@ export default function AuthenticatedLayout({
                   "Quản lý sản phẩm & dịch vụ"}
                 {pathname.startsWith("/admin/order") &&
                   "Quản lý đơn hàng"}
+                {pathname.startsWith("/admin/contact") &&
+                  "Quản lý yêu cầu liên hệ"}
               </h2>
               <p className="text-xs font-semibold text-on-surface-variant/70 hidden sm:block">
                 Hệ thống quản trị và xác thực

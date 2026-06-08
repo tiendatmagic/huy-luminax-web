@@ -21,14 +21,29 @@ export default function AdminDashboardPage() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [stats, setStats] = useState<any>({
+    products: { count: 0, trend: "Đang tải..." },
+    posts: { count: 0, trend: "Đang tải..." },
+    visitors: { count: "0", trend: "Đang tải...", showTrendIcon: true },
+    contacts: { count: 0, trend: "Đang tải..." },
+  });
 
-  // Fetch thông tin user hiện tại
-  const fetchCurrentUser = async () => {
+  // Fetch thông tin user hiện tại và stats
+  const fetchCurrentUserAndStats = async () => {
     try {
-      const res = await fetch("/api/auth/user");
-      if (res.ok) {
-        const data = await res.json();
-        setCurrentUser(data);
+      const [userRes, statsRes] = await Promise.all([
+        fetch("/api/auth/user"),
+        fetch("/api/auth/dashboard/stats"),
+      ]);
+
+      if (userRes.ok) {
+        const userData = await userRes.json();
+        setCurrentUser(userData);
+      }
+
+      if (statsRes.ok) {
+        const statsData = await statsRes.json();
+        setStats(statsData);
       }
     } catch (err) {
       console.error(err);
@@ -38,7 +53,7 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    fetchCurrentUser();
+    fetchCurrentUserAndStats();
   }, []);
 
   if (isLoading) {
@@ -77,32 +92,32 @@ export default function AdminDashboardPage() {
         {[
           {
             title: "Tổng sản phẩm",
-            value: "24",
+            value: stats.products.count,
             icon: ShoppingBag,
             color: "from-blue-500 to-indigo-500",
-            trend: "Khăn giấy & Hoá chất",
+            trend: stats.products.trend,
           },
           {
             title: "Tin tức công nghệ",
-            value: "18",
+            value: stats.posts.count,
             icon: FileText,
             color: "from-purple-500 to-pink-500",
-            trend: "0 bài viết nháp chờ duyệt",
+            trend: stats.posts.trend,
           },
           {
             title: "Lượt truy cập (Tuần)",
-            value: "1,245",
+            value: stats.visitors.count,
             icon: Eye,
             color: "from-cyan-500 to-teal-500",
-            trend: "+12.4% so với tuần trước",
+            trend: stats.visitors.trend,
             showTrendIcon: true,
           },
           {
             title: "Yêu cầu liên hệ",
-            value: "12",
+            value: stats.contacts.count,
             icon: MessageSquare,
             color: "from-orange-500 to-red-500",
-            trend: "3 yêu cầu mới chưa đọc",
+            trend: stats.contacts.trend,
           },
         ].map((stat, idx) => (
           <div
