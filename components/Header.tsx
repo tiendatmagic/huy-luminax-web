@@ -21,8 +21,11 @@ export default function Header() {
       const cartData = localStorage.getItem("cart");
       const cartItems = cartData ? JSON.parse(cartData) : [];
       setCart(cartItems);
-      
-      const count = cartItems.reduce((acc: number, item: any) => acc + item.quantity, 0);
+
+      const count = cartItems.reduce(
+        (acc: number, item: any) => acc + item.quantity,
+        0,
+      );
       setCartItemsCount(count);
 
       const total = cartItems.reduce((acc: number, item: any) => {
@@ -208,7 +211,7 @@ export default function Header() {
             {/* Mini Cart Panel (Hover) */}
             <div className="absolute right-0 top-12 w-80 bg-white rounded-3xl shadow-xl border border-black/5 p-4 scale-0 origin-top-right group-hover/cart:scale-100 transition-all duration-300 ease-out z-50 space-y-4">
               <h4 className="text-xs font-black text-deep-navy uppercase tracking-wider border-b border-black/5 pb-2">
-                Giỏ hàng của bạn ({cartItemsCount} sản phẩm)
+                Giỏ hàng của bạn ({cartItemsCount} SP)
               </h4>
 
               {cart.length === 0 ? (
@@ -219,7 +222,10 @@ export default function Header() {
                 <>
                   <div className="max-h-56 overflow-y-auto space-y-3.5 pr-1">
                     {cart.map((item) => (
-                      <div key={item.id} className="flex items-center gap-3 justify-between">
+                      <div
+                        key={item.id}
+                        className="flex items-center gap-3 justify-between"
+                      >
                         <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-black/5 shrink-0 bg-slate-50">
                           {item.featured_image ? (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -230,34 +236,49 @@ export default function Header() {
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-slate-300">
-                              <span className="material-symbols-outlined text-lg">image</span>
+                              <span className="material-symbols-outlined text-lg">
+                                image
+                              </span>
                             </div>
                           )}
                         </div>
                         <div className="flex-grow min-w-0 text-left">
-                          <h5 className="text-xs font-bold text-deep-navy truncate" title={item.name}>
+                          <h5
+                            className="text-sm font-bold text-deep-navy truncate"
+                            title={item.name}
+                          >
                             {item.name}
                           </h5>
-                          <span className="text-[10px] text-primary font-black block">
+                          <span className="text-xs text-primary font-black block">
                             {parseFloat(item.price).toLocaleString("vi-VN")} đ
                           </span>
-                          
+
                           {/* Bộ tăng giảm số lượng mini */}
                           <div className="flex items-center gap-1.5 mt-1">
                             <button
                               type="button"
-                              onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)}
-                              className="w-4 h-4 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-[10px] font-bold text-on-surface-variant cursor-pointer"
+                              onClick={() =>
+                                updateCartItemQuantity(
+                                  item.id,
+                                  item.quantity - 1,
+                                )
+                              }
+                              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-[10px] font-bold text-on-surface-variant cursor-pointer"
                             >
                               -
                             </button>
-                            <span className="text-[10px] font-bold text-deep-navy w-4 text-center">
+                            <span className="text-[10px] font-bold text-deep-navy w-8 text-center">
                               {item.quantity}
                             </span>
                             <button
                               type="button"
-                              onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)}
-                              className="w-4 h-4 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-[10px] font-bold text-on-surface-variant cursor-pointer"
+                              onClick={() =>
+                                updateCartItemQuantity(
+                                  item.id,
+                                  item.quantity + 1,
+                                )
+                              }
+                              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-[10px] font-bold text-on-surface-variant cursor-pointer"
                             >
                               +
                             </button>
@@ -267,17 +288,19 @@ export default function Header() {
                         <button
                           type="button"
                           onClick={() => removeCartItem(item.id)}
-                          className="p-1 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer shrink-0"
+                          className="w-8 h-8 p-1 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer shrink-0"
                           title="Xóa sản phẩm"
                         >
-                          <span className="material-symbols-outlined text-[16px]">delete</span>
+                          <span className="material-symbols-outlined text-[16px]">
+                            delete
+                          </span>
                         </button>
                       </div>
                     ))}
                   </div>
 
                   <div className="border-t border-black/5 pt-3 space-y-3">
-                    <div className="flex items-center justify-between text-xs font-bold text-deep-navy">
+                    <div className="flex items-center justify-between text-sm font-bold text-deep-navy">
                       <span>Tổng tạm tính:</span>
                       <span className="text-primary font-black text-sm">
                         {cartTotal.toLocaleString("vi-VN")} đ
