@@ -18,7 +18,10 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://huy-luminax.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Huy Luminax - Trí Tuệ Nhân Tạo & Tinh Hoa Hóa Chemical Việt Nam",
   description:
     "CÔNG TY TNHH HUY LUMINAX là đơn vị đi đầu trong việc tích hợp nghiên cứu hóa sinh và ứng dụng mô hình học máy Luminax AI. Chúng tôi cung cấp các dòng sản phẩm khăn giấy kháng khuẩn cao cấp, hóa chất cơ bản công nghiệp B2B đạt độ tinh khiết 99.998% và các giải pháp tự động hóa chuỗi cung ứng tối ưu.",
@@ -38,10 +41,18 @@ export const metadata: Metadata = {
     title: "Huy Luminax - Trí Tuệ Nhân Tạo & Tinh Hoa Hóa Chất",
     description:
       "Tiên phong tích hợp nghiên cứu hóa sinh và trí tuệ nhân tạo Luminax AI vào dây chuyền sản xuất khăn giấy và hóa chất cơ bản đạt độ tinh khiết tuyệt đối 99.998%.",
-    url: "https://huy-luminax.com",
+    url: siteUrl,
     siteName: "Huy Luminax",
     locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Huy Luminax - Trí Tuệ Nhân Tạo & Tinh Hoa Hóa Hóa Chất Việt Nam",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,6 +60,7 @@ export const metadata: Metadata = {
     description:
       "Tiên phong ứng dụng trí tuệ nhân tạo vào sản xuất hóa mỹ phẩm xanh và tinh khiết.",
     creator: "@huyluminax",
+    images: ["/og-image.webp"],
   },
   robots: {
     index: true,
